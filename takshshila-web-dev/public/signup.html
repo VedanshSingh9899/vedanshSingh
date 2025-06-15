@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takshshila - Signup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #2f8f83;
+      --secondary: #3a7bd5;
+      --text-light: #f4fafd;
+      --text-dark: #1e2a3a;
+      --button-shadow: rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1bb9f8, #d7fd4f);
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+      opacity: 0.05;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .shape1 {
+      width: 200px;
+      height: 200px;
+      background: var(--primary);
+      top: -60px;
+      left: -60px;
+    }
+
+    .shape2 {
+      width: 150px;
+      height: 150px;
+      background: var(--secondary);
+      bottom: -40px;
+      right: -40px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .content-wrapper {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 4rem 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .signup-container {
+      background: #0f1f14;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      color: var(--text-light);
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 500px;
+      animation: slideIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .logo p {
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: #ddfdf0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"] {
+      padding: 0.75rem;
+      border: 1px solid #3a7bd5;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      outline: none;
+      background-color: #1b2f24;
+      color: #eafff6;
+    }
+
+    input:focus {
+      border-color: #7cffc1;
+    }
+
+    .password-field {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #82e9d2;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .signup-btn {
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #44c877, #3a7bd5);
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px var(--button-shadow);
+      transition: 0.3s;
+    }
+
+    .signup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .extra-links {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .extra-links a {
+      color: #82e9d2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .signup-container {
+        padding: 2rem;
+      }
+
+      .logo h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Shapes -->
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+
+  <!-- Scrollable Content Wrapper -->
+  <div class="content-wrapper">
+    <div class="signup-container">
+      <div class="logo">
+        <h1>Takshshila</h1>
+        <p>Smart Learning for Classes 6–12</p>
+      </div>
+
+      <form onsubmit="create_account(event)">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" placeholder="Enter your first name" required />
+
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" placeholder="Enter your last name" required />
+
+        <label for="email">Email ID</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Choose a username" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" required />
+
+        <label for="password">Password</label>
+        <div class="password-field">
+          <input type="password" id="password" placeholder="Create a password" required />
+          <button type="button" class="toggle-password" onclick="togglePassword('password')">Show</button>
+        </div>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="password-field">
+          <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+          <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">Show</button>
+        </div>
+
+        <button type="submit" class="signup-btn">Create Account</button>
+
+        <div class="extra-links">
+          <p>Already have an account? <a href="/public/login_page.html">Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      const button = input.nextElementSibling;
+      if (input.type === "password") {
+        input.type = "text";
+        button.textContent = "Hide";
+      } else {
+        input.type = "password";
+        button.textContent = "Show";
+      }
+    }
+
+    function create_account(event){
+      event.preventDefault();
+
+      let first_name = document.querySelector("#firstName").value.trim();
+      let last_name = document.querySelector("#lastName").value.trim();
+      let email = document.querySelector("#email").value.trim();
+      let username = document.querySelector("#username").value.trim();
+      let phone = document.querySelector("#phone").value.trim();
+      let password = document.querySelector("#password").value;
+      let confirm_password = document.querySelector("#confirmPassword").value;
+
+      if (!first_name || !last_name || !email || !username || !phone || !password || !confirm_password) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      if (password !== confirm_password) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      console.log("User Info:", {
+        first_name,
+        last_name,
+        email,
+        username,
+        phone,
+        password
+      });
+
+      alert("Account created successfully!");
+    }
+  </script>
+
+</body>
+</html>

@@ -163,7 +163,7 @@
             top: 0;
             display: flex;
             justify-content: center;
-            background-color: #333;
+            background: linear-gradient(135deg, #1bb9f8, #d7fd4f);
             padding: 10px 0;
             z-index: 1000;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -180,7 +180,11 @@
         }
 
         nav a:hover {
-            background-color: #b2d33bbd;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02);
+            cursor: pointer;
             transform: scale(1.1);
         }
 
@@ -370,15 +374,26 @@
         function myprofile() {
             subMenu.classList.toggle("open-menu");
         }
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            let button = document.querySelector('.toggle-btn');
-            if (document.body.classList.contains('dark-mode')) {
-                button.textContent = '🌙 Dark Mode';
-            } else {
-                button.textContent = '☀️ Light Mode';
-            }
+      function applyTheme() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.toggle-btn').textContent = '🌙 Dark Mode';
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.querySelector('.toggle-btn').textContent = '☀️ Light Mode';
         }
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.querySelector('.toggle-btn').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+    }
+
+    // Run this when the page loads
+    window.onload = applyTheme;
     </script>
     <footer class="footer">
         <button class="btn">Feedback</button>

@@ -418,24 +418,33 @@
         function myprofile() {
             subMenu.classList.toggle("open-menu");
         }
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            let button = document.querySelector('.toggle-btn');
-            if (document.body.classList.contains('dark-mode')) {
-                button.textContent = '🌙 Dark Mode';
-            } else {
-                button.textContent = '☀️ Light Mode';
-            }
+        function applyTheme() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.toggle-btn').textContent = '🌙 Dark Mode';
+        } else {
+            document.body.classList.remove('dark-mode');
+            document.querySelector('.toggle-btn').textContent = '☀️ Light Mode';
         }
+    }
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.querySelector('.toggle-btn').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+    }
+
+    // Run this when the page loads
+    window.onload = applyTheme;
         function matchAndLoadPDF() {
             const value1 = document.getElementById('subject').value;
             const value2 = document.getElementById('language').value;
             const value3 = document.getElementById('chapter').value;
             let pdfPath = '';
             if (value1 === 'english' && value2 === 'english' && value3 === 'chapter-1') {
-              pdfPath = '/temporary/english.pdf';
+              pdfPath = '/public/temporary/english.pdf';
             } else if (value1 === 'hindi' && value2 === 'hindi' && value3 === 'chapter-1') {
-              pdfPath ='/temporary/hindi.pdf';
             } else {
               pdfPath = 'temporary/default.pdf';
             }
