@@ -163,13 +163,19 @@
         }
 
         nav a {
-            color: white;
             padding: 15px;
             text-decoration: none;
             text-align: center;
             flex: 1;
             transition: 0.3s;
             font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #0a1f449a;
+            ;
+            /* or #000 for contrast depending on brightness */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         nav a:hover {
@@ -417,7 +423,7 @@
             font-weight: 400;
         }
 
-        .filter-results{
+        .filter-results {
             width: 90%;
             margin: 20px auto;
             padding: 20px;
@@ -427,10 +433,9 @@
             display: none;
             /* Initially hidden */
         }
-        .result-item{
-            width:fit-content;
-            display:flex;
-            flex-wrap: wrap;
+
+        .result-item {
+            width: fit-content;
             padding: 15px;
             border-bottom: 1px solid #eee;
             justify-content: space-between;
@@ -441,6 +446,11 @@
             border-bottom: none;
         }
 
+        .dark-mode .main-content {
+            background-color: #333;
+            color: white;
+        }
+
         .result-title {
             font-weight: 600;
             color: #1d9fd3;
@@ -449,6 +459,11 @@
         .result-details {
             color: #666;
             font-size: 0.9em;
+        }
+
+        .dark-mode .filter-results {
+            background-color: #333;
+            color: rgb(255, 255, 255);
         }
 
         .view-pdf-btn {
@@ -583,25 +598,32 @@
     </div>
     <div class="filter-results" id="filterResults">
         <h3>Filter Results</h3>
-        <div class="sahil">
-            <span class="result-item">
-                <div>
-                    <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
-                    <div class="result-title">English - Chapter 1</div>
-                    <div class="result-details">Class 6 | English Medium | 15 Pages</div>
-                </div>
-            </span>
-            <span class="result-item">
-                <div>
-                    <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
-                    <div class="result-title">Hindi - Chapter 1</div>
-                    <div class="result-details">Class 6 | Hindi Medium | 12 Pages</div>
-                </div>
-            </span>
-        </div>
+        <table class="books">
+            <tr>
+                <td>
+                    <div class="result-item">
+                        <div>
+                            <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
+                            <div class="result-title">English - Chapter 1</div>
+                            <div class="result-details">Class 6 | English Medium | 15 Pages</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="result-item">
+                        <div>
+                            <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
+                            <div class="result-title">Hindi - Chapter 1</div>
+                            <div class="result-details">Class 6 | Hindi Medium | 12 Pages</div>
+                        </div>
+                    </div>
+                </td>
+
+            </tr>
+        </table>
+
     </div>
     <!-- More results can be added dynamically -->
-    </div>
 
     <div class="pdf" id="pdfViewerContainer">
         <object id="pdfViewer" data="" type="application/pdf" width="100%" height="100%">
@@ -681,5 +703,7 @@
         }
     </script>
 </body>
+
 </html>
+
 </html>
