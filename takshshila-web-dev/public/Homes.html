@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takshshila</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="takshshila.css"> -->
     <style>
         body {
@@ -127,7 +126,8 @@
         }
 
         .profile.open-profile {
-            animation: ball 2s ease-in-out forwards;
+            animation: ball 2s ease-in-out forwards ;
+            /*ball-reverse 2s ease-in-out forwards*/
 
             /*top:75px;
             right:220px;*/
@@ -145,6 +145,14 @@
             }
 
         }
+        /*@keyframes ball-reverse {
+    0% {
+        transform: translate(-295px, 0px) rotate(360deg) translateY(50px) scale(1.2);
+    }
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+}*/ /* for reverse transition*/
 
 
         .basic-info {
@@ -191,7 +199,7 @@
         .edit:hover {
             transform: scale(1.1);
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
-                box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             background-color: #a7a7af;
         }
 
@@ -508,7 +516,6 @@
 
     <header>
         <div class="header-decoration"></div>
-        <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
         <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
@@ -689,3 +696,12 @@
 </body>
 
 </html>
+
+@keyframes ball-reverse {
+    0% {
+        transform: translate(-295px, 0px) rotate(360deg) translateY(50px) scale(1.2);
+    }
+    100% {
+        transform: translateX(0px) rotate(10deg);
+    }
+}
