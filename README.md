@@ -16,12 +16,8 @@ Takshshila is a modern web-based learning platform designed to help students sel
 - Git & GitHub for version control
 
 ## 📸 Screenshots
-
-<!-- Add screenshots like this -->
-![Homepage](assets/screenshots/homepage.png)
-
 ## 🔧 Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/takshshila.git
+   git clone https://github.com/AdityaVishwakarma2006/Takshshila/tree/main/takshshila-web-dev
