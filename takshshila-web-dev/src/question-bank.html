@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet" href="takshshila.css"> -->
     <style>
+        header{
+            background-position: center center;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -180,7 +183,11 @@
         }
 
         nav a:hover {
-            background-color: #b2d33bbd;
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02);
+            cursor: pointer;
             transform: scale(1.1);
         }
 
@@ -355,15 +362,16 @@
             <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
         </div>
     </header>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Test Series</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact Us</a>
+
+<nav>
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
     </nav>
     <div class="test">
-        Hye this is a testseries tab
+        Hye this is a question-bank tab
     </div>
     <script>
         let subMenu = document.getElementById("subMenu");

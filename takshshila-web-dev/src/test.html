@@ -180,11 +180,7 @@
         }
 
         nav a:hover {
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            transform: scale(1.02);
-            cursor: pointer;
+            background-color: #b2d33bbd;
             transform: scale(1.1);
         }
 
@@ -360,21 +356,21 @@
         </div>
     </header>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Test Series</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact Us</a>
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
     </nav>
     <div class="test">
-        Hye this is a notes tab
+        Hye this is a testseries tab
     </div>
     <script>
         let subMenu = document.getElementById("subMenu");
         function myprofile() {
             subMenu.classList.toggle("open-menu");
         }
-      function applyTheme() {
+        function applyTheme() {
         const theme = localStorage.getItem('theme');
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');

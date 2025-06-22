@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Takshshila</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takshshila</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -14,6 +13,8 @@
             background-color: #f4f4f4;
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .dark-mode {
@@ -163,13 +164,19 @@
         }
 
         nav a {
-            color: white;
             padding: 15px;
             text-decoration: none;
             text-align: center;
             flex: 1;
             transition: 0.3s;
             font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #0a1f449a;
+            ;
+            /* or #000 for contrast depending on brightness */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         nav a:hover {
@@ -272,11 +279,11 @@
         }
 
         .footer {
-            background-color: #333;
+            
+            background: #222;
             color: white;
             text-align: center;
             padding: 10px;
-            margin-top: 20px;
         }
 
         .Classes {
@@ -417,7 +424,7 @@
             font-weight: 400;
         }
 
-        .filter-results{
+        .filter-results {
             width: 90%;
             margin: 20px auto;
             padding: 20px;
@@ -427,10 +434,9 @@
             display: none;
             /* Initially hidden */
         }
-        .result-item{
-            width:fit-content;
-            display:flex;
-            flex-wrap: wrap;
+
+        .result-item {
+            width: fit-content;
             padding: 15px;
             border-bottom: 1px solid #eee;
             justify-content: space-between;
@@ -441,6 +447,11 @@
             border-bottom: none;
         }
 
+        .dark-mode .main-content {
+            background-color: #333;
+            color: white;
+        }
+
         .result-title {
             font-weight: 600;
             color: #1d9fd3;
@@ -449,6 +460,11 @@
         .result-details {
             color: #666;
             font-size: 0.9em;
+        }
+
+        .dark-mode .filter-results {
+            background-color: #333;
+            color: rgb(255, 255, 255);
         }
 
         .view-pdf-btn {
@@ -500,186 +516,83 @@
                 transform: translateY(0);
             }
         }
+        #english{
+            display: none;
+        }
+        #hindi{
+            display: none;
+        }
+        .links {
+            text-decoration: none;
+            color: #1d9fd3;
+        }
+        .links:hover {
+            text-decoration: underline;
+            color:#040aca;
+        }
     </style>
 </head>
-
 <body>
-    <header>
-        <div class="header-decoration"></div>
-        <div class="header-decoration"></div>
-        <h1>Takshshila</h1>
-        <p>Your learning platform</p>
-        <button class="profile" onclick="myprofile()"><img src="profile-user.png" alt="Profile" width="35px"></button>
-        <div class="box" id="subMenu">
-            <div class="box2">
-                <div class="info">
-                    <div class="info2">
-                        <ul>
-                            <li class="name">SAHIL</li>
-                            <li class="username">sahil123</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+  <header>
+    <div class="header-decoration"></div>
+    <div class="header-decoration"></div>
+    <h1>Takshshila</h1>
+    <p>Your learning platform</p>
+    <button class="profile" onclick="myprofile()"><img src="profile-user.png" alt="Profile" width="35px"></button>
+    <div class="box" id="subMenu">
+      <div class="box2">
+        <div class="info">
+          <ul>
+            <li class="name">SAHIL</li>
+            <li class="username">sahil123</li>
+          </ul>
         </div>
-    </header>
-    <nav>
-        <a href="#">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Test Series</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact Us</a>
+      </div>
+      <br>
+      <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    </div>
+  </header>
+<nav>
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
     </nav>
-    <div class="main-content">
-        <div class="Classes">
-            <label>Classes:</label>
-            <select id="class">
-                <option>-Select Class-</option>
-                <option value="class 6">Class 6</option>
-                <option value="class 7">Class 7</option>
-                <option value="class 8">Class 8</option>
-                <option value="class 9">Class 9</option>
-                <option value="class 10">Class 10</option>
-                <option value="class 11">Class 11</option>
-                <option value="class 12">Class 12</option>
-            </select>
-        </div>
-        <div class="option">
-            <label>Subjects:</label>
-            <select id="subject">
-                <option value="">Select a subject</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-                <option value="math">Math</option>
-                <option value="science">Science</option>
-                <option value="social science">Social Science</option>
-            </select>
-        </div>
-        <div class="language">
-            <label>Language:</label>
-            <select id="language">
-                <option value="">Select a language</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-        <div class="Chapters">
-            <label>Chapters:</label>
-            <select id="chapter">
-                <option value="">Select a chapter</option>
-                <option value="chapter-1">Chapter 1</option>
-                <option value="chapter-2">Chapter 2</option>
-                <option value="chapter-3">Chapter 3</option>
-                <option value="chapter-4">Chapter 4</option>
-                <option value="chapter-5">Chapter 5</option>
-                <option value="chapter-6">Chapter 6</option>
-                <option value="chapter-7">Chapter 7</option>
-                <option value="chapter-8">Chapter 8</option>
-            </select>
-        </div>
-        <button class="Butn" onclick="applyFilters()">Filter</button>
+<main>
+    <div>
+        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">Welcome in the contact section </p>
+        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">We will definitely contact with you</p>
     </div>
-    <div class="filter-results" id="filterResults">
-        <h3>Filter Results</h3>
-        <div class="sahil">
-            <span class="result-item">
-                <div>
-                    <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
-                    <div class="result-title">English - Chapter 1</div>
-                    <div class="result-details">Class 6 | English Medium | 15 Pages</div>
-                </div>
-            </span>
-            <span class="result-item">
-                <div>
-                    <a href="#"><img src="Lion.jpg" alt=" Lion " width="200px"></a>
-                    <div class="result-title">Hindi - Chapter 1</div>
-                    <div class="result-details">Class 6 | Hindi Medium | 12 Pages</div>
-                </div>
-            </span>
-        </div>
-    </div>
-    <!-- More results can be added dynamically -->
-    </div>
+</main>
 
-    <div class="pdf" id="pdfViewerContainer">
-        <object id="pdfViewer" data="" type="application/pdf" width="100%" height="100%">
-            <p>PDF viewer not available. <a href="#" id="pdfLink" class="Get">Download PDF instead</a></p>
-        </object>
-    </div>
+  <footer class="footer">
+    <button class="btn">Feedback</button>
+    <p>&copy; 2025 Takshshila. All rights reserved.</p>
+  </footer>
 
-    <footer class="footer">
-        <button class="btn">Feedback</button>
-        <p>&copy; 2025 Takshshila. All rights reserved.</p>
-    </footer>
+  <script>
+  
 
-    <script>
-        let subMenu = document.getElementById("subMenu");
+    function applyTheme() {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.querySelector('.toggle-btn').textContent = '🌙 Dark Mode';
+      } else {
+        document.body.classList.remove('dark-mode');
+        document.querySelector('.toggle-btn').textContent = '☀️ Light Mode';
+      }
+    }
 
-        function myprofile() {
-            subMenu.classList.toggle("open-menu");
-        }
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.querySelector('.toggle-btn').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+    }
 
-        function applyTheme() {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.querySelector('.toggle-btn').textContent = '🌙 Dark Mode';
-            } else {
-                document.body.classList.remove('dark-mode');
-                document.querySelector('.toggle-btn').textContent = '☀️ Light Mode';
-            }
-        }
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            document.querySelector('.toggle-btn').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
-        }
-
-        // Run this when the page loads
-        window.onload = applyTheme;
-
-        function applyFilters() {
-            const selectedClass = document.getElementById('class').value;
-            const subject = document.getElementById('subject').value;
-            const language = document.getElementById('language').value;
-            const chapter = document.getElementById('chapter').value;
-
-            // Hide PDF viewer initially
-            document.getElementById('pdfViewerContainer').style.display = 'none';
-
-            // Show filter results
-            const filterResults = document.getElementById('filterResults');
-            filterResults.style.display = 'block';
-
-            // Here you would typically make an AJAX call to get filtered results
-            // For this example, we'll just show the demo results
-
-            // You can add logic to filter the displayed results based on selections
-            console.log("Filters applied:", {
-                class: selectedClass,
-                subject: subject,
-                language: language,
-                chapter: chapter
-            });
-        }
-
-        function viewPDF(pdfUrl) {
-            const pdfViewer = document.getElementById('pdfViewer');
-            const pdfContainer = document.getElementById('pdfViewerContainer');
-            const pdfLink = document.getElementById('pdfLink');
-
-            pdfViewer.data = pdfUrl;
-            pdfLink.href = pdfUrl;
-            pdfContainer.style.display = 'block';
-
-            // Scroll to the PDF viewer
-            pdfContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    window.onload = applyTheme;
+  </script>
 </body>
-</html>
 </html>
