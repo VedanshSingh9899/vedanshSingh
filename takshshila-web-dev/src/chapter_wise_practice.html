@@ -205,18 +205,7 @@
             transform: scale(1.1);
         }
 
-        .main-content {
-            width: 80%;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
+
 
         .main-content:hover {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s;
@@ -287,17 +276,19 @@
             padding: 10px;
         }
 
-        .Classes {
+        .class {
             width: 250px;
             height: auto;
             padding: 5px;
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
             border-radius: 5px;
-            margin: 5px;
+            margin-top: 10px;
             margin-right: 10px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        .Classes:hover {
+        .class:hover {
             transition: transform 0.3s ease-in-out, box-shadow 0.3s;
             transform: scale(1.02);
             overflow: hidden;
@@ -453,35 +444,6 @@
             color: white;
         }
 
-        .result-title {
-            font-weight: 600;
-            color: #1d9fd3;
-        }
-
-        .result-details {
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .dark-mode .filter-results {
-            background-color: #333;
-            color: rgb(255, 255, 255);
-        }
-
-        .view-pdf-btn {
-            background-color: #1d9fd3;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .view-pdf-btn:hover {
-            background-color: #b2d33b;
-        }
-
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -518,22 +480,86 @@
             }
         }
 
-        #english {
-            display: none;
+        .container {
+            border: 2px solid #dbdbdb;
+            margin: 20px;
+            border-radius: 10px;
+             box-shadow: 0 8px 32px rgba(0,0,0,0.15); /* Soft shadow */
+            
+        }
+        .dark-mode .container{
+            background-color: #3a3b3ba0;
+            border: 2px solid #2f2f2f;
         }
 
-        #hindi {
-            display: none;
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+            gap:20px;
         }
-
-        .links {
+        .buttons {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            float: right;
+            border: 6px solid;
+            /* Set border width */
+            border-image: linear-gradient(-135deg, #b3b3b3, #d0d0d0) 1;
+            padding: 15px;
             text-decoration: none;
-            color: #1d9fd3;
+            text-align: center;
+            flex: 1;
+            transition: 0.3s;
+            font-weight: bold;
+            margin-top: 0;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        .dark-mode .buttons {
+            background-color: #4c4a4a;
+            color:white;
+            border-image: linear-gradient(-135deg, #696868, #b8b4b4) 1;
+
+        }
+        .buttons:hover{
+            transform: scale(1.05);
+        }
+        .headline {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px 0;
+            color: #000000;
+            width:100%;
+            /*height:50px;*/
+            padding:10px 0px 10px 0px;
+            background-color: #edc40f;
+        }
+        .dark-mode .headline{
+            color:white;
+            background-color: #963f08;
         }
 
-        .links:hover {
-            text-decoration: underline;
-            color: #040aca;
+        .chapter
+        {
+    font-size: 1.1em;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-align: center;
+    background: linear-gradient(90deg, #b4b4b4 0%, #fff 50%, #b4b4b4 100%);
+    cursor: pointer;
+        }
+        .dark-mode .chapter{
+            background: linear-gradient(90deg, #4c4a4a 0%, #3a3b3b 50%, #4c4a4a 100%);
+            color: rgb(226, 214, 214);
+        }
+        .chapter:hover{
+            transform:scale(1.02)
+        }
+        .chapter-box{
+            margin-left:30px;
+            margin-right:30px;
         }
     </style>
 </head>
@@ -566,74 +592,28 @@
         <a href="/blogs">Blog</a>
         <a href="/contact">Contact Us</a>
     </nav>
+    <main>
+        <div class="container">
+            <div class="buttons-container">
+                <button class="buttons">PYQ'S</button>
+                <button class="buttons">Sample&nbsp;Paper</button>
+            </div>
+            <div class="chapter-box">
+                <h2 class="headline">FULL&nbsp;SYLLABUS</h2>
+                <p class="chapter">KINEMATICS</p>
+                <p class="chapter">3D&nbsp;VECTORING</p>
+                <p class="chapter">LAWS&nbsp;OF&nbsp;MOTION</p>
+                <p class="chapter">WORK&nbsp;ENERGY</p>
+                <p class="chapter">ROTATION</p>
+                <p class="chapter">GRAVITATION</p>
+                <p class="chapter">OSCILLATIONS</p>
+                <p class="chapter">WAVES</p>
+                <p class="chapter">THERMODYNAMICS</p>
+                <p class="chapter">HEAT&nbsp;TRANSFER</p>
+            </div>
 
-    <div class="main-content">
-        <div class="Classes">
-            <label>Class:</label>
-            <select id="class">
-                <option>-Select Class-</option>
-                <option value="class 6">Class 6</option>
-                <option value="class 7">Class 7</option>
-                <!-- More options -->
-            </select>
         </div>
-
-        <div class="option">
-            <label>Subjects:</label>
-            <select id="subject">
-                <option value="">Select a subject</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-
-        <div class="language">
-            <label>Language:</label>
-            <select id="language">
-                <option value="">Select a language</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-
-        <div class="Chapters">
-            <label>Chapters:</label>
-            <select id="chapter">
-                <option value="">Select a chapter</option>
-                <option value="chapter-1">Chapter 1</option>
-                <option value="chapter-2">Chapter 2</option>
-                <!-- More options -->
-            </select>
-        </div>
-
-        <button class="Butn" onclick="matchAndLoadPDF()">Filter</button>
-    </div>
-
-        <h3>Filter Results</h3>
-        <table class="books">
-            <tr>
-                        <td>
-          <div class="result-item" id="english">
-            <a href="/english.pdf" ><img src="loin.png" alt="Lion" width="200px"></a>
-            <div class="result-title"><a class="links"  href="/english.pdf">English - Chapter 1</a></div>
-            <div class="result-details"> <a class="links"  href="/english.pdf">Class 6 | English Medium | 15 Pages</a> </div>
-          </div>
-        <td>
-          <div class="result-item" id="hindi">
-            <a href="/hindi.pdf"><img src="loin.png" alt="Lion" width="200px" /></a>
-            <div class="result-title"><a class="links" href="/hindi.pdf" >Hindi - Chapter 1</a></div>
-            <div class="result-details"> <a  class="links" href="/hindi.pdf" >Class 6 | Hindi Medium | 12 Pages</a></div>
-          </div>
-        </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="pdf" id="pdfViewerContainer">
-        <object id="pdfViewer" data="" type="application/pdf" width="100%" height="100%">
-            <p>PDF viewer not available. <a href="#" id="pdfLink" class="Get">Download PDF instead</a></p>
-        </object>
-    </div>
+    </main>
 
     <footer class="footer">
         <button class="btn">Feedback</button>
@@ -643,30 +623,9 @@
     <script>
         const subMenu = document.getElementById("subMenu");
 
-        function myprofile() {
-            subMenu.classList.toggle("open-menu");
-        }
-
-        function matchAndLoadPDF() {
-            const subject = document.getElementById('subject').value;
-            const language = document.getElementById('language').value;
-            const chapter = document.getElementById('chapter').value;
-
-            // Hide all initially
-            document.getElementById("english").style.display = 'none';
-            document.getElementById("hindi").style.display = 'none';
-            document.getElementById("filterResults").style.display = 'none';
-
-            if (subject === 'english' && language === 'english' && chapter === 'chapter-1') {
-                document.getElementById("filterResults").style.display = 'block';
-                document.getElementById("english").style.display = 'block';
-            } else if (subject === 'hindi' && language === 'hindi' && chapter === 'chapter-1') {
-                document.getElementById("filterResults").style.display = 'block';
-                document.getElementById("hindi").style.display = 'block';
-            } else {
-                console.log("No matching result.");
-            }
-        }
+    function myprofile() {
+      subMenu.classList.toggle("open-menu");
+    }
 
         function applyTheme() {
             const theme = localStorage.getItem('theme');
@@ -691,20 +650,3 @@
 </body>
 
 </html>
-
-<!-- maine 4 or functions banaye hain, closing of submenu, keyframe reverse or closing of subprofile... 
-abhi kya ho rha hai ki hum sirf opening walo ko trigger kr rhe hain to bas hume ek counter lgana hai
-jo 1 or 0 me switch krega
-agr vo 0 hai to hmara open nhi hua
-to jaise hi open button dbaynge to vo 1 ho jaygea
-or hmara open wale functions kaam krnge
-or jaise hi close krnge 
-to uski value 1 hogi
-to vo usko
-i-- krke 0 kr dega
-usse kya hoga ki vo wapas se opening wale me jayega
-or hum functions wah dal dnge closing wale
-to jo i ki value hai vo decide kregi ki konse functions trigger honge class wise... 0 hui to open, 1 hui to close
-i = 0 initial
-i = 1 after opening
-i = 0 after closing -->

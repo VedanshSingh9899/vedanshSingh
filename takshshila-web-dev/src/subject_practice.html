@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Takshshila</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1bb9f8, #d7fd4f);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            animation: fadeInDown 1s ease-in-out;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+            letter-spacing: 2px;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        header p {
+            font-size: 1.3em;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .toggle-btn {
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            overflow: hidden;
+        }
+
+        .dark-mode .toggle-btn {
+            background: black;
+            color: white;
+        }
+
+        .header-decoration {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            top: 20px;
+            left: 50px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .header-decoration:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: auto;
+            bottom: 20px;
+            right: 50px;
+            left: auto;
+        }
+
+        .box {
+            background-color: rgba(255, 255, 255, 1);
+            max-height: 0px;
+            overflow: hidden;
+            width: 200px;
+            height: 140px;
+            position: absolute;
+            top: 55px;
+            right: 45px;
+            z-index: 1000;
+        }
+
+        .box.open-menu {
+            max-height: 100%;
+        }
+
+        .box2 {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .inner-img {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 10px;
+            width: 100%;
+            height: 100%;
+            background-color: #b2d33b;
+        }
+
+        .info {
+            margin: 0;
+        }
+
+        .info ul {
+            list-style: none;
+            color: black;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .username {
+            margin-top: -5px;
+        }
+
+        .profile {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2000;
+        }
+
+        .profile2 {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .profile:hover {
+            transform: scale(1.1);
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(135deg, #1bb9f8, #d7fd4f);
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            padding: 15px;
+            text-decoration: none;
+            text-align: center;
+            flex: 1;
+            transition: 0.3s;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #0a1f449a;
+            ;
+            /* or #000 for contrast depending on brightness */
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a:hover {
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.02);
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .dark-mode:hover {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+        }
+
+        .toggle-btn:hover {
+            background: black;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .footer {
+
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            display: grid;
+            /*i want three column in it */
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center;
+            align-items: center;
+            align-items: center;
+            gap: 50px;
+            border: 2px solid #b4b4b4;
+            padding: 20px;
+            width:fit-content;
+            margin:0 auto;
+            margin-top: 50px;
+            margin-bottom:50px;
+            border-radius: 10px;
+            background-color: #f4f4f4;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+        .subject {
+            background-color: #01bbd8;
+            color: rgb(0, 0, 0);
+            border: none;
+
+            font-size: 1.7em;
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            border-radius: 5px;
+            width: 350px;
+            height: 100px;
+        }
+        .subject:hover {
+            background-color: #01a0c8;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-decoration"></div>
+        <div class="header-decoration"></div>
+        <h1>Takshshila</h1>
+        <p>Your learning platform</p>
+        <button class="profile" onclick="myprofile()"><img src="profile-user.png" alt="Profile" width="35px"></button>
+        <div class="box" id="subMenu">
+            <div class="box2">
+                <div class="info">
+                    <ul>
+                        <li class="name">SAHIL</li>
+                        <li class="username">sahil123</li>
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+        </div>
+    </header>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
+    </nav>
+    <main>
+        <div class="container">
+
+                <button class="subject">Physics</button>
+                <button class="subject">Chemisty</button>
+                <button class="subject">Mathematics</button>
+                <button class="subject">English</button>
+                <button class="subject">Computer&nbsp;Science</button>
+                <button class="subject">Physical&nbsp;Education</button>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <button class="btn">Feedback</button>
+        <p>&copy; 2025 Takshshila. All rights reserved.</p>
+    </footer>
+
+    <script>
+
+
+        function applyTheme() {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.toggle-btn').textContent = '🌙 Dark Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.querySelector('.toggle-btn').textContent = '☀️ Light Mode';
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.querySelector('.toggle-btn').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+        }
+
+        window.onload = applyTheme;
+    </script>
+</body>
+
+</html>

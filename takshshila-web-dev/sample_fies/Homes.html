@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takshshila</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="takshshila.css"> -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -15,6 +15,7 @@
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
 
+        }
 
         .dark-mode {
             background-color: #1a1a1a;
@@ -89,52 +90,23 @@
         }
 
         .box {
-            background-color: rgba(255, 255, 255, 1);
+            background-color: rgba(241, 238, 238, 0.649);
+            max-width: 0px;
             max-height: 0px;
             overflow: hidden;
-            width: 200px;
-            height: 140px;
+            width: 350px;
+            height: 200px;
             position: absolute;
             top: 55px;
             right: 45px;
+            border-radius: 10px;
+            transition-duration: 2s;
+
         }
 
         .box.open-menu {
+            max-width: 100%;
             max-height: 100%;
-
-        }
-
-        .box2 {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-        }
-
-        .inner-img {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-top: 10px;
-            width: 100%;
-            height: 100%;
-            background-color: #b2d33b;
-        }
-
-        .info {
-            margin: 0;
-
-        }
-
-        .info ul {
-            list-style: none;
-            color: black;
-            margin: 0px;
-            padding: 0px;
-        }
-
-
-        .username {
-            margin-top: -5px;
         }
 
         .profile {
@@ -142,9 +114,111 @@
             border: none;
             cursor: pointer;
             position: absolute;
+            height: 50px;
+            width: 50px;
             top: 20px;
             right: 20px;
             z-index: 2000;
+            transition-duration: 1s;
+            transition-delay: 0.5s;
+
+
+        }
+
+        .profile.open-profile {
+            animation: ball 2s ease-in-out forwards ;
+            /*ball-reverse 2s ease-in-out forwards*/
+
+            /*top:75px;
+            right:220px;*/
+        }
+
+        @keyframes ball {
+            0% {
+                transform: translateX(0px) rotate(10deg);
+            }
+
+            100% {
+                transform: translate(-295px, 0px) rotate(360deg) translatey(50px) scale(1.2);
+
+
+            }
+
+        }
+        /*@keyframes ball-reverse {
+    0% {
+        transform: translate(-295px, 0px) rotate(360deg) translateY(50px) scale(1.2);
+    }
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+}*/ /* for reverse transition*/
+
+
+        .basic-info {
+            display: flex;
+            border: 2px solid black;
+            width: 335px;
+            height: 70px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: space-evenly;
+            background-color: #6fed07;
+            position: relative;
+            margin: 5px auto 0px auto;
+        }
+
+        .basic-info:hover {
+            transform: scale(1.04);
+        }
+
+        .edit-profile {
+            margin-top: 5px;
+        }
+
+        .edit {
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: black;
+            padding: 7px 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+
+        }
+
+        .edit:hover {
+            transform: scale(1.1);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+            box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            background-color: #a7a7af;
+        }
+
+        .inner-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+        }
+
+        .box.open-menu {
+            max-height: 100%;
+
         }
 
         .profile2 {
@@ -155,6 +229,19 @@
 
         .profile:hover {
             transform: scale(1.1);
+        }
+
+        .circular-image {
+            border-radius: 45%;
+            /* Makes it circular */
+            object-fit: cover;
+            /* Keeps image cropped inside the circle */
+            cursor: pointer;
+            /* Makes it clickable */
+            border: none;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+            /* Optional shadow */
+            transition: transform 0.2s ease;
         }
 
         nav {
@@ -203,7 +290,7 @@
 
         .dark-mode {
             background-color: #1a1a1a;
-            color: white;
+            color: rgb(255, 255, 255);
         }
 
         .dark-mode:hover {
@@ -320,6 +407,40 @@
             transition-duration: 0.1s;
         }
 
+        .editbox {
+            background-color: rgb(241, 238, 238);
+            max-width: 0px;
+            max-height: 0px;
+            color: black;
+            overflow: hidden;
+            width: 350px;
+            height: 400px;
+            position: absolute;
+            top: 55px;
+            right: 45px;
+            border-radius: 10px;
+            transition-duration: 2s;
+            z-index: 1600;
+
+            border: 2px solid black;
+        }
+        .editbox.open-edit{
+            max-width: 100%;
+            max-height:200%;
+        }
+
+        .edit-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 10px;
+        }
+
+        .input {
+            margin-left: 20px;
+        }
+
+
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -395,31 +516,100 @@
 
     <header>
         <div class="header-decoration"></div>
-        <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
-        <button class="profile" onclick="myprofile()"><img src="profile-user.png" alt="Profile" width="35px"></button>
+        <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
+                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                alt="Profile" width="40px" height="40px"></button>
         <div class="box" id="subMenu">
-            <div class="box2">
-                <div class="info">
-                    <div class="info2">
-                        <ul>
-                            <li class="name">SAHIL</li>
-                            <li class="username">sahil123</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="basic-info">
+                <table class="sub-profile">
+                    <tr>
+                        <td></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="color:#000000;" class="text">
+                        <td><span>Aditya</span>
+                            <span>vishwakarma</span>
+                        </td>
+                        <td>karma@1123</td>
+                    </tr>
+                </table>
             </div>
-            <br>
-            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+            <div
+                style="margin-top:5px;width:100vw;height:1px;border:1px solid rgba(255, 255, 255, 0.63); background-color:#000000;">
+            </div>
+            <div class="inner-btn">
+                <table class="edit-profile">
+                    <tr>
+                        <td>
+                            <button class="edit" onclick="editbtn()">
+                                <span>Edit-profile</span>
+                                <span>
+                                    <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" width="18"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="editbox" id="editbox">
+            <div style="display:flex;flex-direction:row;">
+            <div style="position:relative; margin-left:10px;"><button class="back" id="back" onclick="back()" style="border:none; cursor:pointer;">
+            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height="25px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg> </button></div>
+                
+             <div style="margin-inline-start: 70px;">Edit&nbsp;information</div>
+            </div>
+            <table>
+                <br>
+
+                <tr class="edit-info">
+                    <td> <button onclick="document.getElementById('fileInput').click()" style=" border: none;background: transparent;cursor: pointer;" ><img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png" width="50px" heght="50px" class="circular-image"alt="profile">
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFile(this)">
+
+                </button></td>
+                    <td>Name:</td>
+                    <td class="input">
+                        <input type="text" value="Sahil" placeholder="First Name">
+                    </td>
+                    <td class="input">
+                        <input type="text" value="Alvi" placeholder="Last Name">
+
+                    </td>
+                    <td>Phone&nbsp;Number:</td>
+                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"></td>
+                    <td>Email:</td>
+                    <td class="input">
+                        <input type="email" value="sahilalvi769@gmail.com" placeholder="Enter Your Email">
+                    </td>
+                    <td style="margin-left: 107px;margin-top: 13px;"><button>Edit</button></td>
+                </tr>
+            </table>
         </div>
     </header>
     <nav>
-        <a href="#">Home</a>
-        <a href="#">Courses</a>
-        <a href="#">Test Series</a>
-        <a href="#">Blog</a>
-        <a href="#">Contact Us</a>
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
     </nav>
 
     <div class="main-content">
@@ -427,32 +617,67 @@
             <img src="https://via.placeholder.com/250x160" alt="Course Image">
             <h3>Test Series</h3>
             <p>Timed tests designed to simulate real exam conditions.</p>
-            <a href="/public/test.html" class="view-btn">View More</a>
+            <a href="/test" class="view-btn">View More</a>
         </div>
         <div class="course-card">
-            <img src="https://via.placeholder.com/250x160" alt="Course Image">
+            <img src="https://via.placeholder.com/250x160"  alt="Course Image">
             <h3>Notes</h3>
             <p>Handwritten, topic-wise notes for easy learning.</p>
-            <a href="/public/notes.html" class="view-btn">View More</a>
+            <a href="/notes" class="view-btn">View More</a>
         </div>
         <div class="course-card">
             <img src="https://via.placeholder.com/250x160" alt="Course Image">
             <h3>Question Bank</h3>
             <p>A collection of questions for quick practice and revision.</p>
-            <a href="/public/question-bank.html" class="view-btn">View More</a>
+            <a href="/question-bank" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="https://via.placeholder.com/250x160" alt="Course Image">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
         </div>
         <div class="course-card">
             <img src="https://via.placeholder.com/250x160" alt="Course Image">
             <h3>Books</h3>
             <p>Download complete PDFs of all NCERT and exemplar books.</p>
-            <a href="/public/book2.html" class="view-btn">View More</a>
+            <a href="/books" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="https://via.placeholder.com/250x160" alt="Course Image">
+            <h3>Videos</h3>
+            <p>Video lecture will help you to understand the topic briefly</p>
+            <a href="/videos" class="view-btn">View More</a>
         </div>
     </div>
     <script>
         let subMenu = document.getElementById("subMenu");
+        let subProfile = document.getElementById("subProfile");
+        let editbox=document.getElementById("editbox");
+        function back(){
+            editbox.style.maxHeight="0%";
+            editbox.style.maxWidth="0%";
+            subProfile.style.display="initial";
+        }
+        function editbtn(){
+            editbox.classList.toggle("open-edit");
+            console.log("Hello Sahil");
+            subProfile.style.display="none";
+        }
+        function openFilePicker() {
+    document.getElementById('fileInput').click();
+  }
 
+  function handleFile(input) {
+    const file = input.files[0];
+    if (file) {
+      alert("You selected: " + file.name);
+      subProfile.document
+    }
+  }
         function myprofile() {
             subMenu.classList.toggle("open-menu");
+            subProfile.classList.toggle("open-profile");
         }
 
         function applyTheme() {

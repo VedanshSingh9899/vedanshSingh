@@ -5,15 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takshshila</title>
-    <!-- <link rel="stylesheet" href="takshshila.css"> -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            margin: 0;
             padding: 0;
             background-color: #f4f4f4;
             transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden;
+            margin: 0;
 
         }
 
@@ -91,8 +89,7 @@
 
         .box {
             background-color: rgba(241, 238, 238, 0.649);
-            max-width: 0px;
-            max-height: 0px;
+            display: none;
             overflow: hidden;
             width: 350px;
             height: 200px;
@@ -105,8 +102,8 @@
         }
 
         .box.open-menu {
-            max-width: 100%;
-            max-height: 100%;
+            display: block;
+            animation: fadeInDown 1s ease-in-out;
         }
 
         .profile {
@@ -121,39 +118,33 @@
             z-index: 2000;
             transition-duration: 1s;
             transition-delay: 0.5s;
-
-
         }
 
         .profile.open-profile {
-            animation: ball 2s ease-in-out forwards ;
-            /*ball-reverse 2s ease-in-out forwards*/
+            animation: ball 1s ease-in-out;
+        }
 
-            /*top:75px;
-            right:220px;*/
+        .profile2 {
+            opacity: 0;
         }
 
         @keyframes ball {
+
+            /* animation in profile button*/
             0% {
-                transform: translateX(0px) rotate(10deg);
+                transform: translate(0px, 0px);
+            }
+
+            10% {
+                transform: scale(0.5);
             }
 
             100% {
-                transform: translate(-295px, 0px) rotate(360deg) translatey(50px) scale(1.2);
-
+                transform: translate(-280px, 51px);
 
             }
 
         }
-        /*@keyframes ball-reverse {
-    0% {
-        transform: translate(-295px, 0px) rotate(360deg) translateY(50px) scale(1.2);
-    }
-    100% {
-        transform: translateX(0px) rotate(0deg);
-    }
-}*/ /* for reverse transition*/
-
 
         .basic-info {
             display: flex;
@@ -169,7 +160,7 @@
         }
 
         .basic-info:hover {
-            transform: scale(1.04);
+            transform: scale(1.02);
         }
 
         .edit-profile {
@@ -192,14 +183,12 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-
-
         }
 
         .edit:hover {
             transform: scale(1.1);
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
-            box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+                box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             background-color: #a7a7af;
         }
 
@@ -219,12 +208,6 @@
         .box.open-menu {
             max-height: 100%;
 
-        }
-
-        .profile2 {
-            border: none;
-            background: transparent;
-            cursor: pointer;
         }
 
         .profile:hover {
@@ -379,8 +362,9 @@
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 5px;
             margin-top: 20px;
+
 
 
         }
@@ -409,8 +393,7 @@
 
         .editbox {
             background-color: rgb(241, 238, 238);
-            max-width: 0px;
-            max-height: 0px;
+            display: none;
             color: black;
             overflow: hidden;
             width: 350px;
@@ -421,12 +404,25 @@
             border-radius: 10px;
             transition-duration: 2s;
             z-index: 1600;
-
             border: 2px solid black;
+            animation: editbox 0.5s ease-in-out;
+            /* Animation for editbox*/
         }
-        .editbox.open-edit{
-            max-width: 100%;
-            max-height:200%;
+
+        @keyframes editbox {
+            from {
+                opacity: 0;
+                transform: translateZ(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateZ(0);
+            }
+        }
+
+        .editbox.open-edit {
+            display: block;
         }
 
         .edit-info {
@@ -524,8 +520,11 @@
         <div class="box" id="subMenu">
             <div class="basic-info">
                 <table class="sub-profile">
+
                     <tr>
-                        <td></td>
+                        <td class="profile2" id="subProfile2"><img class="circular-image"
+                                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                alt="Profile" width="40px" height="40px"></td>
                     </tr>
                 </table>
                 <table>
@@ -572,19 +571,29 @@
         </div>
         <div class="editbox" id="editbox">
             <div style="display:flex;flex-direction:row;">
-            <div style="position:relative; margin-left:10px;"><button class="back" id="back" onclick="back()" style="border:none; cursor:pointer;">
-            <?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height="25px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "/></svg> </button></div>
-                
-             <div style="margin-inline-start: 70px;">Edit&nbsp;information</div>
+                <div style="position:relative; margin-left:10px;"><button class="back" id="back" onclick="back()"
+                        style="border:none; cursor:pointer;">
+                        <?xml version="1.0" ?>
+                        <!DOCTYPE svg
+                            PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg
+                            height="25px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1"
+                            viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <polygon
+                                points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
+                        </svg>
+                    </button>
+                </div>
+
+                <div style="margin-inline-start: 70px;">Edit&nbsp;information</div>
             </div>
             <table>
                 <br>
 
                 <tr class="edit-info">
-                    <td> <button onclick="document.getElementById('fileInput').click()" style=" border: none;background: transparent;cursor: pointer;" ><img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png" width="50px" heght="50px" class="circular-image"alt="profile">
-                    <input type="file" id="fileInput" style="display: none;" onchange="handleFile(this)">
-
-                </button></td>
+                    <td> <button style=" border: none;background: transparent;cursor: pointer;"><img
+                                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                width="50px" heght="50px" class="circular-image" alt="profile"></button></td>
                     <td>Name:</td>
                     <td class="input">
                         <input type="text" value="Sahil" placeholder="First Name">
@@ -620,7 +629,7 @@
             <a href="/test" class="view-btn">View More</a>
         </div>
         <div class="course-card">
-            <img src="https://via.placeholder.com/250x160"  alt="Course Image">
+            <img src="https://via.placeholder.com/250x160" alt="Course Image">
             <h3>Notes</h3>
             <p>Handwritten, topic-wise notes for easy learning.</p>
             <a href="/notes" class="view-btn">View More</a>
@@ -650,31 +659,33 @@
             <a href="/videos" class="view-btn">View More</a>
         </div>
     </div>
+    <footer class="footer">
+        <button class="btn">Feedback</button>
+        <p>&copy; 2025 Takshshila. All rights reserved.</p>
+    </footer>
     <script>
         let subMenu = document.getElementById("subMenu");
         let subProfile = document.getElementById("subProfile");
-        let editbox=document.getElementById("editbox");
-        function back(){
-            editbox.style.maxHeight="0%";
-            editbox.style.maxWidth="0%";
-            subProfile.style.display="initial";
+        let editbox = document.getElementById("editbox");
+        let subProfile2 = document.getElementById("subProfile2");
+        subProfile.addEventListener('animationend', () => {          //after animation end it will hide the outer profile button
+            subProfile.style.display = "none";                        //we can also use onlick event but it is not good for performance and it is not good for user experience
+            subProfile2.style.opacity = "1";
+        });
+
+        function back() {                                            /* it is use in edit box to get menu box */
+            subProfile.classList.remove("open-profile");
+            editbox.classList.remove("open-edit");
+            console.log("Back button clicked");
         }
-        function editbtn(){
+        function back2() {                                            /* it is use to close menu box */
+            subProfile.classList.remove("open-menu");
+            console.log("Back 2 button clicked");
+        }
+        function editbtn() {
             editbox.classList.toggle("open-edit");
             console.log("Hello Sahil");
-            subProfile.style.display="none";
         }
-        function openFilePicker() {
-    document.getElementById('fileInput').click();
-  }
-
-  function handleFile(input) {
-    const file = input.files[0];
-    if (file) {
-      alert("You selected: " + file.name);
-      subProfile.document
-    }
-  }
         function myprofile() {
             subMenu.classList.toggle("open-menu");
             subProfile.classList.toggle("open-profile");
@@ -700,11 +711,8 @@
 
         // Run this when the page loads
         window.onload = applyTheme;
+
     </script>
-    <footer class="footer">
-        <button class="btn">Feedback</button>
-        <p>&copy; 2025 Takshshila. All rights reserved.</p>
-    </footer>
 </body>
 
 </html>
