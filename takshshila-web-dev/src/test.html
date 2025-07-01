@@ -1,148 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Takshshila</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Takshshila.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takshshila | Test Series</title>
+  <link rel="stylesheet" href="Takshshila.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
-
 <body>
+  <header>
+    <h1>Test Series</h1>
+    <p>Track your progress & take practice tests</p>
+  </header>
 
-    <header>
-        <div class="header-decoration"></div>
-        <div class="header-decoration"></div>
-        <h1>Takshshila</h1>
-        <p>Your learning platform</p>
-        <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
-                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                alt="Profile" width="40px" height="40px"></button>
-        <div class="box" id="subMenu">
-            <div class="basic-info">
-                <table class="sub-profile">
-
-                    <tr>
-                        <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none"
-                                onclick="off()">
-                                <img class="circular-image"
-                                    src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                                    alt="Profile" width="40px" height="40px">
-                            </button></td>
-                    </tr>
-                </table>
-                <table>
-                    <tr style="color:#000000;" class="text">
-                        <td><span class="first_name">Aditya</span>
-                            <span class="last_name">vishwakarma</span>
-                        </td>
-                        <td id="username">karma@1123</td>
-                    </tr>
-                </table>
-            </div>
-            <div
-                style="margin-top:5px;width:100vw;height:1px;border:1px solid rgba(255, 255, 255, 0.63); background-color:#000000;">
-            </div>
-            <div class="inner-btn">
-                <table class="edit-profile">
-                    <tr>
-                        <td>
-                            <button class="edit" onclick="edit_box_open()">
-                                <span>Edit-profile</span>
-                                <span>
-                                    <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
-                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" viewBox="0 0 24 24" width="18"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                                    </svg>
-                                </span>
-                            </button>
-                        </td>
-                    </tr>
-
-                </table>
-                <table>
-                    <tr>
-                        <td>
-                            <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="editbox" id="editbox">
-            <div style="display:flex;flex-direction:row;">
-                <div style="position:relative; margin-left:10px;"><button class="back" id="back" onclick="back()"
-                        style="border:none; cursor:pointer;">
-                        <?xml version="1.0" ?>
-                        <!DOCTYPE svg
-                            PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg
-                            height="25px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1"
-                            viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <polygon
-                                points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
-                        </svg>
-                    </button>
-                </div>
-
-                <div style="margin-inline-start: 70px;">Edit&nbsp;information</div>
-            </div>
-            <table>
-                <br>
-
-                <tr class="edit-info">
-                    <td>
-                        <button style="border: none;background: transparent;cursor: pointer;"
-                            onclick="triggerProfileImageInput()">
-                            <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                                width="50px" height="50px" class="circular-image" alt="profile">
-                        </button>
-                    </td>
-                    <td class="input">
-                        <input type="file" accept="image/*" class="profile_image_input" style="display:none"
-                            onchange="storeSelectedProfileImage(event)">
-                    </td>
-                    <td>Name:</td>
-                    <td class="input">
-                        <input type="text" value="Aditya" placeholder="First Name" class="first_name_input">
-                    </td>
-                    <td class="input">
-                        <input type="text" value="Vishwakarma" placeholder="Last Name" class="last_name_input">
-
-                    </td>
-                    <td>Phone&nbsp;Number:</td>
-                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"
-                            class="phone_number_input"></td>
-                    <td>Email:</td>
-                    <td class="input">
-                        <input type="email" value="xyz@gmail.com" placeholder="Enter Your Email" class="email_input">
-                    </td>
-                    <td style="margin-left: 107px;margin-top: 13px;"><button
-                            onclick="editbtn(); applyStoredProfileImage();">Edit</button></td>
-                </tr>
-            </table>
-        </div>
-    </header>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/courses">Courses</a>
-        <a href="/test-series">Test Series</a>
-        <a href="/blogs">Blog</a>
-        <a href="/contact">Contact Us</a>
-    </nav>
-    <div class="test">
-        Hye this is a testseries tab
+  <section class="test-tab">
+    <h2 class="headline">📊 Test Progress</h2>
+    <div class="progress-container">
+      <div id="progress-bar" class="progress-bar">0% Complete</div>
     </div>
-    <footer class="footer">
-        <button class="btn">Feedback</button>
-        <p>&copy; 2025 Takshshila. All rights reserved.</p>
-    </footer>
-    <script src="Takshshila.js"></script>
-</body>
 
-</html>
+    <div class="test-list">
+      <div class="test-item" data-marks="16" data-total="60">
+        <h3>Maths Term 1</h3>
+        <p class="marks">16/60</p>
+        <p class="skull">💀💀</p>
+        <button class="Butn">Start Test</button>
+      </div>
+      <div class="test-item" data-marks="0" data-total="60">
+        <h3>Science Full Syllabus</h3>
+        <p class="marks">Unattempted</p>
+        <p class="skull">💀💀💀</p>
+        <button class="Butn">Start Test</button>
+      </div>
+      <div class="test-item" data-marks="42" data-total="60">
+        <h3>Social Science Map Quiz</h3>
+        <p class="marks">42/60</p>
+        <p class="skull">💀</p>
+        <button class="Butn">Start Test</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 Takshshila. All rights reserved.</p>
+  </footer>
+  <script src="Takshshila.js">
+  </script>
+  </body>
+  </html>
+  <!-- <script>
+  let currentProgress = 0; // Track current progress % globally
+
+  function animateProgressBar(from, to) {
+    const bar = document.getElementById('progress-bar');
+    let value = from;
+    const increment = from < to ? 1 : -1;
+
+    const interval = setInterval(() => {
+      value += increment;
+      bar.style.width = `${value}%`;
+      bar.textContent = `${value}% Complete`;
+
+      if ((increment > 0 && value >= to) || (increment < 0 && value <= to)) {
+        clearInterval(interval);
+        currentProgress = to; // update global value
+      }
+    }, 15); // Speed of animation
+  }
+
+  function calculateProgress() {
+    const testItems = document.querySelectorAll('.test-item');
+    let attempted = 0;
+
+    testItems.forEach(item => {
+      const marks = parseInt(item.dataset.marks);
+      if (!isNaN(marks) && marks > 0) {
+        attempted++;
+      }
+    });
+
+    return Math.round((attempted / testItems.length) * 100);
+  }
+
+  function updateProgressIfNeeded() {
+    const newProgress = calculateProgress();
+    if (newProgress !== currentProgress) {
+      animateProgressBar(currentProgress, newProgress);
+    }
+  }
+
+  // Set initial value
+  currentProgress = calculateProgress();
+  animateProgressBar(0, currentProgress);
+
+  // Watch for mark changes using MutationObserver
+  const observer = new MutationObserver(updateProgressIfNeeded);
+
+  document.querySelectorAll('.test-item').forEach(item => {
+    observer.observe(item, {
+      attributes: true,
+      attributeFilter: ['data-marks']
+    });
+  });
+
+  // Optional Demo: simulate mark update after 3 seconds
+  setTimeout(() => {
+    const test = document.querySelectorAll('.test-item')[1];
+    test.dataset.marks = "30";
+    test.querySelector(".marks").textContent = "30/60";
+  }, 3000);
+</script> -->
+

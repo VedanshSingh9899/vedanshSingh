@@ -104,6 +104,72 @@ function triggerProfileImageInput() {
       });
     }
   });
+  //test tab animation
+    let currentProgress = 0; // Global tracking
+
+  function animateProgressBar(from, to) {
+    const bar = document.getElementById('progress-bar');
+    let value = from;
+    const increment = from < to ? 1 : -1;
+
+    // Disable CSS transition temporarily
+    bar.style.transition = 'none';
+
+    const interval = setInterval(() => {
+      value += increment;
+      bar.style.width = `${value}%`;
+      bar.textContent = `${value}% Complete`;
+
+      if ((increment > 0 && value >= to) || (increment < 0 && value <= to)) {
+        clearInterval(interval);
+        currentProgress = to;
+
+        // Re-enable smooth transitions AFTER animation ends
+        bar.style.transition = 'width 0.7s ease-in-out';
+      }
+    }, 15); // speed: adjust if needed
+  }
+
+  function calculateProgress() {
+    const testItems = document.querySelectorAll('.test-item');
+    let attempted = 0;
+
+    testItems.forEach(item => {
+      const marks = parseInt(item.dataset.marks);
+      if (!isNaN(marks) && marks > 0) {
+        attempted++;
+      }
+    });
+
+    return Math.round((attempted / testItems.length) * 100);
+  }
+
+  function updateProgressIfNeeded() {
+    const newProgress = calculateProgress();
+    if (newProgress !== currentProgress) {
+      animateProgressBar(currentProgress, newProgress);
+    }
+  }
+
+  // Initial progress load
+  currentProgress = calculateProgress();
+  animateProgressBar(0, currentProgress);
+
+  // MutationObserver to detect changes
+  const observer = new MutationObserver(updateProgressIfNeeded);
+  document.querySelectorAll('.test-item').forEach(item => {
+    observer.observe(item, {
+      attributes: true,
+      attributeFilter: ['data-marks']
+    });
+  });
+
+  // Demo change
+  setTimeout(() => {
+    const test = document.querySelectorAll('.test-item')[1];
+    test.dataset.marks = "30";
+    test.querySelector(".marks").textContent = "30/60";
+  }, 3000);
 //this function is used in notes tab
 
 function matchAndLoadPDF() {
