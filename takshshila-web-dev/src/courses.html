@@ -10,10 +10,10 @@
 <body>
   <header>
     <div class="header-decoration"></div>
-    <div class="header-decoration"></div>
-    <h1>Takshshila</h1>
-    <p>Your learning platform</p>
-    <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
+        <div class="header-decoration"></div>
+        <h1>Takshshila</h1>
+        <p>Your learning platform</p>
+        <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
                 src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
                 alt="Profile" width="40px" height="40px"></button>
         <div class="box" id="subMenu">
@@ -21,19 +21,20 @@
                 <table class="sub-profile">
 
                     <tr>
-                        <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none" onclick="off()">
-                            <img class="circular-image"
-                                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                                alt="Profile" width="40px" height="40px">
-                        </button></td>
+                        <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none"
+                                onclick="off()">
+                                <img class="circular-image"
+                                    src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                    alt="Profile" width="40px" height="40px">
+                            </button></td>
                     </tr>
                 </table>
                 <table>
                     <tr style="color:#000000;" class="text">
-                        <td><span>Aditya</span>
-                            <span>vishwakarma</span>
+                        <td><span class="first_name">Aditya</span>
+                            <span class="last_name">vishwakarma</span>
                         </td>
-                        <td>karma@1123</td>
+                        <td id="username">karma@1123</td>
                     </tr>
                 </table>
             </div>
@@ -44,7 +45,7 @@
                 <table class="edit-profile">
                     <tr>
                         <td>
-                            <button class="edit" onclick="editbtn()">
+                            <button class="edit" onclick="edit_box_open()">
                                 <span>Edit-profile</span>
                                 <span>
                                     <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
@@ -92,24 +93,34 @@
                 <br>
 
                 <tr class="edit-info">
-                    <td> <button style=" border: none;background: transparent;cursor: pointer;"><img
-                                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                                width="50px" heght="50px" class="circular-image" alt="profile"></button></td>
-                    <td>Name:</td>
-                    <td class="input">
-                        <input type="text" value="Aditya" placeholder="First Name">
+                    <td>
+                        <button style="border: none;background: transparent;cursor: pointer;"
+                            onclick="triggerProfileImageInput()">
+                            <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                width="50px" height="50px" class="circular-image" alt="profile">
+                        </button>
                     </td>
                     <td class="input">
-                        <input type="text" value="Vishwakarma" placeholder="Last Name">
+                        <input type="file" accept="image/*" class="profile_image_input" style="display:none"
+                            onchange="storeSelectedProfileImage(event)">
+                    </td>
+                    <td>Name:</td>
+                    <td class="input">
+                        <input type="text" value="Aditya" placeholder="First Name" class="first_name_input">
+                    </td>
+                    <td class="input">
+                        <input type="text" value="Vishwakarma" placeholder="Last Name" class="last_name_input">
 
                     </td>
                     <td>Phone&nbsp;Number:</td>
-                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"></td>
+                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"
+                            class="phone_number_input"></td>
                     <td>Email:</td>
                     <td class="input">
-                        <input type="email" value="xyz@gmail.com" placeholder="Enter Your Email">
+                        <input type="email" value="xyz@gmail.com" placeholder="Enter Your Email" class="email_input">
                     </td>
-                    <td style="margin-left: 107px;margin-top: 13px;"><button>Edit</button></td>
+                    <td style="margin-left: 107px;margin-top: 13px;"><button
+                            onclick="editbtn(); applyStoredProfileImage();">Edit</button></td>
                 </tr>
             </table>
         </div>

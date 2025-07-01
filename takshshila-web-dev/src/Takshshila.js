@@ -2,6 +2,9 @@ let subMenu = document.getElementById("subMenu");
 let subProfile = document.getElementById("subProfile");
 let editbox = document.getElementById("editbox");
 let subProfile2 = document.getElementById("subProfile2");
+let first_name=document.getElementsByClassName("first_name");
+let last_name=document.getElementsByClassName("last_name");
+
 /*subProfile.addEventListener('animationend', () => {          //after animation end it will hide the outer profile button
     subProfile.style.display = "none";                        //we can also use onlick event but it is not good for performance and it is not good for user experience
     subProfile2.style.opacity = "1";
@@ -12,11 +15,7 @@ function back() {                                            /* it is use in edi
     editbox.classList.remove("open-edit");
     console.log("Back button clicked");
 }
-/*function back2() {   */                                         /* it is use to close menu box */
-/*subProfile.classList.remove("open-menu");
-console.log("Back 2 button clicked");
-}*/
-function editbtn() {
+function edit_box_open() {
     editbox.classList.toggle("open-edit");
     console.log("Hello Sahil");
 }
@@ -24,6 +23,87 @@ function myprofile() {
     subMenu.classList.toggle("open-menu");
     subProfile.classList.toggle("open-profile");
 }
+function editbtn() {
+    // Get the input values using class selectors
+    const newFirstName = document.querySelector('.first_name_input').value;
+    const newLastName = document.querySelector('.last_name_input').value;
+    const newEmail = document.querySelector('.email_input').value;
+
+    // Update the display elements
+    document.querySelector('.first_name').textContent = newFirstName;
+    document.querySelector('.last_name').textContent = newLastName;
+    // Optionally update email if you have a display element for it
+    // document.querySelector('.email').textContent = newEmail;
+
+    // Save to localStorage so it persists after reload
+    localStorage.setItem('userFirstName', newFirstName);
+    localStorage.setItem('userLastName', newLastName);
+    localStorage.setItem('userEmail', newEmail);
+
+    // Close the edit box after saving
+    editbox.classList.remove('open-edit');
+
+    console.log("Profile updated successfully");
+}
+
+// Load profile info from localStorage on page load
+window.addEventListener('DOMContentLoaded', function() {
+    const savedFirstName = localStorage.getItem('userFirstName');
+    const savedLastName = localStorage.getItem('userLastName');
+    const savedEmail = localStorage.getItem('userEmail');
+    if (savedFirstName) {
+        document.querySelector('.first_name').textContent = savedFirstName;
+        const input = document.querySelector('.first_name_input');
+        if (input) input.value = savedFirstName;
+    }
+    if (savedLastName) {
+        document.querySelector('.last_name').textContent = savedLastName;
+        const input = document.querySelector('.last_name_input');
+        if (input) input.value = savedLastName;
+    }
+    if (savedEmail) {
+        // If you have a display element for email, update it here
+        const input = document.querySelector('.email_input');
+        if (input) input.value = savedEmail;
+    }
+});
+function triggerProfileImageInput() {
+    document.querySelector('.profile_image_input').click();
+  }
+  // Store the selected image in localStorage, but do not apply it yet
+  function storeSelectedProfileImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const imageUrl = e.target.result;
+      localStorage.setItem('pendingProfileImage', imageUrl);
+      // Show preview in the edit image only
+      const editImg = document.querySelector('.edit-info .circular-image');
+      if (editImg) editImg.src = imageUrl;
+    };
+    reader.readAsDataURL(file);
+  }
+  // Apply the stored image everywhere after clicking Edit
+  function applyStoredProfileImage() {
+    const imageUrl = localStorage.getItem('pendingProfileImage');
+    if (imageUrl) {
+      document.querySelectorAll('.circular-image').forEach(img => {
+        img.src = imageUrl;
+      });
+      localStorage.setItem('profileImage', imageUrl);
+      localStorage.removeItem('pendingProfileImage');
+    }
+  }
+  // Load profile image from localStorage on page load
+  window.addEventListener('DOMContentLoaded', function() {
+    const savedImage = localStorage.getItem('profileImage');
+    if (savedImage) {
+      document.querySelectorAll('.circular-image').forEach(img => {
+        img.src = savedImage;
+      });
+    }
+  });
 //this function is used in notes tab
 
 function matchAndLoadPDF() {
