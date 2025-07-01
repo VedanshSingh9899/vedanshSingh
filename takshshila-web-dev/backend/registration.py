@@ -1,12 +1,17 @@
 import re #module to check email format
 import mysql.connector as m #module to connect to MySQL database
+import bcrypt as bc #module to hash passwords
 
 con = m.connect(host='localhost', user='root', password='', database='userdata') # Connect to MySQL database
 cur = con.cursor() # Create a cursor object to execute SQL queries
 
+def password_hashing(password): # Function to hash the password
+    salt = bc.gensalt() # Generate a salt for hashing
+    hashed = bc.hashpw(password.encode('utf-8'), salt) # Hash the password
+    return hashed # Return the hashed password
 
 def is_valid_email(email): # Function to validate email format
-        # Simple regex for email validation
+        # Simple     regex for email validation
         pattern = r'^[\w\.-]+@[\w\.-]+\.\w+$'
         return re.match(pattern, email) is not None
 
@@ -55,6 +60,9 @@ while True:
         continue
 
     break
+
+# Hash the password
+password = password_hashing(password)
 
 data = (username, first_name, last_name, ph_number, email)
 passkey = (username, password)
