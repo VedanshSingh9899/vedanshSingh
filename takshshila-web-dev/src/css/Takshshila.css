@@ -19,6 +19,7 @@
      text-align: center;
      animation: fadeInDown 1s ease-in-out;
      position: relative;
+     height:210px;
  }
 
  header h1 {
@@ -78,7 +79,6 @@
      left: auto;
 
  }
-
  .box {
      background-color: rgba(241, 238, 238, 0.649);
      display: none;
@@ -90,6 +90,7 @@
      right: 45px;
      border-radius: 10px;
      transition-duration: 0.5s;
+     z-index:2500;
 
  }
 
@@ -321,8 +322,8 @@
  }
 
  .course-card img {
-     width: 100%;
-     height: 160px;
+     width: 50px;
+     height: 50px;
      object-fit: cover;
      border-radius: 8px;
      transition: transform 0.3s;
@@ -390,7 +391,7 @@
      right: 45px;
      border-radius: 10px;
      transition-duration: 2s;
-     z-index: 1600;
+     z-index: 3000;
      border: 2px solid black;
      animation: editbox 0.5s ease-in-out;
      /* Animation for editbox*/

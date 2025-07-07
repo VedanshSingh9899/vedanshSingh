@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Takshshila</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="Takshshila.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takshshila</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/Takshshila.css">
 </head>
-
 <body>
-    <header>
+  <header>
 <div class="header-decoration"></div>
         <div class="header-decoration"></div>
         <h1>Takshshila</h1>
@@ -115,7 +113,7 @@
 
                     </td>
                     <td>Phone&nbsp;Number:</td>
-                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"
+                    <td class="input"><input type="tel" value="892017897139" placeholder="Enter your phone number"
                             class="phone_number_input"></td>
                     <td>Email:</td>
                     <td class="input">
@@ -126,91 +124,26 @@
                 </tr>
             </table>
         </div>
-    </header>
+  </header>
 
-    <nav>
+  <nav>
         <a href="/">Home</a>
         <a href="/courses">Courses</a>
         <a href="/test-series">Test Series</a>
         <a href="/blogs">Blog</a>
         <a href="/contact">Contact Us</a>
     </nav>
-
-    <div class="main-content">
-        <div class="Classes">
-            <label>Class:</label>
-            <select id="class">
-                <option>-Select Class-</option>
-                <option value="class 6">Class 6</option>
-                <option value="class 7">Class 7</option>
-                <!-- More options -->
-            </select>
-        </div>
-
-        <div class="option">
-            <label>Subjects:</label>
-            <select id="subject">
-                <option value="">Select a subject</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-
-        <div class="language">
-            <label>Language:</label>
-            <select id="language">
-                <option value="">Select a language</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-
-        <div class="Chapters">
-            <label>Chapters:</label>
-            <select id="chapter">
-                <option value="">Select a chapter</option>
-                <option value="chapter-1">Chapter 1</option>
-                <option value="chapter-2">Chapter 2</option>
-                <!-- More options -->
-            </select>
-        </div>
-
-        <button class="Butn" onclick="matchAndLoadPDF()">Filter</button>
+<main>
+    <div>
+        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">Welcome in videos tab</p>
+        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">We will definitely add lecture videos for your convenient</p>
     </div>
-    <div id="filterResults">
-        <h3>Filter Results</h3>
-        <table class="books">
-            <tr>
-                <td>
-                    <div class="result-item" id="english">
-                        <a href="/english.pdf"><img src="loin.png" alt="Lion" width="200px"></a>
-                        <div class="result-title"><a class="links" href="/english.pdf">English - Chapter 1</a></div>
-                        <div class="result-details"> <a class="links" href="/english.pdf">Class 6 | English Medium | 15
-                                Pages</a> </div>
-                    </div>
-                <td>
-                    <div class="result-item" id="hindi">
-                        <a href="/hindi.pdf"><img src="loin.png" alt="Lion" width="200px" /></a>
-                        <div class="result-title"><a class="links" href="/hindi.pdf">Hindi - Chapter 1</a></div>
-                        <div class="result-details"> <a class="links" href="/hindi.pdf">Class 6 | Hindi Medium | 12
-                                Pages</a></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="pdf" id="pdfViewerContainer">
-            <object id="pdfViewer" data="" type="application/pdf" width="100%" height="100%">
-                <p>PDF viewer not available. <a href="#" id="pdfLink" class="Get">Download PDF instead</a></p>
-            </object>
-        </div>
-    </div>
+</main>
 
-    <footer class="footer">
-        <button class="btn">Feedback</button>
-        <p>&copy; 2025 Takshshila. All rights reserved.</p>
-    </footer>
-    <script src="Takshshila.js"></script>
+  <footer class="footer">
+    <button class="btn">Feedback</button>
+    <p>&copy; 2025 Takshshila. All rights reserved.</p>
+  </footer>
+  <script src="/javascript/Takshshila.js"></script>
 </body>
-
 </html>
-
