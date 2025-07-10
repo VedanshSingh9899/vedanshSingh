@@ -3,15 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Takshshila is an online learning platform offering study material, video lectures, quizzes, and resources for students of all classes and subjects. Learn smarter with Takshshila.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Takshshila</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <link rel="stylesheet" href="/css/Takshshila.css">
+    <style>
+        .boxes {
+            width: 80vw;
+            height: 30vh;
+            border: 2px solid black;
+            background-color: white;
+            margin: 4px auto;
+        }
+
+        .inner_box {
+
+            display: flex;
+            flex-direction: row;
+            gap: 60px;
+            background-color: #56f000;
+            /*height:71%;*/
+            position:relative;
+            top:100;
+        }
+
+
+            .headline {
+                text-align: center;
+                font-size: 1.2em;
+                color: #000000;
+                width: 100%;
+                padding: 10px 0px 10px 0px;
+                background-color: #FFD700;
+                margin: 10px 0px 0px 0px;
+                border-radius: 10px 10px 0px 0px;
+            }
+    </style>
 </head>
 
 <body>
-
     <header>
+        <div class="header-decoration"></div>
         <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
@@ -127,7 +158,7 @@
             </table>
         </div>
     </header>
-    </header>
+
     <nav>
         <a href="/">Home</a>
         <a href="/courses">Courses</a>
@@ -135,44 +166,99 @@
         <a href="/blogs">Blog</a>
         <a href="/contact">Contact Us</a>
     </nav>
+    <main>
+        <div class="boxes">
+            <h2 class="headline">📊 Test Progress</h2>
+            <div class="inner_box">
+                <div>
+                    <button style="border: none;background: transparent;cursor: pointer;">
+                        <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                            width="70px" height="70px" class="circular-image" alt="profile">
+                    </button>
+                </div>
+                <div class="information">
+                    <div>Name&#58; <span>Sahil</span></div>
+                    <div>Class&#58;<span>7</span></div>
+                </div>
+                <div class="test">
+                    <div>Test&nbsp;Score&#58;<span>10</span>&#47;<span>300</span></div>
+                    <div>Test&nbsp;Attempted&#58;<span>2</span>&#47;<span>420</span></div>
+                </div>
+                <div class="over">
+                    <div>Percentage&#58;<span>2</span>&#37;</div>
+                    <div>Pointes&#58;<span>10</span></div>
+                </div>
+            </div>
+            <div class="test-tab">
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar">0% Complete</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- <script>
+        let currentProgress = 0; // Track current progress % globally
 
-    <div class="main-content">
-        <div class="course-card">
-            <img src="/images/test.svg" alt="Course Image">
-            <h3>Test Series</h3>
-            <p>Timed tests designed to simulate real exam conditions.</p>
-            <a href="/test" class="view-btn">View More</a>
-        </div>
-        <div class="course-card">
-            <img src="/images/notes.svg" alt="Course Image">
-            <h3>Notes</h3>
-            <p>Handwritten, topic-wise notes for easy learning.</p>
-            <a href="/notes" class="view-btn">View More</a>
-        </div>
-        <div class="course-card">
-            <img src="/images/practice.svg" alt="Course Image">
-            <h3>Practice Papers</h3>
-            <p>A collection of previous year queastions for quick practice and revision.</p>
-            <a href="/practice-paper" class="view-btn">View More</a>
-        </div>
-        <div class="course-card">
-            <img src="/images/books.svg" alt="Course Image">
-            <h3>Books</h3>
-            <p>Download complete PDFs of all NCERT and exemplar books.</p>
-            <a href="/books" class="view-btn">View More</a>
-        </div>
-        <div class="course-card">
-            <img src="/images/test.svg" alt="Course Image">
-            <h3>Videos</h3>
-            <p>Video lecture will help you to understand the topic briefly</p>
-            <a href="/videos" class="view-btn">View More</a>
-        </div>
-    </div>
-    <footer class="footer">
-        <button class="btn">Feedback</button>
-        <p>&copy; 2025 Takshshila. All rights reserved.</p>
-    </footer>
-    <script src="/javascript/Takshshila.js"></script>
+        function animateProgressBar(from, to) {
+            const bar = document.getElementById('progress-bar');
+            let value = from;
+            const increment = from < to ? 1 : -1;
+
+            const interval = setInterval(() => {
+                value += increment;
+                bar.style.width = `${value}%`;
+                bar.textContent = `${value}% Complete`;
+
+                if ((increment > 0 && value >= to) || (increment < 0 && value <= to)) {
+                    clearInterval(interval);
+                    currentProgress = to; // update global value
+                }
+            }, 15); // Speed of animation
+        }
+
+        function calculateProgress() {
+            const testItems = document.querySelectorAll('.test-item');
+            let attempted = 0;
+
+            testItems.forEach(item => {
+                const marks = parseInt(item.dataset.marks);
+                if (!isNaN(marks) && marks > 0) {
+                    attempted++;
+                }
+            });
+
+            return Math.round((attempted / testItems.length) * 100);
+        }
+
+        function updateProgressIfNeeded() {
+            const newProgress = calculateProgress();
+            if (newProgress !== currentProgress) {
+                animateProgressBar(currentProgress, newProgress);
+            }
+        }
+
+        // Set initial value
+        currentProgress = calculateProgress();
+        animateProgressBar(0, currentProgress);
+
+        // Watch for mark changes using MutationObserver
+        const observer = new MutationObserver(updateProgressIfNeeded);
+
+        document.querySelectorAll('.test-item').forEach(item => {
+            observer.observe(item, {
+                attributes: true,
+                attributeFilter: ['data-marks']
+            });
+        });
+
+        // Optional Demo: simulate mark update after 3 seconds
+        setTimeout(() => {
+            const test = document.querySelectorAll('.test-item')[1];
+            test.dataset.marks = "30";
+            test.querySelector(".marks").textContent = "30/60";
+        }, 3000);
+    </script> -->
+
 </body>
 
 </html>
