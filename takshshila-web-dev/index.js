@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 
 // Route for test series page
 app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'html','test.html'));
+    res.sendFile(path.join(__dirname, 'src', 'html','test-demo.html'));
 });
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'html','notes.html'));
@@ -35,9 +35,7 @@ app.get('/videos', (req, res) => {
 app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'src','html', 'contact.html'));
 });
-app.get('/courses', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src','html', 'courses.html'));
-});
+
 app.get('/english.pdf', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'temporary', 'english.pdf'));
 });
