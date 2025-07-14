@@ -289,14 +289,28 @@
         }
 
         .main-content {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+     padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: center; 
+            gap: 30px;
+            justify-items: center;
             animation: fadeIn 1.5s ease-in-out;
-        }
+            margin:0px 100px;
+ }
+ @media (max-width: 1100px){
+    .main-content{
 
+        grid-template-columns: repeat(2, 1fr);
+        margin:0px;
+    }
+ }
+ @media (max-width: 800px){
+    .main-content{
+
+        grid-template-columns: repeat(1, 1fr);
+    }
+ }
         .course-card {
             background: rgba(255, 255, 255, 0.15);
             /* translucent white */
@@ -635,12 +649,6 @@
         </div>
         <div class="course-card">
             <img src="https://via.placeholder.com/250x160" alt="Course Image">
-            <h3>Question Bank</h3>
-            <p>A collection of questions for quick practice and revision.</p>
-            <a href="/question-bank" class="view-btn">View More</a>
-        </div>
-        <div class="course-card">
-            <img src="https://via.placeholder.com/250x160" alt="Course Image">
             <h3>Practice Papers</h3>
             <p>A collection of previous year queastions for quick practice and revision.</p>
             <a href="/practice-paper" class="view-btn">View More</a>
@@ -656,6 +664,12 @@
             <h3>Videos</h3>
             <p>Video lecture will help you to understand the topic briefly</p>
             <a href="/videos" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/news.svg" alt="Course Image" style="width:85px">
+            <h3>News</h3>
+            <p>Stay updated with the latest announcements and academic news.</p>
+            <a href="/news" class="view-btn">View More</a>
         </div>
     </div>
     <footer class="footer">

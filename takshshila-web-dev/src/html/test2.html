@@ -9,34 +9,59 @@
     <style>
         .boxes {
             width: 80vw;
-            height: 30vh;
+            height: fit-content;
             border: 2px solid black;
             background-color: white;
-            margin: 4px auto;
+            margin: 30px auto;
         }
 
-        .inner_box {
+        .inner-box {
+            background-color: #56f000;
+            height: 100%;
+        }
 
+        .information {
             display: flex;
             flex-direction: row;
+            flex-wrap: wrap;
             gap: 60px;
-            background-color: #56f000;
-            /*height:71%;*/
-            position:relative;
-            top:100;
+            
+            align-items: center;
+            margin-bottom: 40px;
+            justify-content: space-evenly;
         }
 
+        .test-tab {
+            margin: 0px;
+            padding: 0px;
+        }
 
-            .headline {
-                text-align: center;
-                font-size: 1.2em;
-                color: #000000;
-                width: 100%;
-                padding: 10px 0px 10px 0px;
-                background-color: #FFD700;
-                margin: 10px 0px 0px 0px;
-                border-radius: 10px 10px 0px 0px;
-            }
+        .progress-container {
+            margin: 0;
+            width: 100%;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        .headline {
+            text-align: center;
+            color: #000000;
+            font-family: "Poppins", sans-serif;
+            width: 100%;
+            padding: 10px 0px 10px 0px;
+            background-color: #f6c90e;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin:0;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+        .font {
+            font-size: large;
+            font-family: "Roboto", sans-serif;
+            display: flex;
+            flex-direction: column;
+            row-gap: 30px;
+        }
     </style>
 </head>
 
@@ -169,29 +194,32 @@
     <main>
         <div class="boxes">
             <h2 class="headline">📊 Test Progress</h2>
-            <div class="inner_box">
-                <div>
-                    <button style="border: none;background: transparent;cursor: pointer;">
-                        <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                            width="70px" height="70px" class="circular-image" alt="profile">
-                    </button>
-                </div>
+            <div class="inner-box">
+
                 <div class="information">
-                    <div>Name&#58; <span>Sahil</span></div>
-                    <div>Class&#58;<span>7</span></div>
+                    <div class="test_profile">
+                        <button style="border: none;background: transparent;cursor: pointer;">
+                            <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                width="70px" height="70px" class="circular-image" alt="profile">
+                        </button>
+                    </div>
+                    <div class="personalInfo font">
+                        <div>Name&#58;<span class="name">Sahil</span></div>
+                        <div>Class&#58;<span class="class">7</span></div>
+                    </div>
+                    <div class="scores font">
+                        <div>Test&nbsp;Score&#58;<span class="test_score">10</span>&#47;<span>300</span></div>
+                        <div>Test&nbsp;Attempted&#58;<span class="test_attempted">2</span>&#47;<span>420</span></div>
+                    </div>
+                    <div class="progress font">
+                        <div>Percentage&#58;<span class="percentage">2</span>&#37;</div>
+                        <div>Points&#58;<span class="points">10</span></div>
+                    </div>
                 </div>
-                <div class="test">
-                    <div>Test&nbsp;Score&#58;<span>10</span>&#47;<span>300</span></div>
-                    <div>Test&nbsp;Attempted&#58;<span>2</span>&#47;<span>420</span></div>
-                </div>
-                <div class="over">
-                    <div>Percentage&#58;<span>2</span>&#37;</div>
-                    <div>Pointes&#58;<span>10</span></div>
-                </div>
-            </div>
-            <div class="test-tab">
-                <div class="progress-container">
-                    <div id="progress-bar" class="progress-bar">0% Complete</div>
+                <div class="test-tab">
+                    <div class="progress-container">
+                        <div id="progress-bar" class="progress-bar">0% Complete</div>
+                    </div>
                 </div>
             </div>
         </div>

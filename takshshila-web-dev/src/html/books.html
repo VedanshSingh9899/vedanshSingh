@@ -11,7 +11,7 @@
 
 <body>
     <header>
-<div class="header-decoration"></div>
+        <div class="header-decoration"></div>
         <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
@@ -21,7 +21,6 @@
         <div class="box" id="subMenu">
             <div class="basic-info">
                 <table class="sub-profile">
-
                     <tr>
                         <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none"
                                 onclick="off()">
@@ -130,87 +129,58 @@
 
     <nav>
         <a href="/">Home</a>
-        <a href="/videos">Videos</a>
+        <a href="/courses">Courses</a>
         <a href="/test-series">Test Series</a>
         <a href="/blogs">Blog</a>
         <a href="/contact">Contact Us</a>
     </nav>
+    <main>
+        <div class="filter-controls">
+            <div class="options">
+                <label>Class:</label>
+                <select id="classSelect">
+                    <option value="">--Select Class--</option>
+                    <option value="6">Class 6</option>
+                    <option value="7">Class 7</option>
+                    <option value="8">Class 8</option>
+                    <option value="9">Class 9</option>
+                    <option value="10">Class 10</option>
+                    <option value="11">Class 11</option>
+                    <option value="12">Class 12</option>
+                </select>
+            </div>
 
-    <div class="main-content">
-        <div class="Classes">
-            <label>Class:</label>
-            <select id="class">
-                <option>-Select Class-</option>
-                <option value="class 6">Class 6</option>
-                <option value="class 7">Class 7</option>
-                <!-- More options -->
-            </select>
+            <div class="options">
+                <label>Subject:</label>
+                <select id="subjectSelect" disabled>
+                    <option value="">--Select Subject--</option>
+                </select>
+            </div>
+
+            <div class="options">
+                <label>Language:</label>
+                <select id="languageSelect" disabled>
+                    <option value="">--Select Language--</option>
+                </select>
+            </div>
+
+            <div class="options">
+                <label>Chapters:</label>
+                <select id="chapterSelect" disabled>
+                    <option value="">--Select Chapter--</option>
+                </select>
+            </div>
+            <button id="filterBtn" class="butn">Filter</button>
         </div>
-
-        <div class="option">
-            <label>Subjects:</label>
-            <select id="subject">
-                <option value="">Select a subject</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
+        <div class="filter-results">
+            <div id="results" class="results-container"></div>
         </div>
-
-        <div class="language">
-            <label>Language:</label>
-            <select id="language">
-                <option value="">Select a language</option>
-                <option value="english">English</option>
-                <option value="hindi">Hindi</option>
-            </select>
-        </div>
-
-        <div class="Chapters">
-            <label>Chapters:</label>
-            <select id="chapter">
-                <option value="">Select a chapter</option>
-                <option value="chapter-1">Chapter 1</option>
-                <option value="chapter-2">Chapter 2</option>
-                <!-- More options -->
-            </select>
-        </div>
-
-        <button class="Butn" onclick="matchAndLoadPDF()">Filter</button>
-    </div>
-    <div id="filterResults">
-        <h3>Filter Results</h3>
-        <table class="books">
-            <tr>
-                <td>
-                    <div class="result-item" id="english">
-                        <a href="/english.pdf"><img src="loin.png" alt="Lion" width="200px"></a>
-                        <div class="result-title"><a class="links" href="/english.pdf">English - Chapter 1</a></div>
-                        <div class="result-details"> <a class="links" href="/english.pdf">Class 6 | English Medium | 15
-                                Pages</a> </div>
-                    </div>
-                <td>
-                    <div class="result-item" id="hindi">
-                        <a href="/hindi.pdf"><img src="loin.png" alt="Lion" width="200px" /></a>
-                        <div class="result-title"><a class="links" href="/hindi.pdf">Hindi - Chapter 1</a></div>
-                        <div class="result-details"> <a class="links" href="/hindi.pdf">Class 6 | Hindi Medium | 12
-                                Pages</a></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div class="pdf" id="pdfViewerContainer">
-            <object id="pdfViewer" data="" type="application/pdf" width="100%" height="100%">
-                <p>PDF viewer not available. <a href="#" id="pdfLink" class="Get">Download PDF instead</a></p>
-            </object>
-        </div>
-    </div>
-
+    </main>
     <footer class="footer">
         <button class="btn">Feedback</button>
         <p>&copy; 2025 Takshshila. All rights reserved.</p>
     </footer>
-    <script src="/javascript/Takshshila.js"></script>
+    <script src="/javascript/copy.js"></script>
 </body>
 
 </html>
-

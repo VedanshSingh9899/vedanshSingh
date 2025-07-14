@@ -220,7 +220,7 @@
         <p>Smart Learning for Classes 6–12</p>
       </div>
 
-      <form onsubmit="create_account(event)">
+      <form onsubmit="create_account(event)" method="post" action="/backend/user_login_tracking_php_files/signup.php" >
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" placeholder="Enter your first name" required />
 

@@ -107,28 +107,28 @@ function triggerProfileImageInput() {
   //test tab animation
     let currentProgress = 0; // Global tracking
 
-  function animateProgressBar(from, to) {
-    const bar = document.getElementById('progress-bar');
-    let value = from;
-    const increment = from < to ? 1 : -1;
+  // function animateProgressBar(from, to) {
+  //   const bar = document.getElementById('progress-bar');
+  //   let value = from;
+  //   const increment = from < to ? 1 : -1;
 
-    // Disable CSS transition temporarily
-    bar.style.transition = 'none';
+  //   // Disable CSS transition temporarily
+  //   bar.style.transition = 'none';
 
-    const interval = setInterval(() => {
-      value += increment;
-      bar.style.width = `${value}%`;
-      bar.textContent = `${value}% Complete`;
+  //   const interval = setInterval(() => {
+  //     value += increment;
+  //     bar.style.width = `${value}%`;
+  //     bar.textContent = `${value}% Complete`;
 
-      if ((increment > 0 && value >= to) || (increment < 0 && value <= to)) {
-        clearInterval(interval);
-        currentProgress = to;
+  //     if ((increment > 0 && value >= to) || (increment < 0 && value <= to)) {
+  //       clearInterval(interval);
+  //       currentProgress = to;
 
-        // Re-enable smooth transitions AFTER animation ends
-        bar.style.transition = 'width 0.7s ease-in-out';
-      }
-    }, 15); // speed: adjust if needed
-  }
+  //       // Re-enable smooth transitions AFTER animation ends
+  //       bar.style.transition = 'width 0.7s ease-in-out';
+  //     }
+  //   }, 15); // speed: adjust if needed
+  // }
 
   function calculateProgress() {
     const testItems = document.querySelectorAll('.test-item');
@@ -144,33 +144,33 @@ function triggerProfileImageInput() {
     return Math.round((attempted / testItems.length) * 100);
   }
 
-  function updateProgressIfNeeded() {
-    const newProgress = calculateProgress();
-    if (newProgress !== currentProgress) {
-      animateProgressBar(currentProgress, newProgress);
-    }
-  }
+//   function updateProgressIfNeeded() {
+//     const newProgress = calculateProgress();
+//     if (newProgress !== currentProgress) {
+//       animateProgressBar(currentProgress, newProgress);
+//     }
+//   }
 
-  // Initial progress load
-  currentProgress = calculateProgress();
-  animateProgressBar(0, currentProgress);
+//   // Initial progress load
+//   currentProgress = calculateProgress();
+//   animateProgressBar(0, currentProgress);
 
-  // MutationObserver to detect changes
-  const observer = new MutationObserver(updateProgressIfNeeded);
-  document.querySelectorAll('.test-item').forEach(item => {
-    observer.observe(item, {
-      attributes: true,
-      attributeFilter: ['data-marks']
-    });
-  });
+//   // MutationObserver to detect changes
+//   const observer = new MutationObserver(updateProgressIfNeeded);
+//   document.querySelectorAll('.test-item').forEach(item => {
+//     observer.observe(item, {
+//       attributes: true,
+//       attributeFilter: ['data-marks']
+//     });
+//   });
 
-  // Demo change
-  setTimeout(() => {
-    const test = document.querySelectorAll('.test-item')[1];
-    test.dataset.marks = "30";
-    test.querySelector(".marks").textContent = "30/60";
-  }, 3000);
-//this function is used in notes tab
+//   // Demo change
+//   setTimeout(() => {
+//     const test = document.querySelectorAll('.test-item')[1];
+//     test.dataset.marks = "30";
+//     test.querySelector(".marks").textContent = "30/60";
+//   }, 3000);
+// //this function is used in notes tab
 
 function matchAndLoadPDF() {
             const subject = document.getElementById('subject').value;
@@ -193,6 +193,126 @@ function matchAndLoadPDF() {
                 console.log("No matching result.");
             }
         }
+/*Books*/ 
+//for the Select the Class,Subject,language and Chapters
+        const classSelect = document.getElementById("classSelect");
+        const subjectSelect = document.getElementById("subjectSelect");
+        const languageSelect = document.getElementById("languageSelect");
+        const chapterSelect = document.getElementById("chapterSelect");
+        const filterBtn = document.getElementById("filterBtn");
+        const results = document.getElementById("results");
+
+        classSelect.addEventListener("change", () => {
+            const selectedClass = classSelect.value;
+            resetSelect(subjectSelect);
+            resetSelect(languageSelect);
+            resetSelect(chapterSelect);
+            disableSelects([subjectSelect, languageSelect, chapterSelect]);
+
+            if (bookData[selectedClass]) {
+                populateOptions(subjectSelect, Object.keys(bookData[selectedClass]));
+                subjectSelect.disabled = false;
+            }
+        });
+
+        subjectSelect.addEventListener("change", () => {
+            const selectedClass = classSelect.value;
+            const selectedSubject = subjectSelect.value;
+            resetSelect(languageSelect);
+            resetSelect(chapterSelect);
+            disableSelects([languageSelect, chapterSelect]);
+
+            if (bookData[selectedClass]?.[selectedSubject]) {
+                populateOptions(languageSelect, Object.keys(bookData[selectedClass][selectedSubject]));
+                languageSelect.disabled = false;
+            }
+        });
+
+        languageSelect.addEventListener("change", () => {
+            const selectedClass = classSelect.value;
+            const selectedSubject = subjectSelect.value;
+            const selectedLanguage = languageSelect.value;
+            resetSelect(chapterSelect);
+            chapterSelect.disabled = true;
+
+            if (bookData[selectedClass]?.[selectedSubject]?.[selectedLanguage]) {
+                populateOptions(chapterSelect, Object.keys(bookData[selectedClass][selectedSubject][selectedLanguage]));
+                chapterSelect.disabled = false;
+            }
+        });
+
+        filterBtn.addEventListener("click", () => {
+            const cls = classSelect.value;
+            const sub = subjectSelect.value;
+            const lang = languageSelect.value;
+            const ch = chapterSelect.value;
+
+            results.innerHTML = "<h4 class='books'>--Book Section--</h4>";
+            results.style.display = "flex";
+
+            if (!cls) {
+                results.innerHTML = "<p>Please select a class.</p>";
+                return;
+            }
+            if (!bookData[cls]) {
+    results.innerHTML = "<p>No data available for the selected class.</p>";
+    return;
+}
+
+            let pdfs = [];
+            const subjects = sub ? [sub] : Object.keys(bookData[cls]);
+
+            subjects.forEach(subject => {
+                const languages = lang ? [lang] : Object.keys(bookData[cls][subject] || {});
+                languages.forEach(language => {
+                    const chapters = ch
+                        ? [ch]
+                        : Object.keys(bookData[cls][subject]?.[language] || {});
+                    chapters.forEach(chapter => {
+                        const entry = bookData[cls][subject]?.[language]?.[chapter];
+                        if (entry) {
+                            if (typeof entry === "string") {
+                                pdfs.push({ subject, language, chapter, pdf: entry, image: "default.jpg" });
+                            } else if (typeof entry === "object") {
+                                pdfs.push({ subject, language, chapter, pdf: entry.pdf, image: entry.image });
+                            }
+                        }
+                    });
+                });
+            });
+
+            if (pdfs.length === 0) {
+                results.innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            pdfs.forEach(book => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+      <a class="photo" href="${book.pdf}" target="_blank">
+        <img src="${book.image}" alt="${book.chapter}" style="width: 100%; height:auto; margin-bottom:10px" />
+      </a>
+      <a class="subch" href="${book.pdf}" target="_blank">${book.subject} - ${book.chapter}</a>
+      <p class="lang">Language: ${book.language}</p>
+    `;
+                results.appendChild(card);
+            });
+        });
+
+        function resetSelect(selectElement) {
+            selectElement.innerHTML = '<option value="">Select</option>';
+        }
+
+        function populateOptions(selectElement, options) {
+            options.forEach(optText => {
+                const opt = document.createElement("option");
+                opt.value = optText;
+                opt.textContent = optText;
+                selectElement.appendChild(opt);
+            });
+        }
+
 function applyTheme() {
     const theme = localStorage.getItem('theme');
     if (theme === 'dark') {
