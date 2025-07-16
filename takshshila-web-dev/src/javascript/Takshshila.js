@@ -21,8 +21,29 @@ function edit_box_open() {
 }
 function myprofile() {
     subMenu.classList.toggle("open-menu");
+    // Animate profile image into popup
+    if (subMenu.classList.contains("open-menu")) {
+        subProfile.classList.add("pfp-move");
+        document.body.addEventListener("mousedown", closePopupOnOutsideClick);
+    } else {
+        subProfile.classList.remove("pfp-move");
+        document.body.removeEventListener("mousedown", closePopupOnOutsideClick);
+    }
     subProfile.classList.toggle("open-profile");
 }
+
+function closePopupOnOutsideClick(e) {
+    // If click is inside the popup or on the avatar icon, do nothing
+    const isInsidePopup = subMenu.contains(e.target);
+    const isAvatarIcon = e.target === subProfile || subProfile.contains(e.target);
+    if (!isInsidePopup && !isAvatarIcon) {
+        subMenu.classList.remove("open-menu");
+        subProfile.classList.remove("pfp-move");
+        subProfile.classList.remove("open-profile");
+        document.body.removeEventListener("mousedown", closePopupOnOutsideClick);
+    }
+}
+
 function editbtn() {
     // Get the input values using class selectors
     const newFirstName = document.querySelector('.first_name_input').value;

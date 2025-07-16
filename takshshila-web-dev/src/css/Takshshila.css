@@ -1,4 +1,4 @@
- body {
+body {
      font-family: 'Poppins', sans-serif;
      padding: 0;
      background-color: #f4f4f4;
@@ -8,8 +8,9 @@
  }
 
  .dark-mode {
-     background-color: #1a1a1a;
+     background-color: #1a1a1a(0, 0%, 0%);
      color: white;
+     background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
  }
 
  header {
@@ -80,7 +81,7 @@
 
  }
  .box {
-     background-color: rgba(241, 238, 238, 0.649);
+     background-color: rgba(241, 238, 238, 0.95);
      display: none;
      overflow: hidden;
      width: 350px;
@@ -89,14 +90,30 @@
      top: 55px;
      right: 45px;
      border-radius: 10px;
-     transition-duration: 0.5s;
-     z-index:2500;
-
+     opacity: 0;
+     transform: scale(0.7) translateY(-40px);
+     z-index: 2500;
+     transition: none;
  }
 
  .box.open-menu {
      display: block;
-     animation: fadeInDown 1s ease-in-out;
+     animation: popupZoomIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+ }
+
+ @keyframes popupZoomIn {
+     0% {
+         opacity: 0;
+         transform: scale(0.7) translateY(-40px);
+     }
+     60% {
+         opacity: 1;
+         transform: scale(1.05) translateY(0);
+     }
+     100% {
+         opacity: 1;
+         transform: scale(1) translateY(0);
+     }
  }
 
  .profile {
@@ -111,6 +128,7 @@
      z-index: 2000;
      transition-duration: 1s;
      transition-delay: 0.5s;
+     transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), right 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s, height 0.35s;
  }
 
  /*.profile.open-profile {
@@ -284,13 +302,15 @@
 
  .main-content {
      padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            justify-content: center; 
-            gap: 30px;
-            justify-items: center;
-            animation: fadeIn 1.5s ease-in-out;
-            margin:0px 100px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center; 
+    gap: 30px;
+    justify-items: center;
+    animation: fadeIn 1.5s ease-in-out;
+    margin:40px 100px;
+    background-color: #ffffff;
+
  }
  @media (max-width: 1100px){
     .main-content{
@@ -315,7 +335,7 @@
  } */
 
  .course-card {
-     background: rgba(255, 255, 255, 0.15);
+     background: rgb(255, 255, 255);
      /* translucent white */
      backdrop-filter: blur(15px);
      -webkit-backdrop-filter: blur(15px);
@@ -1052,7 +1072,87 @@
         .dark-mode .options:hover,
         .dark-mode .results-container,
         .dark-mode .results-container:hover {
-            background-color: #333;
+            background-color: #000000;
             color: white;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            
         }
+
+        /* Profile image morph animation */
+.profile {
+    transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), right 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s, height 0.35s;
+}
+
+.profile.pfp-move {
+    top: 75px; /* Adjust to match the position inside the popup */
+    right: 300px; /* Adjust to match the position inside the popup */
+    width: 40px;
+    height: 40px;
+    z-index: 2600;
+}
+
+/* Optionally, animate the image itself for a smoother effect */
+.profile.pfp-move img {
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    transition: border-radius 0.35s, box-shadow 0.35s;
+}
+
+.profile img {
+    border: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+.profile.pfp-move img,
+.profile.pfp-move:hover img,
+.profile.pfp-move:focus img {
+    box-shadow: 0 0 12px rgba(0,0,0,0.2) !important;
+    border: none !important;
+}
+
+.profile:hover img:not(.remove-green-ring),
+.profile:focus img:not(.remove-green-ring) {
+    box-shadow: 0 0 0 4px #39d353;
+    border: 2px solid #39d353;
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+.profile.pfp-move:hover img,
+.profile.pfp-move:focus img {
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    border: none;
+}
+
+/* Fix for green ring glitch: force remove hover ring when popup closes */
+.profile img.remove-green-ring {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2) !important;
+    border: none !important;
+}
+
+/* Fix for persistent green ring on pfp after popup closes */
+.profile img {
+    border: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+.profile.pfp-move img,
+.profile.pfp-move:hover img,
+.profile.pfp-move:focus img {
+    box-shadow: 0 0 12px rgba(0,0,0,0.2) !important;
+    border: none !important;
+}
+
+.profile:hover img:not(.remove-green-ring),
+.profile:focus img:not(.remove-green-ring) {
+    box-shadow: 0 0 0 4px #39d353;
+    border: 2px solid #39d353;
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+.profile.pfp-move:hover img,
+.profile.pfp-move:focus img {
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    border: none;
+}

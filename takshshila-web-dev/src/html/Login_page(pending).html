@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Takshshila - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+  background-color: #3e3d3d;
+  background-color: #000;
+  position: relative;
+  margin: 0;
+  font-family: sans-serif;
+  color: white;
+  z-index: 1;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('/waste\ files//login_bg.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.85; /* Adjust opacity here */
+  z-index: -1;
+}
+
+    :root {
+      --primary: #2f8f83;
+      --secondary: #3a7bd5;
+      --text-light: #f4fafd;
+      --text-dark: #1e2a3a;
+      --button-shadow: rgba(0, 0, 0, 0.15);
+      --active-color: #007bff;
+      --inactive-color: #6c757d;
+      --error: #ff6b6b;
+      --success: #44c877;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .login_box {
+       width: 33.3vw;
+      height: 96vh;
+      background: #000;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      margin: 14px 0px 12px 0px;
+      left: 65.4%;
+      border-radius: 35px;
+      transition: left 0.6s cubic-bezier(0.77,0,0.175,1); /* Smooth slide */
+    }
+
+    .login_box.signup-mode {
+      left: 1%;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .shape1 {
+      width: 200px;
+      height: 200px;
+      background: var(--primary);
+      top: -60px;
+      left: -60px;
+    }
+
+    .shape2 {
+      width: 150px;
+      height: 150px;
+      background: var(--secondary);
+      bottom: -40px;
+      right: -40px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .login-container {
+      background: rgba(0, 0, 0, 0.8);
+      color: var(--text-light);
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 400px;
+      position: relative;
+      z-index: 1;
+      animation: slideIn 1s ease forwards;
+      opacity: 0;
+      margin: 25px;
+      /*transition-timing-function: */
+      transition-duration: 3s;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      flex-shrink: 0;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* FIXED BUTTON GROUP STYLES */
+    .button-container {
+      display: flex;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 4px;
+      position: relative;
+      margin: 0 auto 2rem;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .toggle-button {
+      padding: 10px 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 500;
+      position: relative;
+      z-index: 2;
+      border-radius: 30px;
+      color: var(--inactive-color);
+      transition: color 0.3s ease;
+      flex: 1;
+      text-align: center;
+    }
+    .toggle-button.active {
+      color: white;
+    }
+
+    .slider {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      height: calc(100% - 8px);
+      background-color: var(--active-color);
+      border-radius: 30px;
+      z-index: 1;
+      transition: transform 0.6s cubic-bezier(0.77,0,0.175,1);
+      width: calc(50% - 4px);
+      /* Add will-change for smoother animation */
+      will-change: transform;
+    }
+
+    .slider.login-active {
+      transform: translateX(0);
+    }
+    .slider.signup-active {
+      transform: translateX(calc(100% + 4px)); /* Only move right, not down */
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo p {
+      color: #ffffff;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: #ddfdf0;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 0.75rem 40px 0.75rem 15px;
+      border: 1px solid rgba(58, 123, 213, 0.5);
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      background-color: rgba(27, 47, 36, 0.7);
+      color: #eafff6;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #7cffc1;
+      box-shadow: 0 0 0 2px rgba(124, 255, 193, 0.2);
+    }
+
+
+    .toggle-password {
+      
+      transform: translateY(60%);
+      background: none;
+      border: none;
+      color: #82e9d2;
+      cursor: pointer;
+      font-size: 0.85rem;
+      position: absolute;
+      right: 79px;
+    }
+
+    .login-btn, .signup-btn {
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #44c877, #3a7bd5);
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px var(--button-shadow);
+      transition: 0.3s;
+      font-weight: 600;
+      /*margin-top: 10px;
+      text-align: center;*/
+      width:218px;
+      margin:10px auto;
+    }
+
+    .login-btn:hover, .signup-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .back-btn {
+      background: transparent;
+      border: none;
+      color: #82e9d2;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+    margin-top: 13px;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn i {
+      margin-right: 5px;
+    }
+    
+    .back-btn:hover {
+      color: #7cffc1;
+    }
+
+    .extra-links {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .extra-links a {
+      color: #82e9d2;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
+    }
+
+    .extra-links a:hover {
+      text-decoration: underline;
+      opacity: 0.9;
+    }
+        .form-header {
+        display:flex;
+        justify-content:center;
+       margin-bottom: 20px;
+    }
+
+
+    .form-group {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 3%;
+      width: 100%;
+      transition: opacity 0.5s cubic-bezier(0.77,0,0.175,1);
+      animation: none;
+    }
+    .form-group.active {
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+      animation: fadeIn 0.5s cubic-bezier(0.77,0,0.175,1);
+    }
+    .fade-content {
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.77,0,0.175,1);
+    }
+    .form-group.active .fade-content {
+      opacity: 1;
+      transition-delay: 0.5s;
+    }
+    .toggle-password:hover {
+      color: #7cffc1;
+    }
+    .password-strength {
+      height: 5px;
+      border-radius: 5px;
+      margin-top: 5px;
+      background: #333;
+      overflow: hidden;
+      position: relative;
+      display: none;
+    }
+    
+    .password-strength::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--error);
+      transition: width 0.3s ease;
+    }
+    
+    .password-strength.weak::before {
+      width: 30%;
+      background: var(--error);
+    }
+    
+    .password-strength.medium::before {
+      width: 60%;
+      background: #ffc107;
+    }
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      display: none;
+    }
+    
+    .password-strength.strong::before {
+      width: 100%;
+      background: var(--success);
+    }
+    .password-rules {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-top: 5px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .login-container {
+        padding: 1.5rem;
+      }
+      
+      .login_box {
+        max-width: 100%;
+        border-radius: 25px;
+      }
+      
+      .button-container {
+        max-width: 100%;
+      }
+      
+      .logo h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 1.2rem;
+        margin: 15px;
+      }
+      
+      .toggle-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .logo h1 {
+        font-size: 1.6rem;
+      }
+    }
+    #create_login{
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login_box">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    
+    <div class="login-container" id="login-container">
+      <!-- Fixed Button Group -->
+      
+      <div class="logo">
+        <div class="button-container">
+          <div class="slider login-active"></div>
+          <button class="toggle-button active" onclick="activateButton('login')">Login</button>
+          <button class="toggle-button" onclick="activateButton('signup')">Signup</button>
+        </div>
+        <h1>Takshshila</h1>
+        <p>Smart Learning for Classes 6–12</p>
+      </div>
+      
+      <!-- Login Form -->
+      <form id="login" class="form-group active">
+        <label for="username" class="fade-content">Username</label>
+        <div class="input-group">
+          <input type="text" id="username" class="fade-content" placeholder="Enter your username" required />
+        </div>
+        <label for="password" class="fade-content">Password</label>
+        <div class="input-group">
+          <input type="password" id="password" class="fade-content" placeholder="Enter your password" required />
+          <button type="button" class="toggle-password fade-content" onclick="togglePassword('password')">
+            <i class="fas fa-eye"></i>
+          </button>
+        </div>
+        <button type="submit" class="login-btn fade-content" onclick="login_btn(event)">Login</button>
+        <div class="extra-links fade-content">
+          <p><a href="#">Forgot Password?</a></p>
+        </div>
+      </form>
+      <!-- Signup Form -->
+      <form id="sign_up" class="form-group" onsubmit="create_account(event)">
+        <label for="firstName" class="fade-content">First Name</label>
+        <div class="input-group">
+          <input type="text" id="firstName" class="fade-content" placeholder="Enter your first name" required />
+        </div>
+        <label for="lastName" class="fade-content">Last Name</label>
+        <div class="input-group">
+          <input type="text" id="lastName" class="fade-content" placeholder="Enter your last name" required />
+        </div>
+        <label for="email" class="fade-content">Email ID</label>
+        <div class="input-group">
+          <input type="email" id="email" class="fade-content" placeholder="Enter your email" required />
+        </div>
+        <label for="phone" class="fade-content">Phone Number</label>
+        <div class="input-group">
+          <input type="tel" id="phone" class="fade-content" placeholder="Enter your phone number" required />
+        </div>
+        <button type="submit" class="signup-btn fade-content" onclick="continue_btn()">Continue <i class="fas fa-arrow-right"></i></button>
+      </form>
+      <form id="create_login" class="form-step">
+        <div class="form-header">
+          <h2>Profile Details</h2>
+        </div>
+        <div class="input-container">
+          <label for="newUsername">Username</label>
+          <input type="text" id="newUsername" placeholder="Choose a username" required />
+          <div class="error-message" id="new-username-error"></div>
+        </div>
+        
+        <div class="input-container">
+          <label for="newPassword">Password</label>
+          <div class="password-field">
+            <input type="password" id="newPassword" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)" />
+            <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-strength" id="password-strength"></div>
+          <div class="password-rules" id="password-rules">
+            Password must contain at least 8 characters, including uppercase, lowercase, and a number
+          </div>
+          <div class="error-message" id="new-password-error"></div>
+        </div>
+        
+        <div class="input-container">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="password-field">
+            <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="error-message" id="confirm-password-error"></div>
+        </div>
+
+        <button type="button" class="signup-btn" onClick="createAccount()">
+          Create Profile
+        </button>
+          <button class="back-btn" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Fixed activateButton function
+    function activateButton(buttonType) {
+  const slider = document.querySelector('.slider');
+  const loginButton = document.querySelector('.toggle-button:nth-child(2)');
+  const signupButton = document.querySelector('.toggle-button:nth-child(3)');
+  const loginForm = document.getElementById('login');
+  const signupForm = document.getElementById('sign_up');
+  const login_box = document.querySelector('.login_box');
+  const create = document.getElementById('create_login');
+
+  if (buttonType === 'login') {
+    slider.classList.remove('signup-active');
+    slider.classList.add('login-active');
+    loginButton.classList.add('active');
+    signupButton.classList.remove('active');
+    loginForm.classList.add('active');
+    signupForm.classList.remove('active');
+    login_box.classList.remove('signup-mode');
+    create.style.display = 'none';
+    signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
+    loginForm.style.display = 'block';  // <-- Always show login form
+  } else {
+    slider.classList.remove('login-active');
+    slider.classList.add('signup-active');
+    signupButton.classList.add('active');
+    loginButton.classList.remove('active');
+    signupForm.classList.add('active');
+    loginForm.classList.remove('active');
+    login_box.classList.add('signup-mode');
+    signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
+    create.style.display = 'none';      // <-- Always hide create profile step
+    loginForm.style.display = 'block';  // <-- Always show login form
+  }
+}
+    
+    function login_btn(event) {
+      event.preventDefault();
+      let username = document.getElementById("username").value;
+      let password = document.getElementById("password").value;
+      
+      if (!username || !password) {
+        alert("Please fill in all fields");
+        return;
+      }
+      
+      console.log("Login attempt with:", { username, password });
+      alert("Login functionality would be implemented here");
+    }
+    
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      const icon = input.nextElementSibling.querySelector('i');
+      
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = "password";
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+    
+    function create_account(event) {
+      event.preventDefault();
+      
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const signupForm = document.getElementById('sign_up');
+      const create = document.getElementById('create_login');
+      
+      if (!firstName || !lastName || !email || !phone) {
+        alert('Please fill out all fields.');
+        return;
+      }
+      
+      console.log("Account creation attempt:", { firstName, lastName, email, phone });
+      create.style.display='block';
+      signupForm.style.display='none';
+      
+    }
+    function goToStep1(){
+      const signupForm = document.getElementById('sign_up');
+      const create = document.getElementById('create_login');
+      create.style.display='none';
+      signupForm.style.display='block';
+    }
+    function checkPasswordStrength(password) {
+      const strengthBar = document.getElementById('password-strength');
+      const rules = document.getElementById('password-rules');
+      
+      if (password.length === 0) {
+        strengthBar.style.display = 'none';
+        rules.style.display = 'none';
+        return;
+      }
+      
+      rules.style.display = 'block';
+      strengthBar.style.display = 'block';
+      
+      let strength = 0;
+      
+      // Check password length
+      if (password.length >= 8) strength += 1;
+      
+      // Check for uppercase letters
+      if (/[A-Z]/.test(password)) strength += 1;
+      
+      // Check for lowercase letters
+      if (/[a-z]/.test(password)) strength += 1;
+      
+      // Check for numbers
+      if (/\d/.test(password)) strength += 1;
+      
+      // Check for special characters
+      if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+      
+      // Update strength bar
+      strengthBar.className = 'password-strength';
+      
+      if (strength < 2) {
+        strengthBar.classList.add('weak');
+      } else if (strength < 4) {
+        strengthBar.classList.add('medium');
+      } else {
+        strengthBar.classList.add('strong');
+      }
+    }
+  </script>
+</body>
+</html>
