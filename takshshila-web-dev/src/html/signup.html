@@ -220,7 +220,7 @@
         <p>Smart Learning for Classes 6–12</p>
       </div>
 
-      <form onsubmit="create_account(event)" method="post" action="/backend/user_login_tracking_php_files/signup.php" >
+      <form id="signupForm">
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" placeholder="Enter your first name" required />
 
@@ -270,38 +270,57 @@
       }
     }
 
-    function create_account(event){
+    document.getElementById('signupForm').addEventListener('submit', async function(event) {
       event.preventDefault();
-
-      let first_name = document.querySelector("#firstName").value.trim();
-      let last_name = document.querySelector("#lastName").value.trim();
-      let email = document.querySelector("#email").value.trim();
-      let username = document.querySelector("#username").value.trim();
-      let phone = document.querySelector("#phone").value.trim();
-      let password = document.querySelector("#password").value;
-      let confirm_password = document.querySelector("#confirmPassword").value;
+      let first_name = document.getElementById('firstName').value.trim();
+      let last_name = document.getElementById('lastName').value.trim();
+      let email = document.getElementById('email').value.trim();
+      let username = document.getElementById('username').value.trim();
+      let phone = document.getElementById('phone').value.trim();
+      let password = document.getElementById('password').value;
+      let confirm_password = document.getElementById('confirmPassword').value;
 
       if (!first_name || !last_name || !email || !username || !phone || !password || !confirm_password) {
         alert('Please fill out all fields.');
         return;
       }
-
       if (password !== confirm_password) {
         alert('Passwords do not match!');
         return;
       }
 
-      console.log("User Info:", {
-        first_name,
-        last_name,
-        email,
-        username,
-        phone,
-        password
-      });
+      const formData = new FormData();
+      formData.append('first_name', first_name);
+      formData.append('last_name', last_name);
+      formData.append('email', email);
+      formData.append('username', username);
+      formData.append('ph_number', phone);
+      formData.append('password', password);
 
-      alert("Account created successfully!");
-    }
+      try {
+        const response = await fetch('signup.php', {
+          method: 'POST',
+          body: formData,
+          credentials: 'same-origin'
+        });
+        const text = await response.text();
+        console.log('Raw signup.php response:', text);
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          alert('Server error: ' + text);
+          return;
+        }
+        if (data.success) {
+          window.location.href = 'Homes.html';
+        } else {
+          alert(data.error || 'Signup failed');
+        }
+      } catch (err) {
+        alert('An error occurred. Please try again.');
+      }
+    });
   </script>
 
 </body>
