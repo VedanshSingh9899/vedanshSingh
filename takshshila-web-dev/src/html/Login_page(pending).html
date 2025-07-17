@@ -21,7 +21,7 @@ body::before {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('/src/images/login_bg.png');
+  background-image: url('/waste\ files//login_bg.png');
   background-size: cover;
   background-position: center;
   opacity: 0.85; /* Adjust opacity here */
@@ -196,13 +196,16 @@ body::before {
 
     label {
       font-size: 0.95rem;
-      margin-bottom: 0.5rem;
       color: #ddfdf0;
+      position: relative;
+      bottom: 20px;
+      top:1px;
+
     }
 
     .input-group {
       position: relative;
-      margin-bottom: 1.5rem;
+      margin-bottom: 10px;
     }
 
     input[type="text"],
@@ -218,6 +221,9 @@ body::before {
       background-color: rgba(27, 47, 36, 0.7);
       color: #eafff6;
       transition: border-color 0.3s ease;
+      min-width:253px;
+      margin-bottom:0px;
+      margin-top:10px;
     }
 
     input:focus {
@@ -227,16 +233,19 @@ body::before {
 
 
     .toggle-password {
-      
       transform: translateY(60%);
-      background: none;
-      border: none;
-      color: #82e9d2;
-      cursor: pointer;
-      font-size: 0.85rem;
-      position: absolute;
-      right: 79px;
-    }
+    background: none;
+    border: none;
+    color: #82e9d2;
+    cursor: pointer;
+    font-size: 0.85rem;
+    position: relative;
+    
+    left: 87%;
+    bottom: 50px;
+}
+      
+    
 
     .login-btn, .signup-btn {
       padding: 0.9rem;
@@ -249,10 +258,9 @@ body::before {
       box-shadow: 0 6px 12px var(--button-shadow);
       transition: 0.3s;
       font-weight: 600;
-      /*margin-top: 10px;
-      text-align: center;*/
-      width:218px;
-      margin:10px auto;
+      width:100%;
+      /*margin-top:5px;*/
+      /*margin:5px;*/
     }
 
     .login-btn:hover, .signup-btn:hover {
@@ -268,12 +276,13 @@ body::before {
       display: flex;
       align-items: center;
       margin: 0 auto;
-    margin-top: 13px;
+      margin-top: 13px;
       transition: all 0.3s ease;
     }
     
     .back-btn i {
       margin-right: 5px;
+      margin-top:10px;
     }
     
     .back-btn:hover {
@@ -302,8 +311,6 @@ body::before {
         justify-content:center;
        margin-bottom: 20px;
     }
-
-
     .form-group {
       opacity: 0;
       pointer-events: none;
@@ -311,6 +318,7 @@ body::before {
       top: 0;
       left: 3%;
       width: 100%;
+      min-width:255px;
       transition: opacity 0.5s cubic-bezier(0.77,0,0.175,1);
       animation: none;
     }
@@ -331,6 +339,22 @@ body::before {
     .toggle-password:hover {
       color: #7cffc1;
     }
+    .error-message {
+      color: var(--error);
+      font-size: 0.8rem;
+      margin-top: -12px;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .success-message {
+      background: var(--success);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      text-align: center;
+      display: none;
+    }
     .password-strength {
       height: 5px;
       border-radius: 5px;
@@ -340,6 +364,7 @@ body::before {
       position: relative;
       display: none;
     }
+    
     
     .password-strength::before {
       content: '';
@@ -380,6 +405,21 @@ body::before {
       color: #aaa;
       margin-top: 5px;
       display: none;
+    }
+    #forgot_password{
+        display: none;
+    }
+    .forgot_btn{
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+    }
+    .iemail{
+        display:flex;
+        align-items: center;
+    }
+    .iemail i{
+        margin-right:10px;
     }
 
     @keyframes fadeIn {
@@ -434,6 +474,7 @@ body::before {
     <div class="shape shape2"></div>
     
     <div class="login-container" id="login-container">
+        <div class="success-message" id="success-message"></div>
       <!-- Fixed Button Group -->
       
       <div class="logo">
@@ -450,39 +491,39 @@ body::before {
       <form id="login" class="form-group active">
         <label for="username" class="fade-content">Username</label>
         <div class="input-group">
-          <input type="text" id="username" class="fade-content" placeholder="Enter your username" required />
+          <input type="text" id="username" class="fade-content" name="username" placeholder="Enter your username" required />
         </div>
         <label for="password" class="fade-content">Password</label>
         <div class="input-group">
-          <input type="password" id="password" class="fade-content" placeholder="Enter your password" required />
-          <button type="button" class="toggle-password fade-content" onclick="togglePassword('password')">
+          <input type="password" id="password" name="password" class="fade-content" placeholder="Enter your password" required />
+          <button type="button" class="toggle-password main fade-content" onclick="togglePassword('password')">
             <i class="fas fa-eye"></i>
           </button>
         </div>
         <button type="submit" class="login-btn fade-content" onclick="login_btn(event)">Login</button>
         <div class="extra-links fade-content">
-          <p><a href="#">Forgot Password?</a></p>
+          <p><a class="forgot_btn" onclick='forgot()'>Forgot Password?</a></p>
         </div>
       </form>
       <!-- Signup Form -->
       <form id="sign_up" class="form-group" onsubmit="create_account(event)">
         <label for="firstName" class="fade-content">First Name</label>
         <div class="input-group">
-          <input type="text" id="firstName" class="fade-content" placeholder="Enter your first name" required />
+          <input type="text" id="firstName" name="firstName" class="fade-content" placeholder="Enter your first name" required />
         </div>
         <label for="lastName" class="fade-content">Last Name</label>
         <div class="input-group">
-          <input type="text" id="lastName" class="fade-content" placeholder="Enter your last name" required />
+          <input type="text" name="lastName" id="lastName" class="fade-content" placeholder="Enter your last name" required />
         </div>
         <label for="email" class="fade-content">Email ID</label>
         <div class="input-group">
-          <input type="email" id="email" class="fade-content" placeholder="Enter your email" required />
+          <input type="email" id="email" name="email" class="fade-content" placeholder="Enter your email" required />
         </div>
         <label for="phone" class="fade-content">Phone Number</label>
         <div class="input-group">
-          <input type="tel" id="phone" class="fade-content" placeholder="Enter your phone number" required />
+          <input type="tel" id="phone" class="phone" class="fade-content" placeholder="Enter your phone number" required />
         </div>
-        <button type="submit" class="signup-btn fade-content" onclick="continue_btn()">Continue <i class="fas fa-arrow-right"></i></button>
+        <button type="submit" class="signup-btn fade-content">Continue <i class="fas fa-arrow-right"></i></button>
       </form>
       <form id="create_login" class="form-step">
         <div class="form-header">
@@ -490,14 +531,14 @@ body::before {
         </div>
         <div class="input-container">
           <label for="newUsername">Username</label>
-          <input type="text" id="newUsername" placeholder="Choose a username" required />
+          <input type="text" id="newUsername" placeholder="Choose a username" name="username" required />
           <div class="error-message" id="new-username-error"></div>
         </div>
         
         <div class="input-container">
           <label for="newPassword">Password</label>
           <div class="password-field">
-            <input type="password" id="newPassword" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)" />
+            <input type="password" id="newPassword" name="password" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)" />
             <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
               <i class="fas fa-eye"></i>
             </button>
@@ -512,24 +553,142 @@ body::before {
         <div class="input-container">
           <label for="confirmPassword">Confirm Password</label>
           <div class="password-field">
-            <input type="password" id="confirmPassword" placeholder="Confirm your password" required />
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required />
             <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
               <i class="fas fa-eye"></i>
             </button>
           </div>
           <div class="error-message" id="confirm-password-error"></div>
         </div>
-
-        <button type="button" class="signup-btn" onClick="createAccount()">
-          Create Profile
-        </button>
+        <button type="submit" class="signup-btn" onclick="createAccount()">Create Profile</button>
           <button class="back-btn" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
+      </form>
+      <!-- Forgot Password Form -->
+      <form id="forgot_password" class="form-step">
+        <div class="form-header">
+          <h2>Reset Password</h2>
+        </div>
+        
+        <div class="input-container">
+          <label class="iemail" for="resetEmail"><i class="fas fa-envelope"></i>Email Address</label>
+          <input type="email" id="resetEmail" placeholder="Enter your email" required />
+          <div class="error-message" id="reset-email-error"></div>
+        </div>
+        
+        <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">
+          Enter your email address and we'll send you a link to reset your password.
+        </p>
+
+        <button type="button" class="signup-btn" onClick="sendResetLink()">
+          <i class="fas fa-paper-plane"></i>Send Reset Link
+        </button>
+        <button class="back-btn" onclick="loginReturn()">
+            <i class="fas fa-arrow-left"></i>Back
+          </button>
       </form>
     </div>
   </div>
   
   <script>
-    // Fixed activateButton function
+    const successMessage = document.getElementById("success-message");
+    const forgotForm=document.getElementById('forgot_password');
+    function forgot(){
+        const loginForm = document.getElementById('login');
+        loginForm.style.display='none';
+        forgotForm.style.display='block';
+        forgotForm.style.transition='opacity 0.5s cubic-bezier(0.77,0,0.175,1)';
+        forgotForm.style.animation='fadeIn 0.5s cubic-bezier(0.77,0,0.175,1)';
+    }
+    function sendResetLink() {
+
+      const email = document.getElementById("resetEmail").value.trim();
+      const element = document.getElementById("reset-email-error");
+      if (!email || !validateEmail(email)) {
+      element.textContent = "Please enter a valid email address";
+      element.style.display = 'block';
+        return;
+      }
+      
+      element.style.display = 'none';
+      console.log("Password reset requested for:", email);
+      successMessage.textContent = "Password reset link sent to your email!";
+      successMessage.style.display = 'block';
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+      
+      // Simulate sending email
+      setTimeout(() => {
+        window.location.reload();
+        /*loginReturn();*/
+      }, 3000);
+    }
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+    function showError(elementId, message) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.style.display = 'block';
+    }
+    function hideError(elementId) {
+      const element = document.getElementById(elementId);
+      element.style.display = 'none';
+    }
+    function createAccount() {
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      
+      let valid = true;
+      
+      if (!username) {
+        showError("new-username-error", "Username is required");
+        valid = false;
+      } else {
+        hideError("new-username-error");
+      }
+      
+      if (!password) {
+        showError("new-password-error", "Password is required");
+        valid = false;
+      } else if (password.length < 8) {
+        showError("new-password-error", "Password must be at least 8 characters");
+        valid = false;
+      } else {
+        hideError("new-password-error");
+      }
+      
+      if (!confirmPassword) {
+        showError("confirm-password-error", "Please confirm your password");
+        valid = false;
+      } else if (password !== confirmPassword) {
+        showError("confirm-password-error", "Passwords do not match");
+        valid = false;
+      } else {
+        hideError("confirm-password-error");
+      }
+      
+      if (valid) {
+        console.log("Account created for:", { username, password });
+        showSuccess("Account created successfully! Redirecting to login...");
+        successMessage.textContent = "Account created successfully! Redirecting to login...";
+        successMessage.style.display = 'block';
+      
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+        
+        // Simulate account creation
+    }
+    }
+    function loginReturn(){
+        const forgotForm=document.getElementById('forgot_password');
+        const loginForm = document.getElementById('login');
+        loginForm.style.display='block';
+        forgotForm.style.display='none';
+    }
     function activateButton(buttonType) {
   const slider = document.querySelector('.slider');
   const loginButton = document.querySelector('.toggle-button:nth-child(2)');
@@ -538,6 +697,7 @@ body::before {
   const signupForm = document.getElementById('sign_up');
   const login_box = document.querySelector('.login_box');
   const create = document.getElementById('create_login');
+  const forgotForm=document.getElementById('forgot_password');
 
   if (buttonType === 'login') {
     slider.classList.remove('signup-active');
@@ -550,6 +710,7 @@ body::before {
     create.style.display = 'none';
     signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
     loginForm.style.display = 'block';  // <-- Always show login form
+    forgotForm.style.display='none';
   } else {
     slider.classList.remove('login-active');
     slider.classList.add('signup-active');
@@ -561,6 +722,7 @@ body::before {
     signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
     create.style.display = 'none';      // <-- Always hide create profile step
     loginForm.style.display = 'block';  // <-- Always show login form
+    forgotForm.style.display='none';
   }
 }
     
