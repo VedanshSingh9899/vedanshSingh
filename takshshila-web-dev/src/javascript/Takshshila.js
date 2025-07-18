@@ -333,6 +333,47 @@ function matchAndLoadPDF() {
                 selectElement.appendChild(opt);
             });
         }
+        /* blog tab*/ 
+        // Add animations when page scrolls
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards when they come into view
+            const cards = document.querySelectorAll('.blog-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'cardEntrance 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Add hover effect to cards
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                    card.style.boxShadow = '0 15px 40px rgba(67, 97, 238, 0.2)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                    card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+                });
+            });
+            
+            // Add newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input').value;
+                alert(`Thank you for subscribing with ${email}! You'll receive our next newsletter soon.`);
+                this.reset();
+            });
+        });
 
 function applyTheme() {
     const theme = localStorage.getItem('theme');
