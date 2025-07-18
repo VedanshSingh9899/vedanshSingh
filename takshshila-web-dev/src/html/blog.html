@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Takshshila</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/css/Takshshila.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Takshshila</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/Takshshila.css">
 </head>
+
 <body>
-  <header>
-    <div class="header-decoration"></div>
+    <header>
+        <div class="header-decoration"></div>
         <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
@@ -124,26 +126,76 @@
                 </tr>
             </table>
         </div>
-  </header>
+    </header>
 
-<nav>
+    <nav>
         <a href="/">Home</a>
         <a href="/videos">Videos</a>
         <a href="/test-series">Test Series</a>
         <a href="/blogs">Blog</a>
         <a href="/contact">Contact Us</a>
     </nav>
-<main>
-    <div>
-        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">Welcome in blog section</p>
-        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">We will add blog soon in this  blog section</p>
-    </div>
-</main>
-
-  <footer class="footer">
-    <button class="btn">Feedback</button>
-    <p>&copy; 2025 Takshshila. All rights reserved.</p>
-  </footer>
-  <script src="/javascript/Takshshila.js"></script>
+    <main>
+        <div class=" filter-controls">
+            <div class="options">
+                <label>Blogs:</label>
+                <select id="subjectSelect">
+                    <option value="">--Select Blogs--</option>
+                </select>
+            </div>
+            <div class="options">
+                <label>Types:</label>
+                <select id="subjectSelect">
+                    <option value="">--Select Types--</option>
+                </select>
+            </div>
+            <button id="filterBtn" class="butn">Filter</button>
+        </div>
+        <div class ="main-content">
+            <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <button class="btn">Feedback</button>
+        <p>&copy; 2025 Takshshila. All rights reserved.</p>
+    </footer>
+    <script src="/javascript/Takshshila.js"></script>
 </body>
+
 </html>
