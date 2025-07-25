@@ -21,7 +21,7 @@ body::before {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('/waste\ files//login_bg.png');
+  background-image: url('/src/images/login_bg.png');
   background-size: cover;
   background-position: center;
   opacity: 0.85; /* Adjust opacity here */
@@ -240,9 +240,8 @@ body::before {
     cursor: pointer;
     font-size: 0.85rem;
     position: relative;
-    
-    left: 87%;
-    bottom: 50px;
+    left: 89%;
+    bottom: 48px;
 }
       
     
@@ -472,11 +471,8 @@ body::before {
   <div class="login_box">
     <div class="shape shape1"></div>
     <div class="shape shape2"></div>
-    
     <div class="login-container" id="login-container">
-        <div class="success-message" id="success-message"></div>
-      <!-- Fixed Button Group -->
-      
+      <div class="success-message" id="success-message"></div>
       <div class="logo">
         <div class="button-container">
           <div class="slider login-active"></div>
@@ -486,7 +482,6 @@ body::before {
         <h1>Takshshila</h1>
         <p>Smart Learning for Classes 6–12</p>
       </div>
-      
       <!-- Login Form -->
       <form id="login" class="form-group active">
         <label for="username" class="fade-content">Username</label>
@@ -521,10 +516,11 @@ body::before {
         </div>
         <label for="phone" class="fade-content">Phone Number</label>
         <div class="input-group">
-          <input type="tel" id="phone" class="phone" class="fade-content" placeholder="Enter your phone number" required />
+          <input type="tel" id="phone" class="phone fade-content" placeholder="Enter your phone number" required />
         </div>
         <button type="submit" class="signup-btn fade-content">Continue <i class="fas fa-arrow-right"></i></button>
       </form>
+      <!-- Profile Details Form -->
       <form id="create_login" class="form-step">
         <div class="form-header">
           <h2>Profile Details</h2>
@@ -534,7 +530,6 @@ body::before {
           <input type="text" id="newUsername" placeholder="Choose a username" name="username" required />
           <div class="error-message" id="new-username-error"></div>
         </div>
-        
         <div class="input-container">
           <label for="newPassword">Password</label>
           <div class="password-field">
@@ -549,7 +544,6 @@ body::before {
           </div>
           <div class="error-message" id="new-password-error"></div>
         </div>
-        
         <div class="input-container">
           <label for="confirmPassword">Confirm Password</label>
           <div class="password-field">
@@ -560,67 +554,57 @@ body::before {
           </div>
           <div class="error-message" id="confirm-password-error"></div>
         </div>
-        <button type="submit" class="signup-btn" onclick="createAccount()">Create Profile</button>
-          <button class="back-btn" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
+        <button type="submit" class="signup-btn" onclick="createAccount(event)">Create Profile</button>
+        <button class="back-btn" type="button" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
       </form>
       <!-- Forgot Password Form -->
       <form id="forgot_password" class="form-step">
         <div class="form-header">
           <h2>Reset Password</h2>
         </div>
-        
         <div class="input-container">
           <label class="iemail" for="resetEmail"><i class="fas fa-envelope"></i>Email Address</label>
           <input type="email" id="resetEmail" placeholder="Enter your email" required />
           <div class="error-message" id="reset-email-error"></div>
         </div>
-        
         <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">
           Enter your email address and we'll send you a link to reset your password.
         </p>
-
         <button type="button" class="signup-btn" onClick="sendResetLink()">
           <i class="fas fa-paper-plane"></i>Send Reset Link
         </button>
-        <button class="back-btn" onclick="loginReturn()">
-            <i class="fas fa-arrow-left"></i>Back
-          </button>
+        <button class="back-btn" type="button" onclick="loginReturn()">
+          <i class="fas fa-arrow-left"></i>Back
+        </button>
       </form>
     </div>
   </div>
-  
   <script>
     const successMessage = document.getElementById("success-message");
-    const forgotForm=document.getElementById('forgot_password');
-    function forgot(){
-        const loginForm = document.getElementById('login');
-        loginForm.style.display='none';
-        forgotForm.style.display='block';
-        forgotForm.style.transition='opacity 0.5s cubic-bezier(0.77,0,0.175,1)';
-        forgotForm.style.animation='fadeIn 0.5s cubic-bezier(0.77,0,0.175,1)';
+    const forgotForm = document.getElementById('forgot_password');
+    function forgot() {
+      const loginForm = document.getElementById('login');
+      loginForm.style.display = 'none';
+      forgotForm.style.display = 'block';
+      forgotForm.style.transition = 'opacity 0.5s cubic-bezier(0.77,0,0.175,1)';
+      forgotForm.style.animation = 'fadeIn 0.5s cubic-bezier(0.77,0,0.175,1)';
     }
     function sendResetLink() {
-
       const email = document.getElementById("resetEmail").value.trim();
       const element = document.getElementById("reset-email-error");
       if (!email || !validateEmail(email)) {
-      element.textContent = "Please enter a valid email address";
-      element.style.display = 'block';
+        element.textContent = "Please enter a valid email address";
+        element.style.display = 'block';
         return;
       }
-      
       element.style.display = 'none';
-      console.log("Password reset requested for:", email);
       successMessage.textContent = "Password reset link sent to your email!";
       successMessage.style.display = 'block';
       setTimeout(() => {
         successMessage.style.display = 'none';
       }, 3000);
-      
-      // Simulate sending email
       setTimeout(() => {
         window.location.reload();
-        /*loginReturn();*/
       }, 3000);
     }
     function validateEmail(email) {
@@ -636,114 +620,112 @@ body::before {
       const element = document.getElementById(elementId);
       element.style.display = 'none';
     }
-    function createAccount() {
-      const username = document.getElementById("newUsername").value.trim();
-      const password = document.getElementById("newPassword").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-      
-      let valid = true;
-      
-      if (!username) {
-        showError("new-username-error", "Username is required");
-        valid = false;
-      } else {
-        hideError("new-username-error");
-      }
-      
-      if (!password) {
-        showError("new-password-error", "Password is required");
-        valid = false;
-      } else if (password.length < 8) {
-        showError("new-password-error", "Password must be at least 8 characters");
-        valid = false;
-      } else {
-        hideError("new-password-error");
-      }
-      
-      if (!confirmPassword) {
-        showError("confirm-password-error", "Please confirm your password");
-        valid = false;
-      } else if (password !== confirmPassword) {
-        showError("confirm-password-error", "Passwords do not match");
-        valid = false;
-      } else {
-        hideError("confirm-password-error");
-      }
-      
-      if (valid) {
-        console.log("Account created for:", { username, password });
-        showSuccess("Account created successfully! Redirecting to login...");
-        successMessage.textContent = "Account created successfully! Redirecting to login...";
-        successMessage.style.display = 'block';
-      
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 3000);
-        
-        // Simulate account creation
-    }
-    }
-    function loginReturn(){
-        const forgotForm=document.getElementById('forgot_password');
-        const loginForm = document.getElementById('login');
-        loginForm.style.display='block';
-        forgotForm.style.display='none';
-    }
-    function activateButton(buttonType) {
-  const slider = document.querySelector('.slider');
-  const loginButton = document.querySelector('.toggle-button:nth-child(2)');
-  const signupButton = document.querySelector('.toggle-button:nth-child(3)');
-  const loginForm = document.getElementById('login');
-  const signupForm = document.getElementById('sign_up');
-  const login_box = document.querySelector('.login_box');
-  const create = document.getElementById('create_login');
-  const forgotForm=document.getElementById('forgot_password');
-
-  if (buttonType === 'login') {
-    slider.classList.remove('signup-active');
-    slider.classList.add('login-active');
-    loginButton.classList.add('active');
-    signupButton.classList.remove('active');
-    loginForm.classList.add('active');
-    signupForm.classList.remove('active');
-    login_box.classList.remove('signup-mode');
-    create.style.display = 'none';
-    signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
-    loginForm.style.display = 'block';  // <-- Always show login form
-    forgotForm.style.display='none';
-  } else {
-    slider.classList.remove('login-active');
-    slider.classList.add('signup-active');
-    signupButton.classList.add('active');
-    loginButton.classList.remove('active');
-    signupForm.classList.add('active');
-    loginForm.classList.remove('active');
-    login_box.classList.add('signup-mode');
-    signupForm.style.display = 'block'; // <-- Always show signup form when switching tabs
-    create.style.display = 'none';      // <-- Always hide create profile step
-    loginForm.style.display = 'block';  // <-- Always show login form
-    forgotForm.style.display='none';
-  }
-}
-    
     function login_btn(event) {
       event.preventDefault();
-      let username = document.getElementById("username").value;
-      let password = document.getElementById("password").value;
-      
+      let username = document.getElementById("username").value.trim();
+      let password = document.getElementById("password").value.trim();
       if (!username || !password) {
         alert("Please fill in all fields");
         return;
       }
-      
-      console.log("Login attempt with:", { username, password });
-      alert("Login functionality would be implemented here");
+      fetch('login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          successMessage.textContent = "Login successful!";
+          successMessage.style.display = 'block';
+          setTimeout(() => {
+            window.location.href = "Homes.html";
+          }, 1200);
+        } else {
+          alert(data.error || "Login failed");
+        }
+      })
+      .catch(() => alert("Server error"));
     }
-    
+    function createAccount(event) {
+      event.preventDefault();
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      let valid = true;
+      if (!username) { showError("new-username-error", "Username is required"); valid = false; } else { hideError("new-username-error"); }
+      if (!password) { showError("new-password-error", "Password is required"); valid = false; }
+      else if (password.length < 8) { showError("new-password-error", "Password must be at least 8 characters"); valid = false; }
+      else { hideError("new-password-error"); }
+      if (!confirmPassword) { showError("confirm-password-error", "Please confirm your password"); valid = false; }
+      else if (password !== confirmPassword) { showError("confirm-password-error", "Passwords do not match"); valid = false; }
+      else { hideError("confirm-password-error"); }
+      if (!firstName || !email || !phone) { valid = false; }
+
+      if (valid) {
+        fetch('signup.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}&email=${encodeURIComponent(email)}&ph_number=${encodeURIComponent(phone)}`
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            successMessage.textContent = "Your profile has been created successfully!";
+            successMessage.style.display = 'block';
+            setTimeout(() => {
+              window.location.href = "Homes.html";
+            }, 1200);
+          } else {
+            alert(data.error || "Signup failed");
+          }
+        })
+        .catch(() => alert("Server error"));
+      }
+    }
+    function activateButton(buttonType) {
+      const slider = document.querySelector('.slider');
+      const loginButton = document.querySelector('.toggle-button:nth-child(2)');
+      const signupButton = document.querySelector('.toggle-button:nth-child(3)');
+      const loginForm = document.getElementById('login');
+      const signupForm = document.getElementById('sign_up');
+      const login_box = document.querySelector('.login_box');
+      const create = document.getElementById('create_login');
+      const forgotForm = document.getElementById('forgot_password');
+      if (buttonType === 'login') {
+        slider.classList.remove('signup-active');
+        slider.classList.add('login-active');
+        loginButton.classList.add('active');
+        signupButton.classList.remove('active');
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+        login_box.classList.remove('signup-mode');
+        create.style.display = 'none';
+        signupForm.style.display = 'block';
+        loginForm.style.display = 'block';
+        forgotForm.style.display = 'none';
+      } else {
+        slider.classList.remove('login-active');
+        slider.classList.add('signup-active');
+        signupButton.classList.add('active');
+        loginButton.classList.remove('active');
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+        login_box.classList.add('signup-mode');
+        signupForm.style.display = 'block';
+        create.style.display = 'none';
+        loginForm.style.display = 'block';
+        forgotForm.style.display = 'none';
+      }
+    }
     function togglePassword(id) {
       const input = document.getElementById(id);
       const icon = input.nextElementSibling.querySelector('i');
-      
       if (input.type === "password") {
         input.type = "text";
         icon.classList.replace('fa-eye', 'fa-eye-slash');
@@ -752,66 +734,44 @@ body::before {
         icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
     }
-    
     function create_account(event) {
       event.preventDefault();
-      
       const firstName = document.getElementById("firstName").value.trim();
       const lastName = document.getElementById("lastName").value.trim();
       const email = document.getElementById("email").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const signupForm = document.getElementById('sign_up');
       const create = document.getElementById('create_login');
-      
       if (!firstName || !lastName || !email || !phone) {
         alert('Please fill out all fields.');
         return;
       }
-      
-      console.log("Account creation attempt:", { firstName, lastName, email, phone });
-      create.style.display='block';
-      signupForm.style.display='none';
-      
+      create.style.display = 'block';
+      signupForm.style.display = 'none';
     }
-    function goToStep1(){
+    function goToStep1() {
       const signupForm = document.getElementById('sign_up');
       const create = document.getElementById('create_login');
-      create.style.display='none';
-      signupForm.style.display='block';
+      create.style.display = 'none';
+      signupForm.style.display = 'block';
     }
     function checkPasswordStrength(password) {
       const strengthBar = document.getElementById('password-strength');
       const rules = document.getElementById('password-rules');
-      
       if (password.length === 0) {
         strengthBar.style.display = 'none';
         rules.style.display = 'none';
         return;
       }
-      
       rules.style.display = 'block';
       strengthBar.style.display = 'block';
-      
       let strength = 0;
-      
-      // Check password length
       if (password.length >= 8) strength += 1;
-      
-      // Check for uppercase letters
       if (/[A-Z]/.test(password)) strength += 1;
-      
-      // Check for lowercase letters
       if (/[a-z]/.test(password)) strength += 1;
-      
-      // Check for numbers
       if (/\d/.test(password)) strength += 1;
-      
-      // Check for special characters
       if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-      
-      // Update strength bar
       strengthBar.className = 'password-strength';
-      
       if (strength < 2) {
         strengthBar.classList.add('weak');
       } else if (strength < 4) {
@@ -819,6 +779,12 @@ body::before {
       } else {
         strengthBar.classList.add('strong');
       }
+    }
+    function loginReturn() {
+      const forgotForm = document.getElementById('forgot_password');
+      const loginForm = document.getElementById('login');
+      loginForm.style.display = 'block';
+      forgotForm.style.display = 'none';
     }
   </script>
 </body>

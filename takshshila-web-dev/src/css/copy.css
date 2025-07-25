@@ -1,3 +1,4 @@
+
 html,
 body {
     font-family: 'Poppins', sans-serif;
@@ -87,7 +88,34 @@ header p {
     left: auto;
 
 }
-
+ .login {
+     background: linear-gradient(90deg, #4e54c8, #777cdb);
+     border-radius:10px;
+     font-size: 18px;
+     font-weight: bold;
+     color: white;
+     border: none;
+     cursor: pointer;
+     position: absolute;
+     width:50px;
+     
+     top: 20px;
+     right: 20px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     transform: translateZ(-50%);
+     transition-duration: 1s;
+     transition-delay: 0.5s;
+     transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), right 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s, height 0.35s;
+ }
+ .login a{
+    text-decoration: none;
+ }
+ .login:hover {
+     transform: scale(1.1);
+     transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+         box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+     background-color: #a7a7af;
+ }
 .box {
     background-color: rgba(241, 238, 238, 0.649);
     display: none;
@@ -104,9 +132,22 @@ header p {
 
 .box.open-menu {
     display: block;
-    animation: fadeInDown 1s ease-in-out;
+     animation: popupZoomIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-
+ @keyframes popupZoomIn {
+     0% {
+         opacity: 0;
+         transform: scale(0.7) translateY(-40px);
+     }
+     60% {
+         opacity: 1;
+         transform: scale(1.05) translateY(0);
+     }
+     100% {
+         opacity: 1;
+         transform: scale(1) translateY(0);
+     }
+ }
 .profile {
     background-color: transparent;
     border: none;
@@ -594,6 +635,17 @@ nav a:hover {
 .buttons:hover {
     transform: scale(1.05);
 }
+ .card-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
 .headline {
     text-align: center;

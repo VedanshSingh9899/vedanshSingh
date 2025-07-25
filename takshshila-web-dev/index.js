@@ -9,10 +9,13 @@ app.use(express.static(path.join(__dirname, 'src')));
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src','html' ,'Homes.html'));
 });
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src','html' ,'Login_page(pending).html'));
+});
 
 // Route for test series page
 app.get('/test', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'html','test-demo.html'));
+    res.sendFile(path.join(__dirname, 'src', 'html','test_final_ui.html'));
 });
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'html','notes.html'));

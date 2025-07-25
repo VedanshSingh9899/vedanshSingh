@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Takshshila</title>
-  <link rel="stylesheet" href="/css/Takshshila.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-  
+    <meta charset="UTF-8">
+    <meta name="description" content="Takshshila is an online learning platform offering study material, video lectures, quizzes, and resources for students of all classes and subjects. Learn smarter with Takshshila.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Takshshila</title>
+    <link rel="stylesheet" href="/src/css/Takshshila.css">
 </head>
+
 <body>
-  <header>
-    <div class="header-decoration"></div>
+
+    <header>
         <div class="header-decoration"></div>
         <h1>Takshshila</h1>
         <p>Your learning platform</p>
@@ -22,12 +23,7 @@
                 <table class="sub-profile">
 
                     <tr>
-                        <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none"
-                                onclick="off()">
-                                <img class="circular-image"
-                                    src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
-                                    alt="Profile" width="40px" height="40px">
-                            </button></td>
+                        <td></td>
                     </tr>
                 </table>
                 <table>
@@ -113,6 +109,10 @@
                         <input type="text" value="Vishwakarma" placeholder="Last Name" class="last_name_input">
 
                     </td>
+                    <td><label for="">Class:</label>
+                      <select name="" id=""></select>
+                    
+                    </td>
                     <td>Phone&nbsp;Number:</td>
                     <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"
                             class="phone_number_input"></td>
@@ -125,26 +125,53 @@
                 </tr>
             </table>
         </div>
-  </header>
-
-<nav>
+    </header>
+    </header>
+    <nav>
         <a href="/">Home</a>
         <a href="/videos">Videos</a>
-        <a href="/test-series">Test Series</a>
         <a href="/blogs">Blog</a>
+        <a href="/test-series">Test Series</a>
         <a href="/contact">Contact Us</a>
     </nav>
-<main>
-    <div>
-        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">Welcome in Test series section</p>
-        <p style="text-align: center; font-size: 24px; font-weight: bold; margin-top: 20px;">We wil start Test series soon in this section section</p>
-    </div>
-</main>
 
-  <footer class="footer">
-    <button class="btn">Feedback</button>
-    <p>&copy; 2025 Takshshila. All rights reserved.</p>
-  </footer>
-  <script src="/javascript/Takshshila.js"></script>
+    <div class="main-content">
+        <div class="course-card">
+            <img src="/images/notes.svg" alt="Course Image">
+            <h3>Notes</h3>
+            <p>Handwritten, topic-wise notes for easy learning.</p>
+            <a href="/notes" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/books.svg" alt="Course Image" style="width:75px;">
+            <h3>Books</h3>
+            <p>Download complete PDFs of all NCERT and exemplar books.</p>
+            <a href="/books" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/test.svg" alt="Course Image">
+            <h3>Test Series</h3>
+            <p>Timed tests designed to simulate real exam conditions.</p>
+            <a href="/test" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/practice.svg" alt="Course Image" style="height:75px;">
+            <h3>Practice Papers</h3>
+            <p>A collection of previous year queastions for quick practice and revision.</p>
+            <a href="/practice-paper" class="view-btn">View More</a>
+        </div>
+        <div class="course-card">
+            <img src="/images/video.svg" alt="Course Image" style="width:85px">
+            <h3>Videos</h3>
+            <p>Video lecture will help you to understand the topic briefly</p>
+            <a href="/videos" class="view-btn">View More</a>
+        </div>
+    </div>
+    <footer class="footer">
+        <button class="btn">Feedback</button>
+        <p>&copy; 2025 Takshshila. All rights reserved.</p>
+    </footer>
+    <script src="/src/javascript/Takshshila.js"></script>
 </body>
+
 </html>

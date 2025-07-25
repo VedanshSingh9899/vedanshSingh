@@ -1,9 +1,12 @@
+*{
+    margin:0px;
+    padding:0px;
+}
 body {
      font-family: 'Poppins', sans-serif;
-     padding: 0;
      background-color: #f4f4f4;
      transition: background-color 0.3s, color 0.3s;
-     margin: 0;
+     
 
  }
 
@@ -16,11 +19,13 @@ body {
  header {
      background: linear-gradient(135deg, #1bb9f8, #d7fd4f);
      color: white;
-     padding: 20px 0;
-     text-align: center;
      animation: fadeInDown 1s ease-in-out;
-     position: relative;
-     height:210px;
+     position:relative;  
+     display:flex;
+     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 250px;
  }
 
  header h1 {
@@ -115,8 +120,35 @@ body {
          transform: scale(1) translateY(0);
      }
  }
-
+ .login {
+     background: linear-gradient(90deg, #4e54c8, #777cdb);
+     border-radius:10px;
+     font-size: 18px;
+     font-weight: bold;
+     color: white;
+     border: none;
+     cursor: pointer;
+     position: absolute;
+     padding:12px 25px;
+     top: 20px;
+     right: 20px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     transform: translateZ(-50%);
+     transition-duration: 1s;
+     transition-delay: 0.5s;
+     transition: top 0.35s cubic-bezier(0.4, 0, 0.2, 1), right 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s, height 0.35s;
+ }
+ .login a{
+    text-decoration: none;
+ }
+ .login:hover {
+     transform: scale(1.1);
+     transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1),
+         box-shadow 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+     background-color: #a7a7af;
+ }
  .profile {
+    display:none;
      background-color: transparent;
      border: none;
      cursor: pointer;
@@ -395,24 +427,19 @@ body {
  }
 
  .footer {
-         background-color: #000000;
-    color: white;
-    text-align: center;
-    /* padding: 5px; */
-    /* margin-top: 20px; */
-    /* height: 100vh; */
-    position: absolute;
-    
-    width: 100%;
-    float: left;
-}
+     background-color: #333;
+     color: white;
+     text-align: center;
+     padding: 5px;
+     margin-top: 20px;
+ }
 
  .btn {
      background-color: #333;
      color: white;
      float: right;
      border: none;
-     /* padding: 15px; */
+     padding: 15px;
      text-decoration: none;
      text-align: center;
      flex: 1;

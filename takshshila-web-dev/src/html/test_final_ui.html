@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Dashboard with Progress Animation</title>
+    <link rel="stylesheet" href="/src/css/Takshshila.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        
+        
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+
+            position: relative;
+            background-color: #ffff;
+            margin-top: 10px;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 0.75rem 0.75rem 0px 0px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            padding: 1rem 1.5rem;
+        }
+
+        .dashboard-header-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: white;
+        }
+
+        .dashboard-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .dashboard-content {
+            padding: 1.5rem;
+        }
+
+        /* Statistics grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+             padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-blue {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-color: #93c5fd;
+        }
+
+        .stat-green {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border-color: #86efac;
+        }
+
+        .stat-purple {
+            background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+            border-color: #c4b5fd;
+        }
+
+        .stat-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-blue .stat-label {
+            color: #1d4ed8;
+        }
+
+        .stat-green .stat-label {
+            color: #166534;
+        }
+
+        .stat-purple .stat-label {
+            color: #7c3aed;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-blue .stat-value {
+            color: #1e40af;
+        }
+
+        .stat-green .stat-value {
+            color: #15803d;
+        }
+
+        .stat-purple .stat-value {
+            color: #6d28d9;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .stat-blue .stat-icon {
+            color: #3b82f6;
+        }
+
+        .stat-green .stat-icon {
+            color: #10b981;
+        }
+
+        .stat-purple .stat-icon {
+            color: #8b5cf6;
+        }
+
+        /* Action buttons */
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 10px;
+        }
+
+        .progress-container {
+            margin: 1rem 0 2rem;
+            width: 100%;
+            height: 30px;
+            background-color: #e9ecef;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0; /* Start at 0 */
+            background: linear-gradient(90deg, #00fbff, #1aff01);
+            text-align: center;
+            line-height: 30px;
+            color: #333;
+            font-weight: bold;
+            border-radius: 20px;
+            /*transition: width 0s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition */
+            transition: width 0s linear; /* Smooth transition */
+            position: relative;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @media (min-width: 640px) {
+            .action-buttons {
+                flex-direction: row;
+            }
+        }
+
+        .test_btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-size: 0.9rem;
+            background: white;
+            color: #374151;
+            border: 2px solid #d1d5db;
+        }
+
+        .test_btn:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .test_btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Details section */
+        .details-section {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .details-section.expanded {
+            margin-top: 20px;
+            max-height: 600px;
+            opacity: 1;
+        }
+
+        .details-content {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 1.5rem;
+        }
+
+        .details-header h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Desktop table */
+        .desktop-table {
+            overflow-x: auto;
+        }
+
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .test-table th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 600;
+            color: #374151;
+            background-color: #f9fafb;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .test-table th:nth-child(2),
+        .test-table th:nth-child(3),
+        .test-table th:nth-child(4),
+        .test-table th:nth-child(5) {
+            text-align: center;
+        }
+
+        .test-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .test-table td:nth-child(2),
+        .test-table td:nth-child(3),
+        .test-table td:nth-child(4),
+        .test-table td:nth-child(5) {
+            text-align: center;
+        }
+
+        .test-table tbody tr {
+            background: white;
+        }
+
+        .test-table tbody tr:hover {
+            background: #f9fafb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .test-table tbody tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .test-table tbody tr:nth-child(even):hover {
+            background: #f3f4f6;
+        }
+
+        .test-name {
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        /* Score colors */
+        .score-high {
+            color: #059669;
+            font-weight: 600;
+        }
+
+        .score-medium {
+            color: #d97706;
+            font-weight: 600;
+        }
+
+        .score-low {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .score-progress {
+            color: #6b7280;
+        }
+
+        /* Status icons */
+        .status-completed {
+            color: #10b981;
+            font-size: 1.2rem;
+        }
+
+        .status-failed {
+            color: #ef4444;
+            font-size: 1.2rem;
+        }
+
+        .status-progress {
+            color: #f59e0b;
+            font-size: 1.2rem;
+        }
+
+        .status-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Chevron rotation */
+        #chevronIcon {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #chevronIcon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        /* Header styles */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .stat-value {
+                font-size: 1.6rem;
+            }
+            
+            .stat-icon {
+                font-size: 2rem;
+            }
+            
+            .test_btn {
+                width: 100%;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* Animation for stats */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-card {
+            animation: fadeInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-decoration"></div>
+        <div class="header-decoration"></div>
+        <h1>Takshshila</h1>
+        <p>Your learning platform</p>
+        <button class="profile" id="subProfile" onclick="myprofile()"><img class="circular-image"
+                src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                alt="Profile" width="40px" height="40px"></button>
+        <div class="box" id="subMenu">
+            <div class="basic-info">
+                <table class="sub-profile">
+
+                    <tr>
+                        <td><button class="profile2" id="subProfile2" style="background-color:transparent;border:none"
+                                onclick="off()">
+                                <img class="circular-image"
+                                    src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                    alt="Profile" width="40px" height="40px">
+                            </button></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr style="color:#000000;" class="text">
+                        <td><span class="first_name">Aditya</span>
+                            <span class="last_name">vishwakarma</span>
+                        </td>
+                        <td id="username">karma@1123</td>
+                    </tr>
+                </table>
+            </div>
+            <div
+                style="margin-top:5px;width:100vw;height:1px;border:1px solid rgba(255, 255, 255, 0.63); background-color:#000000;">
+            </div>
+            <div class="inner-test_btn">
+                <table class="edit-profile">
+                    <tr>
+                        <td>
+                            <button class="edit" onclick="edit_box_open()">
+                                <span>Edit-profile</span>
+                                <span>
+                                    <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="24"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" viewBox="0 0 24 24" width="18"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </td>
+                    </tr>
+
+                </table>
+                <table>
+                    <tr>
+                        <td>
+                            <button class="toggle-test_btn" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="editbox" id="editbox">
+            <div style="display:flex;flex-direction:row;">
+                <div style="position:relative; margin-left:10px;"><button class="back" id="back" onclick="back()"
+                        style="border:none; cursor:pointer;">
+                        <?xml version="1.0" ?>
+                        <!DOCTYPE
+                            PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg
+                            height="25px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1"
+                            viewBox="0 0 512 512" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <polygon
+                                points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
+                        </svg>
+                    </button>
+                </div>
+
+                <div style="margin-inline-start: 70px;">Edit&nbsp;information</div>
+            </div>
+            <table>
+                <br>
+
+                <tr class="edit-info">
+                    <td>
+                        <button style="border: none;background: transparent;cursor: pointer;"
+                            onclick="triggerProfileImageInput()">
+                            <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                width="50px" height="50px" class="circular-image" alt="profile">
+                        </button>
+                    </td>
+                    <td class="input">
+                        <input type="file" accept="image/*" class="profile_image_input" style="display:none"
+                            onchange="storeSelectedProfileImage(event)">
+                    </td>
+                    <td>Name:</td>
+                    <td class="input">
+                        <input type="text" value="Aditya" placeholder="First Name" class="first_name_input">
+                    </td>
+                    <td class="input">
+                        <input type="text" value="Vishwakarma" placeholder="Last Name" class="last_name_input">
+
+                    </td>
+                    <td>Phone&nbsp;Number:</td>
+                    <td class="input"><input type="tel" value="8920157139" placeholder="Enter your phone number"
+                            class="phone_number_input"></td>
+                    <td>Email:</td>
+                    <td class="input">
+                        <input type="email" value="xyz@gmail.com" placeholder="Enter Your Email" class="email_input">
+                    </td>
+                    <td style="margin-left: 107px;margin-top: 13px;"><button
+                            onclick="edittest_btn(); applyStoredProfileImage();">Edit</button></td>
+                </tr>
+            </table>
+        </div>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/videos">Videos</a>
+        <a href="/test-series">Test Series</a>
+        <a href="/blogs">Blog</a>
+        <a href="/contact">Contact Us</a>
+    </nav>
+    <div class="test-container">
+        <div class="dashboard-card">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="dashboard-header-content" style="display:flex;gap:10px;align-items: stretch;">
+                    <button style="border: none;background: transparent;cursor: pointer;"
+                            onclick="triggerProfileImageInput()">
+                            <img src="https://png.pngtree.com/png-clipart/20231002/original/pngtree-cute-cartoon-cat-png-image_13060428.png"
+                                width="50px" height="50px" class="circular-image" alt="profile">
+                        </button>
+                        <div style="display:flex;flex-direction:column;align-items: flex-start;">
+                          <h2>Username</h2>
+                          <h6 style="font-weight: 600;  display:flex;gap:1px;"><span>Class</span><span>:</span><span>8</span></h6>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-content">
+            <div class="stats-grid">
+                <!-- Total Tests -->
+                <div class="stat-card stat-blue">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Total Tests</p>
+                            <p class="stat-value" id="totalTests"><span class="attempted"></span>&sol;<span class="total"></span></p>
+                        </div>
+                        <i class="fas fa-book-open stat-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Average Score -->
+                <div class="stat-card stat-green">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Total Score</p>
+                            <p class="stat-value" id="totalScore"><span class="attempted"></span>&sol;<span class="total"></span></p>
+                        </div>
+                        <i class="fas fa-chart-line stat-icon"></i>
+                    </div>
+                </div>
+
+                <!-- Accuracy -->
+                <div class="stat-card stat-purple">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <p class="stat-label">Accuracy</p>
+                            <p class="stat-value" id="accuracy"></p>
+                        </div>
+                        <i class="fas fa-bullseye stat-icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar">0% Complete</div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button id="detailsBtn" class="test_btn">
+                    <span>Show Details</span>
+                    <i class="fas fa-chevron-down" id="chevronIcon"></i>
+                </button>
+                
+            </div>
+
+            <!-- Expandable Details Section -->
+            <div id="detailsSection" class="details-section">
+                <div class="details-content">
+                    <div class="details-header">
+                        <h3>Detailed Test Analysis</h3>
+                    </div>
+
+                    <!-- Desktop View - Table -->
+                    <div class="desktop-table">
+                        <table class="test-table">
+                            <thead>
+                                <tr>
+                                    <th>Test Name</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="test-name">Mathematics Fundamentals</td>
+                                    <td class="score-high">92%</td>
+                                    <td>2025-01-10</td>
+                                    <td>45 min</td>
+                                    <td class="status-cell">
+                                        <i class="fas fa-check-circle status-completed"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="test-name">Physics: Motion & Forces</td>
+                                    <td class="score-medium">78%</td>
+                                    <td>2025-01-08</td>
+                                    <td>60 min</td>
+                                    <td class="status-cell">
+                                        <i class="fas fa-check-circle status-completed"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="test-name">Chemistry Basics</td>
+                                    <td class="score-low">45%</td>
+                                    <td>2025-01-05</td>
+                                    <td>30 min</td>
+                                    <td class="status-cell">
+                                        <i class="fas fa-times-circle status-failed"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="test-name">English Literature</td>
+                                    <td class="score-progress">-</td>
+                                    <td>2025-01-12</td>
+                                    <td>Ongoing</td>
+                                    <td class="status-cell">
+                                        <i class="fas fa-clock status-progress"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="test-name">History: World Wars</td>
+                                    <td class="score-high">88%</td>
+                                    <td>2025-01-15</td>
+                                    <td>50 min</td>
+                                    <td class="status-cell">
+                                        <i class="fas fa-check-circle status-completed"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2023 Test Performance Dashboard | Track your learning progress</p>
+    </div>
+
+    <script>
+        // DOM elements
+        const detailsBtn = document.getElementById('detailsBtn');
+        const detailsSection = document.getElementById('detailsSection');
+        const chevronIcon = document.getElementById('chevronIcon');
+        const progressBar = document.getElementById('progress-bar');
+        
+        // Mock test data for calculations
+        const testResults = [
+            {
+                name: 'Mathematics Fundamentals',
+                score: 92,
+                date: '2025-01-10',
+                status: 'completed',
+                duration: '45 min'
+            },
+            {
+                name: 'Physics: Motion & Forces',
+                score: 78,
+                date: '2025-01-08',
+                status: 'completed',
+                duration: '60 min'
+            },
+            {
+                name: 'Chemistry Basics',
+                score: 45,
+                date: '2025-01-05',
+                status: 'failed',
+                duration: '30 min'
+            },
+            {
+                name: 'English Literature',
+                score: 0,
+                date: '2025-01-12',
+                status: 'in-progress',
+                duration: 'Ongoing'
+            },
+            {
+                name: 'History: World Wars',
+                score: 88,
+                date: '2025-01-15',
+                status: 'completed',
+                duration: '50 min'
+            }
+        ];
+
+        // Calculate statistics
+        function calculateStats() {
+            const completedTests = testResults.filter(test => test.status === 'completed' || test.status === 'failed');
+            const totalTests = testResults.length;
+            const attemptedTests = completedTests.length;
+            const totalScore = completedTests.reduce((sum, test) => sum + test.score, 0);
+                
+            // Calculate accuracy (percentage of completed tests with score > 70)
+            const passedTests = testResults.filter(test => test.status === 'completed' && test.score > 70).length;
+            const accuracy = Math.round((passedTests / attemptedTests) * 100);
+            const progressPercentage = Math.round((attemptedTests / totalTests) * 100);
+
+            return {
+                totalTests: `${attemptedTests}/${totalTests}`,
+                totalScore: `${totalScore}/500`,
+                progressPercentage,
+                accuracy
+            };
+        }
+
+        // Update statistics in the UI with animation
+        function updateStats() {
+            const stats = calculateStats();
+
+            document.getElementById('totalTests').textContent = stats.totalTests;
+            document.getElementById('totalScore').textContent = `${stats.totalScore}`;
+            document.getElementById('accuracy').textContent = `${stats.accuracy}%`;
+            
+            // Animate progress bar
+            let width = 0;
+            const targetWidth = stats.progressPercentage;
+            const duration = 1500; // 1.5 seconds
+            const increment = targetWidth / (duration / 16); // 16ms per frame
+            
+            const animate = () => {
+                if (width < targetWidth) {
+                    width += increment;
+                    if (width > targetWidth) width = targetWidth;
+                    
+                    progressBar.style.width = `${width}%`;
+                    progressBar.textContent = `${Math.round(width)}% Complete`;
+                    
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            animate();
+        }
+
+        // Toggle details section
+        function toggleDetails() {
+            const isDetailsExpanded = detailsSection.classList.toggle('expanded');
+            chevronIcon.classList.toggle('rotated', isDetailsExpanded);
+            detailsBtn.querySelector('span').textContent = isDetailsExpanded ? 'Hide Details' : 'Show Details';
+        }
+
+        // Event listeners
+        detailsBtn.addEventListener('click', toggleDetails);
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function () {
+            // Start with progress bar at 0
+            progressBar.style.width = '0%';
+            progressBar.textContent = '0% Complete';
+            
+            // Wait for the page to render before starting animation
+            setTimeout(updateStats, 300);
+            
+            // Add smooth hover effects to table rows
+            const tableRows = document.querySelectorAll('.test-table tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseenter', function () {
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                row.addEventListener('mouseleave', function () {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

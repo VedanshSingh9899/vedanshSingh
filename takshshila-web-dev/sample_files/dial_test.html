@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Speed Dial</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #ebf8ff, #f3e8ff);
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 400px;
+  text-align: center;
+}
+
+.card h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+.svg-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.selected-display {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.selected-display .placeholder {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.selected-box {
+  background: #eff6ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.selected-box p {
+  margin: 5px 0;
+}
+
+.reset-btn {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #374151;
+  transition: background 0.2s;
+}
+
+.reset-btn:hover {
+  background: #e5e7eb;
+}
+
+circle {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Select Your Class</h2>
+
+      <div class="svg-wrapper">
+        <svg id="class-svg" width="400" height="250" class="overflow-visible">
+          <!-- Background semicircle -->
+          <path id="semi-circle" fill="none" stroke="#e5e7eb" stroke-width="3" stroke-dasharray="5,5"/>
+          <!-- Dynamic circles and text will be inserted here by JS -->
+          <circle cx="200" cy="200" r="8" fill="#6b7280" opacity="0.5"/>
+        </svg>
+      </div>
+
+      <!-- Selected class display -->
+      <div id="selected-display" class="selected-display">
+        <p class="placeholder">Click on a class number to select</p>
+      </div>
+
+      <!-- Reset button -->
+      <button id="reset-btn" class="reset-btn" style="display: none;">
+        Clear Selection
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const classes = [6, 7, 8, 9, 10, 11, 12];
+const radius = 140;
+const centerX = 200;
+const centerY = 200;
+
+let selectedClass = null;
+const svg = document.getElementById("class-svg");
+const selectedDisplay = document.getElementById("selected-display");
+const resetBtn = document.getElementById("reset-btn");
+
+// Draw semicircle path
+document.getElementById("semi-circle").setAttribute(
+  "d",
+  `M ${centerX - radius} ${centerY} A ${radius} ${radius} 0 0 1 ${centerX + radius} ${centerY}`
+);
+
+// Calculate positions
+function getPosition(index, total) {
+  const angle = (Math.PI * index) / (total - 1);
+  const x = centerX + radius * Math.cos(Math.PI - angle);
+  const y = centerY - radius * Math.sin(Math.PI - angle);
+  return { x, y };
+}
+
+// Render circles
+classes.forEach((classNum, index) => {
+  const { x, y } = getPosition(index, classes.length);
+
+  // Line from center to circle
+  const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line.setAttribute("x1", centerX);
+  line.setAttribute("y1", centerY);
+  line.setAttribute("x2", x);
+  line.setAttribute("y2", y);
+  line.setAttribute("stroke", "#d1d5db");
+  line.setAttribute("stroke-width", "1");
+  line.setAttribute("opacity", "0.3");
+  svg.appendChild(line);
+
+  // Circle
+  const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  circle.setAttribute("cx", x);
+  circle.setAttribute("cy", y);
+  circle.setAttribute("r", "24");
+  circle.setAttribute("fill", "#f8fafc");
+  circle.setAttribute("stroke", "#cbd5e1");
+  circle.setAttribute("stroke-width", "2");
+  circle.classList.add("class-circle");
+
+  // Text
+  const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  text.setAttribute("x", x);
+  text.setAttribute("y", y + 5);
+  text.setAttribute("text-anchor", "middle");
+  text.setAttribute("fill", "#374151");
+  text.style.fontWeight = "bold";
+  text.style.fontSize = "16px";
+  text.textContent = classNum;
+
+  // Hover and click events
+  [circle, text].forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      circle.setAttribute("r", "28");
+      circle.setAttribute("fill", "#60a5fa");
+      circle.setAttribute("stroke", "#3b82f6");
+      text.setAttribute("fill", "white");
+    });
+
+    el.addEventListener("mouseleave", () => {
+      if (selectedClass === classNum) return;
+      circle.setAttribute("r", "24");
+      circle.setAttribute("fill", "#f8fafc");
+      circle.setAttribute("stroke", "#cbd5e1");
+      text.setAttribute("fill", "#374151");
+    });
+
+    el.addEventListener("click", () => selectClass(classNum, circle, line, text));
+  });
+
+  svg.appendChild(circle);
+  svg.appendChild(text);
+});
+
+function selectClass(classNum, circle, line, text) {
+  selectedClass = classNum;
+
+  // Reset all circles
+  document.querySelectorAll(".class-circle").forEach(c => {
+    c.setAttribute("fill", "#f8fafc");
+    c.setAttribute("stroke", "#cbd5e1");
+    c.setAttribute("r", "24");
+  });
+  document.querySelectorAll("text").forEach(t => t.setAttribute("fill", "#374151"));
+  document.querySelectorAll("line").forEach(l => {
+    l.setAttribute("stroke", "#d1d5db");
+    l.setAttribute("stroke-width", "1");
+    l.setAttribute("opacity", "0.3");
+  });
+
+  // Highlight selected
+  circle.setAttribute("fill", "#3b82f6");
+  circle.setAttribute("stroke", "#1d4ed8");
+  text.setAttribute("fill", "white");
+  line.setAttribute("stroke", "#3b82f6");
+  line.setAttribute("stroke-width", "3");
+  line.setAttribute("opacity", "0.8");
+
+  // Update display
+  selectedDisplay.innerHTML = `
+    <div class="selected-box">
+      <p class="text-lg">Selected: Class ${classNum}</p>
+      <p class="text-sm">${classNum <= 8 ? "Middle School" :
+        classNum <= 10 ? "High School" : "Senior Secondary"}</p>
+    </div>
+  `;
+
+  resetBtn.style.display = "block";
+}
+
+// Reset selection
+resetBtn.addEventListener("click", () => {
+  selectedClass = null;
+  selectedDisplay.innerHTML = `<p class="placeholder">Click on a class number to select</p>`;
+  resetBtn.style.display = "none";
+
+  // Reset all visuals
+  document.querySelectorAll(".class-circle").forEach(c => {
+    c.setAttribute("fill", "#f8fafc");
+    c.setAttribute("stroke", "#cbd5e1");
+    c.setAttribute("r", "24");
+  });
+  document.querySelectorAll("text").forEach(t => t.setAttribute("fill", "#374151"));
+  document.querySelectorAll("line").forEach(l => {
+    l.setAttribute("stroke", "#d1d5db");
+    l.setAttribute("stroke-width", "1");
+    l.setAttribute("opacity", "0.3");
+  });
+});
+
+  </script>
+</body>
+</html>
