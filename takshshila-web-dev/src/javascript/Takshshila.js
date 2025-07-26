@@ -19,7 +19,7 @@ function edit_box_open() {
     editbox.classList.toggle("open-edit");
     console.log("Hello Sahil");
 }
-function myprofile() {
+function myprofile(){
     subMenu.classList.toggle("open-menu");
     // Animate profile image into popup
     if (subMenu.classList.contains("open-menu")) {
