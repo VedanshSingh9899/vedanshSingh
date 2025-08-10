@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takshshila - OTP Verification</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary: #2f8f83;
+      --secondary: #3a7bd5;
+      --text-light: #f4fafd;
+      --text-dark: #1e2a3a;
+      --button-shadow: rgba(0, 0, 0, 0.15);
+      --success: #44c877;
+      --error: #dc3545;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg,#1bb9f8, #d7fd4f);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+      opacity: 0.05;
+      z-index: 0;
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: float 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .shape1 {
+      width: 200px;
+      height: 200px;
+      background: var(--primary);
+      top: -60px;
+      left: -60px;
+    }
+
+    .shape2 {
+      width: 150px;
+      height: 150px;
+      background: var(--secondary);
+      bottom: -40px;
+      right: -40px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .otp-container {
+      background: #0f1f14;
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      color: var(--text-light);
+      padding: 2.5rem 3rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      z-index: 1;
+      animation: slideIn 1s ease forwards;
+      opacity: 0;
+      text-align: center;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .logo p {
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: #ddfdf0;
+      text-align: left;
+    }
+
+    input[type="email"] {
+      padding: 0.75rem;
+      border: 1px solid #3a7bd5;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      outline: none;
+      background-color: #1b2f24;
+      color: #eafff6;
+      width: 100%;
+    }
+
+    input:focus {
+      border-color: #7cffc1;
+    }
+
+    .action-btn {
+      padding: 0.9rem;
+      background: linear-gradient(135deg, #44c877, #3a7bd5);
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 12px var(--button-shadow);
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .action-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+    
+    .action-btn:disabled {
+      background: #555;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    #otp-section {
+      display: none; /* Hidden by default */
+      margin-top: 1.5rem;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .otp-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1.5rem;
+    }
+
+    .otp-inputs input {
+      width: 45px;
+      height: 50px;
+      text-align: center;
+      font-size: 1.5rem;
+      border: 1px solid #3a7bd5;
+      border-radius: 8px;
+      background-color: #1b2f24;
+      color: #eafff6;
+      outline: none;
+    }
+    
+    .otp-inputs input:focus {
+        border-color: #7cffc1;
+        box-shadow: 0 0 0 2px rgba(124, 255, 193, 0.2);
+    }
+
+    .message {
+        font-size: 0.9rem;
+        margin-top: 1rem;
+        height: 20px;
+    }
+
+    .message.success {
+        color: var(--success);
+    }
+
+    .message.error {
+        color: var(--error);
+    }
+
+    .resend-link {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .resend-link a {
+        color: #82e9d2;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .resend-link a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .otp-container {
+        padding: 2rem;
+      }
+
+      .logo h1 {
+        font-size: 1.6rem;
+      }
+      
+      .otp-inputs input {
+        width: 40px;
+        height: 45px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+
+  <div class="otp-container">
+    <div class="logo">
+      <h1>OTP Verification</h1>
+      <p>A secure code has been sent to your email.</p>
+    </div>
+
+    <form id="otpForm" onsubmit="return false;" action="/takshshila-web-dev/backend/user_login_tracking_php_files/genrate_OTP.php" method ="post">
+      <!-- Email Section -->
+      <div id="email-section">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <button id="sendOtpBtn" class="action-btn" onclick="sendOtp()">Send OTP</button>
+      </div>
+
+      <!-- OTP Section -->
+      <div id="otp-section">
+        <label for="otp">Enter the 6-digit code</label>
+        <div class="otp-inputs" id="otp-inputs">
+          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" />
+        </div>
+        <button id="verifyBtn" class="action-btn" disabled>Verify OTP</button>
+        <div class="resend-link">
+            <p>Didn't receive the code? <a href="#" onclick="sendOtp()">Resend OTP</a></p>
+        </div>
+      </div>
+      
+      <div id="message" class="message"></div>
+    </form>
+  </div>
+
+  <script>
+    const emailSection = document.getElementById('email-section');
+    const otpSection = document.getElementById('otp-section');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const emailInput = document.getElementById('email');
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const messageDiv = document.getElementById('message');
+
+    function sendOtp() {
+      const email = emailInput.value.trim();
+      if (!validateEmail(email)) {
+        showMessage('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      // --- SIMULATION: In a real app, you'd call your backend here to send the OTP ---
+      console.log(`Sending OTP to ${email}`);
+      showMessage('OTP has been sent to your email.', 'success');
+      // --- End Simulation ---
+
+      emailSection.style.display = 'none';
+      otpSection.style.display = 'block';
+      otpInputs[0].focus();
+    }
+
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+
+    function showMessage(msg, type) {
+        messageDiv.textContent = msg;
+        messageDiv.className = `message ${type}`;
+        setTimeout(() => {
+            messageDiv.textContent = '';
+            messageDiv.className = 'message';
+        }, 3000);
+    }
+
+    otpInputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            // Move to next input if a digit is entered
+            if (input.value.length === 1 && index < otpInputs.length - 1) {
+                otpInputs[index + 1].focus();
+            }
+            checkOtpCompletion();
+        });
+
+        input.addEventListener('keydown', (e) => {
+            // Move to previous input on backspace if current input is empty
+            if (e.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                otpInputs[index - 1].focus();
+            }
+        });
+    });
+
+    function checkOtpCompletion() {
+        let otp = '';
+        otpInputs.forEach(input => {
+            otp += input.value;
+        });
+
+        // Enable verify button only if all 6 digits are entered
+        verifyBtn.disabled = otp.length !== 6;
+    }
+
+    verifyBtn.addEventListener('click', () => {
+        let otp = '';
+        otpInputs.forEach(input => { otp += input.value; });
+
+        // --- SIMULATION: In a real app, you'd verify the OTP with your backend ---
+        console.log(`Verifying OTP: ${otp}`);
+        if (otp === "123456") { // Example successful OTP
+            showMessage('Verification successful! Redirecting...', 'success');
+            // You can redirect to another page after successful verification
+            setTimeout(() => { window.location.href = 'Homes.html'; }, 1500);
+        } else {
+            showMessage('Invalid OTP. Please try again.', 'error');
+        }
+        // --- End Simulation ---
+    });
+  </script>
+
+</body>
+</html>
