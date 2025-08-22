@@ -1,84 +1,64 @@
 <?php
-include("db.php");
+header('Content-Type: application/json');
+require_once 'redis_db.php';
+require_once 'Sql_db.php';
+require_once 'userValidatior.php';
 
-echo "REQUEST METHOD: " . $_SERVER["REQUEST_METHOD"] . "<br>";
+$lifetime = 60 * 60 * 24 * 7; // 7 days
+session_set_cookie_params($lifetime);
 
+// OR with more control:
+session_set_cookie_params([
+    'lifetime' => $lifetime,
+    'path' => '/',
+    'domain' => '',
+    'secure' => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443),
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+ini_set('session.gc_maxlifetime', $lifetime);
 
+session_start();
 
-    if (
-        isset($_POST["username"]) &&
-        isset($_POST["password"]) &&
-        isset($_POST["firstName"]) &&
-        isset($_POST["email"]) &&
-        isset($_POST["phone"])
-    ) {
+$validator = new UserValidator($conn, $redis);
 
-        // Get and combine user data
-        $name = $_POST["firstName"] . " " . $_POST["lastName"];
-        $email = $_POST["email"];
-        $phone = $_POST["phone"];
-        $username = $_POST["username"];
-        $password = $_POST["password"];
-        $confirmPassword = $_POST["confirmPassword"];
+$result = $validator->isUserUnique($_POST['username'], $_POST['email'], $_POST['ph_number']);
 
-        // Optional: check password match
-        if ($password !== $confirmPassword) {
-            echo "Passwords do not match.";
-            exit;
-        }
+if (!$result['status']) {
+    http_response_code(409); // Conflict
+    echo json_encode(['success' => false, 'message' => $result['message']]);
+    exit;
+}
 
-        // Step 1: Check if username already exists
-        $check_sql = "SELECT Sno FROM logindata WHERE username = ?";
-        $check_stmt = $conn->prepare($check_sql);
+// --- Main Script Logic ---
 
-        if (!$check_stmt) {
-            die("Prepare failed: " . $conn->error);
-        }
+$firstName = trim($_POST["first_name"] ?? '');
+$lastName = trim($_POST["last_name"] ?? '');
+$email = trim($_POST["email"] ?? '');
+$phone = trim($_POST["ph_number"] ?? '');
+$username = trim($_POST["username"] ?? '');
+$password = $_POST["password"] ?? '';
+$confirmPassword = $_POST["confirmPassword"] ?? '';
 
+$passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        $check_stmt->bind_param("s", $username);
-        $check_stmt->execute();
-        $check_stmt->store_result();
-
-        if ($check_stmt->num_rows > 0) {
-            echo "Username already exists. Please choose another.";
-        } else {
-            // Step 2: Insert into both tables
-             $hash_password = password_hash($password, PASSWORD_DEFAULT);
-
-            $insert_sql1 = "INSERT INTO personalinfo (name, EMAILid, PHONEno) VALUES (?, ?, ?)";
-            $insert_sql2 = "INSERT INTO logindata (username, password) VALUES (?, ?)";
-
-            $insert_stmt1 = $conn->prepare($insert_sql1);
-            $insert_stmt2 = $conn->prepare($insert_sql2);
-
-
-            if ($insert_stmt1 && $insert_stmt2) {
-                // Use "sss" instead of "ssi" if phone is stored as a string
-                $insert_stmt1->bind_param("sss", $name, $email, $phone);
-                $insert_stmt2->bind_param("ss", $username, $hash_password);
-
-                $success1 = $insert_stmt1->execute();
-                $success2 = $insert_stmt2->execute();
-
-                if ($success1 && $success2) {
-                    echo "User registered successfully!";
-                } else {
-                    echo "Something went wrong while saving your data.";
-                }
-
-                $insert_stmt1->close();
-                $insert_stmt2->close();
-            } else {
-                echo "Could not prepare insert statements.";
-            }
-        }
-
-        $check_stmt->close();
-    } else {
-        echo "All fields are required.";
-    }
+$array = [
+    'username' => $username,
+    'first_name' => $firstName, 
+    'last_name' => $lastName,
+    'email' => $email,
+    'phone' => $phone,
+    'password' => $passwordHash,
+    'session_id' => $_SESSION['session_id'] ?? session_id(),
+    'created_at' => date('Y-m-d H:i:s'),
+];
+$hash_result = $redis->hmset('user:'.$username,$array);
+if ($hash_result) {
+    $_SESSION['username'] = $username;
+    echo json_encode(['success' => true, 'message' => 'User data stored successfully.']);
+} else {
+    http_response_code(500);
+    echo json_encode(['success' => false, 'message' => 'Failed to store user data.']);
 }
 ?>

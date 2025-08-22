@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Takshshila - Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Takshshila - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+     <style>
     body {
   background-color: #3e3d3d;
   background-color: #000;
@@ -21,7 +22,7 @@ body::before {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('/src/images/login_bg.png');
+  background-image: url('../images/login_bg.png');
   background-size: cover;
   background-position: center;
   opacity: 0.85; /* Adjust opacity here */
@@ -465,327 +466,356 @@ body::before {
       display:none;
     }
   </style>
-</head>
+  </head>
 
-<body>
-  <div class="login_box">
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-    <div class="login-container" id="login-container">
-      <div class="success-message" id="success-message"></div>
-      <div class="logo">
-        <div class="button-container">
-          <div class="slider login-active"></div>
-          <button class="toggle-button active" onclick="activateButton('login')">Login</button>
-          <button class="toggle-button" onclick="activateButton('signup')">Signup</button>
+  <body>
+    <div class="login_box">
+      <div class="shape shape1"></div>
+      <div class="shape shape2"></div>
+      <div class="login-container" id="login-container">
+        <div class="success-message" id="success-message"></div>
+        <div class="logo">
+          <div class="button-container">
+            <div class="slider login-active"></div>
+            <button class="toggle-button active" onclick="activateButton('login')">Login</button>
+            <button class="toggle-button" onclick="activateButton('signup')">Signup</button>
+          </div>
+          <h1>Takshshila</h1>
+          <p>Smart Learning for Classes 6–12</p>
         </div>
-        <h1>Takshshila</h1>
-        <p>Smart Learning for Classes 6–12</p>
-      </div>
-      <!-- Login Form -->
-      <form id="login" class="form-group active">
-        <label for="username" class="fade-content">Username</label>
-        <div class="input-group">
-          <input type="text" id="username" class="fade-content" name="username" placeholder="Enter your username" required />
-        </div>
-        <label for="password" class="fade-content">Password</label>
-        <div class="input-group">
-          <input type="password" id="password" name="password" class="fade-content" placeholder="Enter your password" required />
-          <button type="button" class="toggle-password main fade-content" onclick="togglePassword('password')">
-            <i class="fas fa-eye"></i>
+        <!-- Login Form -->
+        <form id="login" class="form-group active">
+          <label for="username" class="fade-content">Username</label>
+          <div class="input-group">
+            <input type="text" id="username" class="fade-content" name="username" placeholder="Enter your username" required />
+          </div>
+          <label for="password" class="fade-content">Password</label>
+          <div class="input-group">
+            <input type="password" id="password" name="password" class="fade-content" placeholder="Enter your password" required />
+            <button type="button" class="toggle-password main fade-content" onclick="togglePassword('password')">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <button type="submit" class="login-btn fade-content" onclick="login_btn(event)">Login</button>
+          <div class="extra-links fade-content">
+            <p><a class="forgot_btn" onclick='forgot()'>Forgot Password?</a></p>
+          </div>
+        </form>
+        <!-- Signup Form -->
+        <form id="sign_up" class="form-group" onsubmit="create_account(event)">
+          <label for="firstName" class="fade-content">First Name</label>
+          <div class="input-group">
+            <input type="text" id="firstName" name="firstName" class="fade-content" placeholder="Enter your first name" required />
+          </div>
+          <label for="lastName" class="fade-content">Last Name</label>
+          <div class="input-group">
+            <input type="text" name="lastName" id="lastName" class="fade-content" placeholder="Enter your last name" required />
+          </div>
+          <label for="email" class="fade-content">Email ID</label>
+          <div class="input-group">
+            <input type="email" id="email" name="email" class="fade-content" placeholder="Enter your email" required />
+          </div>
+          <label for="phone" class="fade-content">Phone Number</label>
+          <div class="input-group">
+            <input type="tel" id="phone" class="phone fade-content" placeholder="Enter your phone number" required />
+          </div>
+          <button type="submit" class="signup-btn fade-content">Continue <i class="fas fa-arrow-right"></i></button>
+        </form>
+        <!-- Profile Details Form -->
+        <form id="create_login" class="form-step">
+          <div class="form-header">
+            <h2>Profile Details</h2>
+          </div>
+          <div class="input-container">
+            <label for="newUsername">Username</label>
+            <input type="text" id="newUsername" placeholder="Choose a username" name="username" required />
+            <div class="error-message" id="new-username-error"></div>
+          </div>
+          <div class="input-container">
+            <label for="newPassword">Password</label>
+            <div class="password-field">
+              <input type="password" id="newPassword" name="password" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)" />
+              <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="password-strength" id="password-strength"></div>
+            <div class="password-rules" id="password-rules">
+              Password must contain at least 8 characters, including uppercase, lowercase, and a number
+            </div>
+            <div class="error-message" id="new-password-error"></div>
+          </div>
+          <div class="input-container">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="password-field">
+              <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required />
+              <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="error-message" id="confirm-password-error"></div>
+          </div>
+          <button type="submit" class="signup-btn" onclick="createAccount(event)">Create Profile</button>
+          <button class="back-btn" type="button" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
+        </form>
+        <!-- Forgot Password Form -->
+        <form id="forgot_password" class="form-step">
+          <div class="form-header">
+            <h2>Reset Password</h2>
+          </div>
+          <div class="input-container">
+            <label class="iemail" for="resetEmail"><i class="fas fa-envelope"></i>Email Address</label>
+            <input type="email" id="resetEmail" placeholder="Enter your email" required />
+            <div class="error-message" id="reset-email-error"></div>
+          </div>
+          <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">
+            Enter your email address and we'll send you a link to reset your password.
+          </p>
+          <button type="button" class="signup-btn" onClick="sendResetLink()">
+            <i class="fas fa-paper-plane"></i>Send Reset Link
           </button>
-        </div>
-        <button type="submit" class="login-btn fade-content" onclick="login_btn(event)">Login</button>
-        <div class="extra-links fade-content">
-          <p><a class="forgot_btn" onclick='forgot()'>Forgot Password?</a></p>
-        </div>
-      </form>
-      <!-- Signup Form -->
-      <form id="sign_up" class="form-group" onsubmit="create_account(event)">
-        <label for="firstName" class="fade-content">First Name</label>
-        <div class="input-group">
-          <input type="text" id="firstName" name="firstName" class="fade-content" placeholder="Enter your first name" required />
-        </div>
-        <label for="lastName" class="fade-content">Last Name</label>
-        <div class="input-group">
-          <input type="text" name="lastName" id="lastName" class="fade-content" placeholder="Enter your last name" required />
-        </div>
-        <label for="email" class="fade-content">Email ID</label>
-        <div class="input-group">
-          <input type="email" id="email" name="email" class="fade-content" placeholder="Enter your email" required />
-        </div>
-        <label for="phone" class="fade-content">Phone Number</label>
-        <div class="input-group">
-          <input type="tel" id="phone" class="phone fade-content" placeholder="Enter your phone number" required />
-        </div>
-        <button type="submit" class="signup-btn fade-content">Continue <i class="fas fa-arrow-right"></i></button>
-      </form>
-      <!-- Profile Details Form -->
-      <form id="create_login" class="form-step">
-        <div class="form-header">
-          <h2>Profile Details</h2>
-        </div>
-        <div class="input-container">
-          <label for="newUsername">Username</label>
-          <input type="text" id="newUsername" placeholder="Choose a username" name="username" required />
-          <div class="error-message" id="new-username-error"></div>
-        </div>
-        <div class="input-container">
-          <label for="newPassword">Password</label>
-          <div class="password-field">
-            <input type="password" id="newPassword" name="password" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)" />
-            <button type="button" class="toggle-password" onclick="togglePassword('newPassword')">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <div class="password-strength" id="password-strength"></div>
-          <div class="password-rules" id="password-rules">
-            Password must contain at least 8 characters, including uppercase, lowercase, and a number
-          </div>
-          <div class="error-message" id="new-password-error"></div>
-        </div>
-        <div class="input-container">
-          <label for="confirmPassword">Confirm Password</label>
-          <div class="password-field">
-            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm your password" required />
-            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
-              <i class="fas fa-eye"></i>
-            </button>
-          </div>
-          <div class="error-message" id="confirm-password-error"></div>
-        </div>
-        <button type="submit" class="signup-btn" onclick="createAccount(event)">Create Profile</button>
-        <button class="back-btn" type="button" onclick="goToStep1()"><i class="fas fa-arrow-left"></i>Back</button>
-      </form>
-      <!-- Forgot Password Form -->
-      <form id="forgot_password" class="form-step">
-        <div class="form-header">
-          <h2>Reset Password</h2>
-        </div>
-        <div class="input-container">
-          <label class="iemail" for="resetEmail"><i class="fas fa-envelope"></i>Email Address</label>
-          <input type="email" id="resetEmail" placeholder="Enter your email" required />
-          <div class="error-message" id="reset-email-error"></div>
-        </div>
-        <p style="font-size: 0.9rem; margin-bottom: 20px; color: #aaa;">
-          Enter your email address and we'll send you a link to reset your password.
-        </p>
-        <button type="button" class="signup-btn" onClick="sendResetLink()">
-          <i class="fas fa-paper-plane"></i>Send Reset Link
-        </button>
-        <button class="back-btn" type="button" onclick="loginReturn()">
-          <i class="fas fa-arrow-left"></i>Back
-        </button>
-      </form>
+          <button class="back-btn" type="button" onclick="loginReturn()">
+            <i class="fas fa-arrow-left"></i>Back
+          </button>
+        </form>
+      </div>
     </div>
-  </div>
-  <script>
-    const successMessage = document.getElementById("success-message");
-    const forgotForm = document.getElementById('forgot_password');
-    function forgot() {
-      const loginForm = document.getElementById('login');
-      loginForm.style.display = 'none';
-      forgotForm.style.display = 'block';
-      forgotForm.style.transition = 'opacity 0.5s cubic-bezier(0.77,0,0.175,1)';
-      forgotForm.style.animation = 'fadeIn 0.5s cubic-bezier(0.77,0,0.175,1)';
-    }
-    function sendResetLink() {
-      const email = document.getElementById("resetEmail").value.trim();
-      const element = document.getElementById("reset-email-error");
-      if (!email || !validateEmail(email)) {
-        element.textContent = "Please enter a valid email address";
-        element.style.display = 'block';
-        return;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script>
+      const successMessage = document.getElementById("success-message");
+      const forgotForm = document.getElementById('forgot_password');
+      const phoneInput = document.querySelector("#phone");
+      const iti = window.intlTelInput(phoneInput, {
+        initialCountry: "auto",
+        geoIpLookup: function(callback) {
+          fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+        },
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+      });
+
+      function forgot() {
+        const loginForm = document.getElementById('login');
+        loginForm.style.display = 'none';
+        forgotForm.style.display = 'block';
+        forgotForm.style.transition = 'opacity 0.5s cubic-bezier(0.77,0,0.175,1)';
+        forgotForm.style.animation = 'fadeIn 0.5s cubic-bezier(0.77,0,0.175,1)';
       }
-      element.style.display = 'none';
-      successMessage.textContent = "Password reset link sent to your email!";
-      successMessage.style.display = 'block';
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 3000);
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    }
-    function validateEmail(email) {
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    }
-    function showError(elementId, message) {
-      const element = document.getElementById(elementId);
-      element.textContent = message;
-      element.style.display = 'block';
-    }
-    function hideError(elementId) {
-      const element = document.getElementById(elementId);
-      element.style.display = 'none';
-    }
-    function login_btn(event) {
-      event.preventDefault();
-      let username = document.getElementById("username").value.trim();
-      let password = document.getElementById("password").value.trim();
-      if (!username || !password) {
-        alert("Please fill in all fields");
-        return;
-      }
-      fetch('login.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          successMessage.textContent = "Login successful!";
-          successMessage.style.display = 'block';
-          setTimeout(() => {
-            window.location.href = "Homes.html";
-          }, 1200);
-        } else {
-          alert(data.error || "Login failed");
+      function sendResetLink() {
+        const email = document.getElementById("resetEmail").value.trim();
+        const element = document.getElementById("reset-email-error");
+        if (!email || !validateEmail(email)) {
+          element.textContent = "Please enter a valid email address";
+          element.style.display = 'block';
+          return;
         }
-      })
-      .catch(() => alert("Server error"));
-    }
-    function createAccount(event) {
-      event.preventDefault();
-      const username = document.getElementById("newUsername").value.trim();
-      const password = document.getElementById("newPassword").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-      const firstName = document.getElementById("firstName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-
-      let valid = true;
-      if (!username) { showError("new-username-error", "Username is required"); valid = false; } else { hideError("new-username-error"); }
-      if (!password) { showError("new-password-error", "Password is required"); valid = false; }
-      else if (password.length < 8) { showError("new-password-error", "Password must be at least 8 characters"); valid = false; }
-      else { hideError("new-password-error"); }
-      if (!confirmPassword) { showError("confirm-password-error", "Please confirm your password"); valid = false; }
-      else if (password !== confirmPassword) { showError("confirm-password-error", "Passwords do not match"); valid = false; }
-      else { hideError("confirm-password-error"); }
-      if (!firstName || !email || !phone) { valid = false; }
-
-      if (valid) {
-        fetch('signup.php', {
+        element.style.display = 'none';
+        successMessage.textContent = "Password reset link sent to your email!";
+        successMessage.style.display = 'block';
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 3000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      }
+      function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+      function showError(elementId, message) {
+        const element = document.getElementById(elementId);
+        element.textContent = message;
+        element.style.display = 'block';
+      }
+      function hideError(elementId) {
+        const element = document.getElementById(elementId);
+        element.style.display = 'none';
+      }
+      function login_btn(event) {
+        event.preventDefault();
+        let username = document.getElementById("username").value.trim();
+        let password = document.getElementById("password").value.trim();
+        if (!username || !password) {
+          alert("Please fill in all fields");
+          return;
+        }
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+        fetch('../../backend/user_login_tracking_php_files/login.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}&first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}&email=${encodeURIComponent(email)}&ph_number=${encodeURIComponent(phone)}`
+          body: formData
         })
         .then(res => res.json())
         .then(data => {
           if (data.success) {
-            successMessage.textContent = "Your profile has been created successfully!";
+            successMessage.textContent = "Login successful!";
             successMessage.style.display = 'block';
             setTimeout(() => {
               window.location.href = "Homes.html";
             }, 1200);
           } else {
-            alert(data.error || "Signup failed");
+            alert(data.error || "Login failed");
           }
         })
         .catch(() => alert("Server error"));
       }
-    }
-    function activateButton(buttonType) {
-      const slider = document.querySelector('.slider');
-      const loginButton = document.querySelector('.toggle-button:nth-child(2)');
-      const signupButton = document.querySelector('.toggle-button:nth-child(3)');
-      const loginForm = document.getElementById('login');
-      const signupForm = document.getElementById('sign_up');
-      const login_box = document.querySelector('.login_box');
-      const create = document.getElementById('create_login');
-      const forgotForm = document.getElementById('forgot_password');
-      if (buttonType === 'login') {
-        slider.classList.remove('signup-active');
-        slider.classList.add('login-active');
-        loginButton.classList.add('active');
-        signupButton.classList.remove('active');
-        loginForm.classList.add('active');
-        signupForm.classList.remove('active');
-        login_box.classList.remove('signup-mode');
+      function createAccount(event) {
+        event.preventDefault();
+        const username = document.getElementById("newUsername").value.trim();
+        const password = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = iti.getNumber();
+
+        let valid = true;
+        if (!username) { showError("new-username-error", "Username is required"); valid = false; } else { hideError("new-username-error"); }
+        if (!password) { showError("new-password-error", "Password is required"); valid = false; }
+        else if (password.length < 8) { showError("new-password-error", "Password must be at least 8 characters"); valid = false; }
+        else { hideError("new-password-error"); }
+        if (!confirmPassword) { showError("confirm-password-error", "Please confirm your password"); valid = false; }
+        else if (password !== confirmPassword) { showError("confirm-password-error", "Passwords do not match"); valid = false; }
+        else { hideError("confirm-password-error"); }
+        if (!firstName || !email) { valid = false; }
+
+        if (!iti.isValidNumber()) {
+          alert('The phone number is not valid.');
+          valid = false;
+        }
+
+        if (valid) {
+          const formData = new FormData();
+          formData.append('username', username);
+          formData.append('password', password);
+          formData.append('first_name', firstName);
+          formData.append('last_name', lastName);
+          formData.append('email', email);
+          formData.append('ph_number', phone);
+          fetch('../../backend/user_login_tracking_php_files/signUp.php', {
+            method: 'POST',
+            body: formData
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              successMessage.textContent = "Your profile has been created successfully!";
+              successMessage.style.display = 'block';
+              setTimeout(() => {
+                window.location.href = "otp_verification.html";
+              }, 1200);
+            } else {
+              alert(data.error || data.message || "Signup failed");
+            }
+          })
+          .catch(() => alert("Server error"));
+        }
+      }
+      function activateButton(buttonType) {
+        const slider = document.querySelector('.slider');
+        const loginButton = document.querySelector('.toggle-button:nth-child(2)');
+        const signupButton = document.querySelector('.toggle-button:nth-child(3)');
+        const loginForm = document.getElementById('login');
+        const signupForm = document.getElementById('sign_up');
+        const login_box = document.querySelector('.login_box');
+        const create = document.getElementById('create_login');
+        const forgotForm = document.getElementById('forgot_password');
+        if (buttonType === 'login') {
+          slider.classList.remove('signup-active');
+          slider.classList.add('login-active');
+          loginButton.classList.add('active');
+          signupButton.classList.remove('active');
+          loginForm.classList.add('active');
+          signupForm.classList.remove('active');
+          login_box.classList.remove('signup-mode');
+          create.style.display = 'none';
+          signupForm.style.display = 'block';
+          loginForm.style.display = 'block';
+          forgotForm.style.display = 'none';
+        } else {
+          slider.classList.remove('login-active');
+          slider.classList.add('signup-active');
+          signupButton.classList.add('active');
+          loginButton.classList.remove('active');
+          signupForm.classList.add('active');
+          loginForm.classList.remove('active');
+          login_box.classList.add('signup-mode');
+          signupForm.style.display = 'block';
+          create.style.display = 'none';
+          loginForm.style.display = 'block';
+          forgotForm.style.display = 'none';
+        }
+      }
+      function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling.querySelector('i');
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+          input.type = "password";
+          icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+      }
+      function create_account(event) {
+        event.preventDefault();
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const signupForm = document.getElementById('sign_up');
+        const create = document.getElementById('create_login');
+        if (!firstName || !lastName || !email) {
+          alert('Please fill out all fields.');
+          return;
+        }
+        if (!iti.isValidNumber()) {
+          alert('Please enter a valid phone number.');
+          return;
+        }
+        create.style.display = 'block';
+        signupForm.style.display = 'none';
+      }
+      function goToStep1() {
+        const signupForm = document.getElementById('sign_up');
+        const create = document.getElementById('create_login');
         create.style.display = 'none';
         signupForm.style.display = 'block';
+      }
+      function checkPasswordStrength(password) {
+        const strengthBar = document.getElementById('password-strength');
+        const rules = document.getElementById('password-rules');
+        if (password.length === 0) {
+          strengthBar.style.display = 'none';
+          rules.style.display = 'none';
+          return;
+        }
+        rules.style.display = 'block';
+        strengthBar.style.display = 'block';
+        let strength = 0;
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+        if (/\d/.test(password)) strength += 1;
+        if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+        strengthBar.className = 'password-strength';
+        if (strength < 2) {
+          strengthBar.classList.add('weak');
+        } else if (strength < 4) {
+          strengthBar.classList.add('medium');
+        } else {
+          strengthBar.classList.add('strong');
+        }
+      }
+      function loginReturn() {
+        const forgotForm = document.getElementById('forgot_password');
+        const loginForm = document.getElementById('login');
         loginForm.style.display = 'block';
         forgotForm.style.display = 'none';
-      } else {
-        slider.classList.remove('login-active');
-        slider.classList.add('signup-active');
-        signupButton.classList.add('active');
-        loginButton.classList.remove('active');
-        signupForm.classList.add('active');
-        loginForm.classList.remove('active');
-        login_box.classList.add('signup-mode');
-        signupForm.style.display = 'block';
-        create.style.display = 'none';
-        loginForm.style.display = 'block';
-        forgotForm.style.display = 'none';
       }
-    }
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      const icon = input.nextElementSibling.querySelector('i');
-      if (input.type === "password") {
-        input.type = "text";
-        icon.classList.replace('fa-eye', 'fa-eye-slash');
-      } else {
-        input.type = "password";
-        icon.classList.replace('fa-eye-slash', 'fa-eye');
-      }
-    }
-    function create_account(event) {
-      event.preventDefault();
-      const firstName = document.getElementById("firstName").value.trim();
-      const lastName = document.getElementById("lastName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const signupForm = document.getElementById('sign_up');
-      const create = document.getElementById('create_login');
-      if (!firstName || !lastName || !email || !phone) {
-        alert('Please fill out all fields.');
-        return;
-      }
-      create.style.display = 'block';
-      signupForm.style.display = 'none';
-    }
-    function goToStep1() {
-      const signupForm = document.getElementById('sign_up');
-      const create = document.getElementById('create_login');
-      create.style.display = 'none';
-      signupForm.style.display = 'block';
-    }
-    function checkPasswordStrength(password) {
-      const strengthBar = document.getElementById('password-strength');
-      const rules = document.getElementById('password-rules');
-      if (password.length === 0) {
-        strengthBar.style.display = 'none';
-        rules.style.display = 'none';
-        return;
-      }
-      rules.style.display = 'block';
-      strengthBar.style.display = 'block';
-      let strength = 0;
-      if (password.length >= 8) strength += 1;
-      if (/[A-Z]/.test(password)) strength += 1;
-      if (/[a-z]/.test(password)) strength += 1;
-      if (/\d/.test(password)) strength += 1;
-      if (/[^A-Za-z0-9]/.test(password)) strength += 1;
-      strengthBar.className = 'password-strength';
-      if (strength < 2) {
-        strengthBar.classList.add('weak');
-      } else if (strength < 4) {
-        strengthBar.classList.add('medium');
-      } else {
-        strengthBar.classList.add('strong');
-      }
-    }
-    function loginReturn() {
-      const forgotForm = document.getElementById('forgot_password');
-      const loginForm = document.getElementById('login');
-      loginForm.style.display = 'block';
-      forgotForm.style.display = 'none';
-    }
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+  </html>
