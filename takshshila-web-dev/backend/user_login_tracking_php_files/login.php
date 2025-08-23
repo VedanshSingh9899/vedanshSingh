@@ -66,15 +66,18 @@ try {
 
             // 7. Send success response with session token for frontend compatibility
             echo json_encode(['success' => true, 'message' => 'Login successful.', 'token' => $sessionId]);
+            error_log("User $username logged in successfully.");
         } else {
             // Password incorrect
             http_response_code(401);
             echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
+            error_log("Failed login attempt for user $username: Incorrect password.");
         }
     } else {
         // User not found
         http_response_code(401);
         echo json_encode(['success' => false, 'message' => 'username does not exist.']);
+        error_log("Failed login attempt for user $username: User not found.");
     }
 
     $stmt->close();
@@ -83,6 +86,7 @@ try {
     http_response_code(500);
     // In production, log the error instead of echoing it.
     echo json_encode(['success' => false, 'message' => 'A server error occurred. Please try again later.']);
+    error_log("Database error during login for user $username: " . $e->getMessage());
     exit;
 }
 ?>

@@ -14,6 +14,7 @@
       --button-shadow: rgba(0, 0, 0, 0.15);
       --success: #44c877;
       --error: #dc3545;
+      --warning: #ffc107;
     }
 
     * {
@@ -109,6 +110,48 @@
     .logo p {
       color: #ffffff;
       font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .status {
+      padding: 0.75rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .status.loading {
+      background: rgba(60, 123, 213, 0.2);
+      color: #82e9d2;
+      border: 1px solid rgba(130, 233, 210, 0.3);
+    }
+
+    .status.success {
+      background: rgba(68, 200, 119, 0.2);
+      color: var(--success);
+      border: 1px solid rgba(68, 200, 119, 0.3);
+    }
+
+    .status.error {
+      background: rgba(220, 53, 69, 0.2);
+      color: var(--error);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #82e9d2;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     form {
@@ -123,22 +166,6 @@
       text-align: left;
     }
 
-    input[type="email"] {
-      padding: 0.75rem;
-      border: 1px solid #3a7bd5;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      outline: none;
-      background-color: #1b2f24;
-      color: #eafff6;
-      width: 100%;
-    }
-
-    input:focus {
-      border-color: #7cffc1;
-    }
-
     .action-btn {
       padding: 0.9rem;
       background: linear-gradient(135deg, #44c877, #3a7bd5);
@@ -150,6 +177,7 @@
       box-shadow: 0 6px 12px var(--button-shadow);
       transition: all 0.3s;
       font-weight: 600;
+      position: relative;
     }
 
     .action-btn:hover:not(:disabled) {
@@ -164,9 +192,19 @@
       box-shadow: none;
     }
 
+    .action-btn.loading::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid white;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 8px;
+    }
+
     #otp-section {
-      display: none; /* Hidden by default */
-      margin-top: 1.5rem;
       animation: fadeIn 0.5s ease;
     }
     
@@ -192,25 +230,38 @@
       background-color: #1b2f24;
       color: #eafff6;
       outline: none;
+      transition: all 0.3s;
     }
     
     .otp-inputs input:focus {
         border-color: #7cffc1;
         box-shadow: 0 0 0 2px rgba(124, 255, 193, 0.2);
+        transform: scale(1.05);
+    }
+
+    .otp-inputs input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .message {
         font-size: 0.9rem;
         margin-top: 1rem;
-        height: 20px;
+        padding: 0.5rem;
+        border-radius: 6px;
+        min-height: 20px;
     }
 
     .message.success {
+        background: rgba(68, 200, 119, 0.1);
         color: var(--success);
+        border: 1px solid rgba(68, 200, 119, 0.2);
     }
 
     .message.error {
+        background: rgba(220, 53, 69, 0.1);
         color: var(--error);
+        border: 1px solid rgba(220, 53, 69, 0.2);
     }
 
     .resend-link {
@@ -222,10 +273,13 @@
         color: #82e9d2;
         text-decoration: none;
         font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s;
     }
 
     .resend-link a:hover {
         text-decoration: underline;
+        color: #7cffc1;
     }
 
     @media (max-width: 480px) {
@@ -253,31 +307,28 @@
   <div class="otp-container">
     <div class="logo">
       <h1>OTP Verification</h1>
-      <p>A secure code has been sent to your email.</p>
+      <p>A secure code has been generated for your account.</p>
     </div>
 
-    <form id="otpForm" onsubmit="return false;" action="/takshshila-web-dev/backend/user_login_tracking_php_files/genrate_OTP.php" method ="post">
-      <!-- Email Section -->
-      <div id="email-section">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter your email" required />
-        <button id="sendOtpBtn" class="action-btn" onclick="sendOtp()">Send OTP</button>
-      </div>
+    <div id="status" class="status loading">
+      <div class="spinner"></div>
+      Generating OTP...
+    </div>
 
-      <!-- OTP Section -->
+    <form id="otpForm" onsubmit="return false;">
       <div id="otp-section">
         <label for="otp">Enter the 6-digit code</label>
         <div class="otp-inputs" id="otp-inputs">
-          <input type="text" maxlength="1" class="otp-input" />
-          <input type="text" maxlength="1" class="otp-input" />
-          <input type="text" maxlength="1" class="otp-input" />
-          <input type="text" maxlength="1" class="otp-input" />
-          <input type="text" maxlength="1" class="otp-input" />
-          <input type="text" maxlength="1" class="otp-input" />
+          <input type="text" maxlength="1" class="otp-input" disabled />
+          <input type="text" maxlength="1" class="otp-input" disabled />
+          <input type="text" maxlength="1" class="otp-input" disabled />
+          <input type="text" maxlength="1" class="otp-input" disabled />
+          <input type="text" maxlength="1" class="otp-input" disabled />
+          <input type="text" maxlength="1" class="otp-input" disabled />
         </div>
         <button id="verifyBtn" class="action-btn" disabled>Verify OTP</button>
         <div class="resend-link">
-            <p>Didn't receive the code? <a href="#" onclick="sendOtp()">Resend OTP</a></p>
+            <p>Need a new code? <a onclick="generateNewOtp()">Generate New OTP</a></p>
         </div>
       </div>
       
@@ -286,47 +337,112 @@
   </div>
 
   <script>
-    const emailSection = document.getElementById('email-section');
-    const otpSection = document.getElementById('otp-section');
-    const sendOtpBtn = document.getElementById('sendOtpBtn');
-    const verifyBtn = document.getElementById('verifyBtn');
-    const emailInput = document.getElementById('email');
     const otpInputs = document.querySelectorAll('.otp-input');
+    const verifyBtn = document.getElementById('verifyBtn');
     const messageDiv = document.getElementById('message');
+    const statusDiv = document.getElementById('status');
+    let isGenerating = false;
 
-    function sendOtp() {
-      const email = emailInput.value.trim();
-      if (!validateEmail(email)) {
-        showMessage('Please enter a valid email address.', 'error');
-        return;
-      }
+    // Generate OTP when page loads
+    window.addEventListener('load', () => {
+        generateOtp();
+    });
 
-      // --- SIMULATION: In a real app, you'd call your backend here to send the OTP ---
-      console.log(`Sending OTP to ${email}`);
-      showMessage('OTP has been sent to your email.', 'success');
-      // --- End Simulation ---
+    async function generateOtp() {
+        if (isGenerating) return;
+        isGenerating = true;
+        
+        try {
+            // Reset UI
+            updateStatus('loading', '<div class="spinner"></div>Generating OTP...');
+            clearMessage();
+            clearOtpInputs();
+            
+            const response = await fetch('../../backend/user_login_tracking_php_files/genrate_email_OTP.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'same-origin'
+            });
 
-      emailSection.style.display = 'none';
-      otpSection.style.display = 'block';
-      otpInputs[0].focus();
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            const responseText = await response.text();
+            
+            // Check if response is HTML (error page)
+            if (responseText.trim().startsWith('<!DOCTYPE') || responseText.trim().startsWith('<html')) {
+                console.error("Server returned HTML:", responseText);
+                throw new Error('Server returned an error page instead of JSON');
+            }
+            
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (parseError) {
+                console.error("Invalid JSON:", responseText);
+                throw new Error(`Invalid JSON response: ${parseError.message}`);
+            }
+            
+            if (data.success) {
+                updateStatus('success', '✅ An OTP has been sent to your email.');
+                showMessage('Please check your inbox and enter the code below.', 'success');
+                
+                // Enable OTP inputs
+                otpInputs.forEach(input => {
+                    input.disabled = false;
+                });
+                
+                // Focus on first input
+                otpInputs[0].focus();
+            } else {
+                throw new Error(data.message || 'Failed to generate OTP');
+            }
+            
+        } catch (error) {
+            updateStatus('error', `❌ Error: ${error.message}`);
+            showMessage('Could not generate an OTP. Please try again or contact support.', 'error');
+        } finally {
+            isGenerating = false;
+        }
     }
 
-    function validateEmail(email) {
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
+    async function generateNewOtp() {
+        clearOtpInputs();
+        await generateOtp();
+    }
+
+    function updateStatus(type, html) {
+        statusDiv.className = `status ${type}`;
+        statusDiv.innerHTML = html;
     }
 
     function showMessage(msg, type) {
         messageDiv.textContent = msg;
         messageDiv.className = `message ${type}`;
-        setTimeout(() => {
-            messageDiv.textContent = '';
-            messageDiv.className = 'message';
-        }, 3000);
     }
 
+    function clearMessage() {
+        messageDiv.textContent = '';
+        messageDiv.className = 'message';
+    }
+
+    function clearOtpInputs() {
+        otpInputs.forEach(input => {
+            input.value = '';
+            input.disabled = true;
+        });
+        verifyBtn.disabled = true;
+    }
+
+    // OTP input handling
     otpInputs.forEach((input, index) => {
         input.addEventListener('input', () => {
+            // Only allow digits
+            input.value = input.value.replace(/[^0-9]/g, '');
+            
             // Move to next input if a digit is entered
             if (input.value.length === 1 && index < otpInputs.length - 1) {
                 otpInputs[index + 1].focus();
@@ -347,25 +463,67 @@
         otpInputs.forEach(input => {
             otp += input.value;
         });
-
-        // Enable verify button only if all 6 digits are entered
         verifyBtn.disabled = otp.length !== 6;
     }
 
-    verifyBtn.addEventListener('click', () => {
-        let otp = '';
-        otpInputs.forEach(input => { otp += input.value; });
+    verifyBtn.addEventListener('click', async () => {
+        let enteredOtp = '';
+        otpInputs.forEach(input => { enteredOtp += input.value; });
 
-        // --- SIMULATION: In a real app, you'd verify the OTP with your backend ---
-        console.log(`Verifying OTP: ${otp}`);
-        if (otp === "123456") { // Example successful OTP
-            showMessage('Verification successful! Redirecting...', 'success');
-            // You can redirect to another page after successful verification
-            setTimeout(() => { window.location.href = 'Homes.html'; }, 1500);
-        } else {
-            showMessage('Invalid OTP. Please try again.', 'error');
+        verifyBtn.disabled = true;
+        verifyBtn.classList.add('loading');
+        verifyBtn.textContent = 'Verifying...';
+        otpInputs.forEach(input => input.disabled = true);
+        clearMessage();
+
+        try {
+            const response = await fetch('../../backend/user_login_tracking_php_files/verify_otp.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ otp: enteredOtp }),
+                credentials: 'same-origin'
+            });
+
+            const responseText = await response.text();
+            let data;
+            try {
+                data = JSON.parse(responseText);
+            } catch (e) {
+                console.error("Failed to parse JSON from verification script:", responseText);
+                throw new Error("Server returned an invalid response during verification.");
+            }
+
+            if (response.ok && data.success) {
+                // The backend now handles finalization. If we get success, the account is created.
+                updateStatus('success', '✅ Account created successfully!');
+                showMessage('Redirecting you to the home page...', 'success');
+                verifyBtn.classList.remove('loading');
+                verifyBtn.textContent = 'Success!';
+                
+                setTimeout(() => { 
+                    window.location.href = 'Homes.html'; 
+                }, 1500);
+            } else {
+                // Handle failure from either OTP check or finalization
+                showMessage(`❌ ${data.message || 'Verification failed. Please try again.'}`, 'error');
+                verifyBtn.classList.remove('loading');
+                verifyBtn.textContent = 'Verify OTP';
+                otpInputs.forEach(input => {
+                    input.value = '';
+                    input.disabled = false;
+                });
+                otpInputs[0].focus();
+                checkOtpCompletion();
+            }
+        } catch (error) {
+            console.error('Verification process error:', error);
+            updateStatus('error', '❌ Verification Failed');
+            showMessage(`A critical error occurred: ${error.message}. Please try again.`, 'error');
+            verifyBtn.classList.remove('loading');
+            verifyBtn.textContent = 'Verify OTP';
+            otpInputs.forEach(input => input.disabled = false);
+            checkOtpCompletion();
         }
-        // --- End Simulation ---
     });
   </script>
 

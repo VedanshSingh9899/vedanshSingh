@@ -18,14 +18,14 @@ class EmailSender
         try {
 
             // SMTP settings
-            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output... changed DEBUG_OFF to DEBUG_SERVER
-            $this->mail->isSMTP();                                            //Send using SMTP
+            $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                    //Enable verbose debug output... changed DEBUG_OFF to DEBUG_SERVER
+            $this->mail->isSMTP();                                          //Send using SMTP
             $this->mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-            $this->mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $this->mail->Username   = 'vedanshpratapsingh@gmail.com';                     //SMTP username
-            $this->mail->Password   = 'urba ytmc eaim nufs';                               //SMTP password
-            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $this->mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $this->mail->SMTPAuth   = true;                                 //Enable SMTP authentication
+            $this->mail->Username   = 'vedanshpratapsingh@gmail.com';       //SMTP username
+            $this->mail->Password   = 'urba ytmc eaim nufs';                //SMTP password
+            $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;          //Enable implicit TLS encryption
+            $this->mail->Port       = 465;                                  //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 
             $this->mail->setFrom('vedanshpratapsingh@gmail.com', 'Takshshila');

@@ -15,12 +15,15 @@ $stmt->close();
 
 if ($count > 0) {
     //for localhost
-    //header("Location: ../../src/html/Homes.html");
+    header("Location: ../../src/html/Homes.html");
     //for server
-    header("Location: /takshshila-web-dev/src/html/Homes.html");
+    //header("Location: /takshshila-web-dev/src/html/Homes.html");
     exit();
 } else {
-    header("Location: /takshshila-web-dev/src/html/LoginMobile.html");
+    //for localhost
+    header("Location: ../../src/html/Login_page(pending).html");
+    //for server
+    //header("Location: /takshshila-web-dev/src/html/LoginMobile.html");
     exit();
 }
 ?>

@@ -658,7 +658,7 @@ body::before {
               window.location.href = "Homes.html";
             }, 1200);
           } else {
-            alert(data.error || "Login failed");
+            alert(data.error || "Login failed" || data.message);
           }
         })
         .catch(() => alert("Server error"));
@@ -682,11 +682,6 @@ body::before {
         else if (password !== confirmPassword) { showError("confirm-password-error", "Passwords do not match"); valid = false; }
         else { hideError("confirm-password-error"); }
         if (!firstName || !email) { valid = false; }
-
-        if (!iti.isValidNumber()) {
-          alert('The phone number is not valid.');
-          valid = false;
-        }
 
         if (valid) {
           const formData = new FormData();
@@ -772,10 +767,7 @@ body::before {
           alert('Please fill out all fields.');
           return;
         }
-        if (!iti.isValidNumber()) {
-          alert('Please enter a valid phone number.');
-          return;
-        }
+
         create.style.display = 'block';
         signupForm.style.display = 'none';
       }
