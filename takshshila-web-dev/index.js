@@ -1,7 +1,16 @@
 const express = require('express');
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const app = express();
 const PORT = 3000;
+
+app.use('/backend', createProxyMiddleware({
+    target: 'http://127.0.0.1:8000',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/backend': '',
+    },
+}));
 
 app.use(express.static(path.join(__dirname, 'src')));
 
@@ -10,7 +19,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'src','html' ,'Homes.html'));
 });
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src','html' ,'Login_page(pending).html'));
+    res.sendFile(path.join(__dirname, 'src','html' ,'login.html'));
 });
 
 // Route for test series page

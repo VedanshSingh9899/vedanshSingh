@@ -645,7 +645,7 @@ body::before {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
-        fetch('../../backend/user_login_tracking_php_files/login.php', {
+        fetch('/backend/user_login_tracking_php_files/login.php', {
           method: 'POST',
           body: formData
         })
@@ -691,7 +691,7 @@ body::before {
           formData.append('last_name', lastName);
           formData.append('email', email);
           formData.append('ph_number', phone);
-          fetch('../../backend/user_login_tracking_php_files/signUp.php', {
+          fetch('/backend/user_login_tracking_php_files/signUp.php', {
             method: 'POST',
             body: formData
           })
